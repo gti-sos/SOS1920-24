@@ -2,6 +2,9 @@
 const express = require("express");
 var app = express();
 
+var port = process.env.PORT || 3005;
+
+
 app.use("/",express.static("./public"));
 
 app.get("/time", (req,res)=>{
