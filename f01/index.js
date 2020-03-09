@@ -2,7 +2,7 @@
 const express = require("express");
 var app = express();
 
-var port = process.env.PORT || 3005;
+var port = process.env.PORT || 80;
 
 
 app.use("/",express.static("./public"));
@@ -12,7 +12,7 @@ app.get("/time", (req,res)=>{
 	res.send("<html>"+d+"</html>");
 });
 
-app.listen(3005, ()=>{
+app.listen(80, ()=>{
 	console.log("Server Ready");
 });
 
