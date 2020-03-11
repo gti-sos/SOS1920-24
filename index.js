@@ -12,7 +12,7 @@ app.get("/time", (req,res)=>{
 	res.send("<html>"+d+"</html>");
 });
 
-app.listen(80, ()=>{
+app.listen(port, ()=>{
 	console.log("Server Ready");
 });
 
