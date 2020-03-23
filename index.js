@@ -126,6 +126,10 @@ app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 		
 	}
 } );
+//PUT AUTONOMOUS COMMUNITYS
+app.put(BASE_API_URL+"/intcont-stats", (req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+});
 
 //DELETE CONTACTS
 app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
@@ -147,40 +151,30 @@ app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 
 //POST CONTACT/XXX
 app.post(BASE_API_URL+"/intcont-stats/:aut_com",(req,res)=>{
-	var newIntcont=req.body;
-	if((newIntcont=="") || (newIntcont.aut_com==null)){
-		res.sendStatus(400,"BAD REQUIEST(no name provided)");
-		
-	}else{
-		contacts.push(newIntcont);
-		res.sendStatus(201,"CREATED");
-	}
+	res.sendStatus(405,"METHOD NOT ALLOWED");
 } );
 
 //PUT CONTACT/XXX
-app.put(BASE_API_URL+"/intcont-stats/:name", (req,res)=>{
-	var name = req.params.name;
-	res.send(JSON.stringify(name,null,2));
+app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+	var community = req.params.aut_com;
+	res.send(JSON.stringify(community,null,2));
 });
 
 //DELETE CONTACT/XXX
 
-app.get(BASE_API_URL+"/intcont-stats/:name", (req,res)=>{
-	var name = req.params.name;
-	var filteredContacts = contacts.filter((c)=>{
-		return (c.name != name);
+app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+	var community = req.params.aut_com;
+	var filteredCommunitys = intcont.filter((i)=>{
+		return (i.aut_com != community);
 	});
-	if(filteredContacts.length < contacts.length){
+	if(filteredCommunitys.length < intcont.length){
 		res.sendStatus(200,"CONTACT DELETED");
-		contacts = filteredContacts;
+		intcont = filteredCommunitys;
 	}else{
 		res.sendStatus(404,"CONTACT NOT FOUND FOR DELETE");
 	}
 	
 });
-
-
-
 
 
 app.get("/time", (req,res)=>{
