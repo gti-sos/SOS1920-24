@@ -135,7 +135,7 @@ const BASE_API_URL = "/api/v1/univregs-stats";
 
 app.get(BASE_API_URL+"/loadInitialData", (req,res) =>{
 	
-	var ejemplos_univregs = [ { 
+	var loadInitialData = [ { 
 		community: "Andalucia",
 		year: 2018,
 		univreg_gob: 76117,
@@ -150,7 +150,7 @@ app.get(BASE_API_URL+"/loadInitialData", (req,res) =>{
 		univreg_offer: 6536
 	}
  ];
-	univregs_stats = univregs_stats ;
+	univregs_stats = loadInitialData ;
 	
 	res.send(JSON.stringify(loadInitialData,null,2));
 	console.log("Data sent:"+JSON.stringify(loadInitialData,null,2));
