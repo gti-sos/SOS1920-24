@@ -129,11 +129,11 @@ var univregs_stats = [ {
  ];
 
 //URL datos Alvaro
-const BASE_API_URL = "/api/v1/univregs-stats";
+const BASE_API_URL = "/api/v1";
 
 // GET LoadInitialData
 
-app.get(BASE_API_URL+"/loadInitialData", (req,res) =>{
+app.get(BASE_API_URL+"/univregs-stats/loadInitialData", (req,res) =>{
 	
 	var loadInitialData = [ { 
 		community: "Andalucia",
@@ -157,25 +157,43 @@ app.get(BASE_API_URL+"/loadInitialData", (req,res) =>{
 });
 
 
-// POST CONTACTS
+// POST COMMUNITIES
 
-app.post(BASE_API_URL+"/contacts",(req,res) =>{
+app.post(BASE_API_URL+"/univregs-stats",(req,res) =>{
 	
-	var newContact = req.body;
+	var newUnivReg_Data = req.body;
 	
-	if((newContact == "") || (newContact.name == null)){
-		res.sendStatus(400,"BAD REQUEST");
+	for(i=0;i<newUnivReg_Data.length;i++){
+		if(newUnivReg_Data.community==newUnivReg_Data[i].community){
+			// primmary key is the community & year, I can have more than 1 data of each community 
+			if(newUnivReg_Data.year==newUnivReg_Data[i].year){
+				 break;
+				//Must send error message after the break
+				
+				res.sendStatus(400,"BAD REQUEST(resource already exist)");
+				
+			 }
+			
+		}
+	
+	
+	}
+	if((newUnivReg_Data.community == "") || (newUnivReg_Data.community == null)){
+		res.sendStatus(400,"BAD REQUEST (no name inserted)");
+	
+	} else if((newUnivReg_Data.year == "") || (newUnivReg_Data.name == null)){
+		res.sendStatus(400,"BAD REQUEST (invalid year)");
 	} else {
-		contacts.push(newContact); 	
+		univregs_stats.push(newUnivReg_Data); 	
 		res.sendStatus(201,"CREATED");
 	}
 });
 
-// DELETE CONTACTS
+// DELETE COMMUNITIES
 
-// GET CONTACT/XXX
+// GET COMMUNITY/XXXX
 
-app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{
+app.get(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	var name = req.params.name;
 	
@@ -191,11 +209,11 @@ app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{
 	}
 });
 
-// PUT CONTACT/XXX
+// PUT COMMUNITIES/XXXX
 
-// DELETE CONTACT/XXX
+// DELETE COMMUNITIES/XXXX
 
-app.delete(BASE_API_URL+"/contacts/:name", (req,res)=>{
+app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	var name = req.params.name;
 	
