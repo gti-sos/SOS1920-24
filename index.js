@@ -7,7 +7,126 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 80;
 
-var univregs_stats = [ ];
+var univregs_stats = [ {
+		community: "Andalucia",
+		year: 2018,
+		univreg_gob: 76117,
+		univreg_educ: 76117,
+		univreg_offer: 51384
+	},
+	{ 
+		community: "Aragon",
+		year: 2018,
+		univreg_gob: 13489,
+		univreg_educ: 13489,
+		univreg_offer: 6536
+	},
+	{ 
+		community: "Asturias",
+		year: 2018,
+		univreg_gob: 7925,
+		univreg_educ: 7925,
+		univreg_offer: 4934
+	},
+	{ 
+		community: "IslasBaleares",
+		year: 2018,
+		univreg_gob: 5979,
+		univreg_educ: 5979,
+		univreg_offer: 3335
+	},
+	{ 
+		community: "Canarias",
+		year: 2018,
+		univreg_gob: 16616,
+		univreg_educ: 16616,
+		univreg_offer: 10405
+	},
+	{ 
+		community: "Cantabria",
+		year: 2018,
+		univreg_gob: 5717,
+		univreg_educ: 5717,
+		univreg_offer: 2547
+	},
+	{ 
+		community: "CastillaYLeon",
+		year: 2018,
+		univreg_gob: 11178,
+		univreg_educ: 11178,
+		univreg_offer: 11178
+	},
+	{ 
+		community: "CastillaLaMancha",
+		year: 2018,
+		univreg_gob: 30552,
+		univreg_educ: 30552,
+		univreg_offer: 5939
+	},
+					  { 
+		community: "Catalunya",
+		year: 2018,
+		univreg_gob: 49969,
+		univreg_educ: 49969,
+		univreg_offer: 37541
+	},
+					  { 
+		community: "ComunidadValenciana",
+		year: 2018,
+		univreg_gob: 34893,
+		univreg_educ: 34893,
+		univreg_offer: 24870
+	},
+					  { 
+		community: "Extremadura",
+		year: 2018,
+		univreg_gob: 9832,
+		univreg_educ: 9832,
+		univreg_offer: 5350
+	},
+					  { 
+		community: "Galicia",
+		year: 2018,
+		univreg_gob: 17681,
+		univreg_educ: 17681,
+		univreg_offer: 6536
+	},
+					  { 
+		community: "Madrid",
+		year: 2018,
+		univreg_gob: 61220,
+		univreg_educ: 61220,
+		univreg_offer: 45602
+	},
+					  { 
+		community: "Murcia",
+		year: 2018,
+		univreg_gob: 16738,
+		univreg_educ: 16738,
+		univreg_offer: 7929
+	},
+					  { 
+		community: "Navarra",
+		year: 2018,
+		univreg_gob: 3175,
+		univreg_educ: 3175,
+		univreg_offer: 1720
+	},
+					  { 
+		community: "PaisVasco",
+		year: 2018,
+		univreg_gob: 15542,
+		univreg_educ: 15542,
+		univreg_offer: 8714
+	},
+					  { 
+		community: "LaRioja",
+		year: 2018,
+		univreg_gob: 2644,
+		univreg_educ: 2644,
+		univreg_offer: 1000
+	},
+ ];
 
 //URL datos Alvaro
 const BASE_API_URL = "/api/v1/univregs-stats";
