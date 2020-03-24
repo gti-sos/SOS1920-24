@@ -124,12 +124,16 @@ app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
 //POST AUTONOMOUS COMMUNITYS
 app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	var newIntcont=req.body;
-	var existContact = intcont.filter((e)=>{
-		return(e == newIntcont);
-	});
-	if((newIntcont=="") || (newIntcont.aut_com==null)){
+	var existContact = false;
+	for(i=0;i<intcont.length;i++){
+		if(newIntcont.aut_com==intcont[i].aut_com){
+			existContact = true;
+			break;
+		}
+	}
+	if((newIntcont.aut_com=="") || (newIntcont.aut_com==null)){
 		res.sendStatus(400,"BAD REQUEST(no community provided)");
-	}else if(existContact[0]==newIntcont){
+	}else if(existContact){
 		res.sendStatus(400,"BAD REQUEST(resource already exist)");
 	}else{
 		intcont.push(newIntcont);
