@@ -20,6 +20,12 @@ var intcont = [{
 	ccoo: 2146,
 	sepe: 2146,
 	gobesp: 21522.5
+},{	
+	aut_com: "Asturias",
+	year: 2018,
+	ccoo: 3219,
+	sepe: 1220,
+	gobesp: 14998.2
 },{
 	aut_com: "IslasBaleares",
 	year: 2018,
@@ -106,6 +112,10 @@ var intcont = [{
 	gobesp: 4653.0
 }];
 
+var testResource = {
+	name:"incredible"	
+}
+
 const BASE_API_URL= "/api/v1";
 //GET AUTONOMOUS COMMUNITYS
 app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
@@ -114,16 +124,16 @@ app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
 //POST AUTONOMOUS COMMUNITYS
 app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	var newIntcont=req.body;
+	var existContact = intcont.filter((e)=>{
+		return(e == newIntcont);
+	});
 	if((newIntcont=="") || (newIntcont.aut_com==null)){
-		res.sendStatus(400,"BAD REQUEST(no name provided)");
-		
-	}else if(intcont.contains(newIntcont)){
-		res.sendStatus(400,"BAD REQUEST(resource already exists)");
-		
+		res.sendStatus(400,"BAD REQUEST(no community provided)");
+	}else if(existContact[0]==newIntcont){
+		res.sendStatus(400,"BAD REQUEST(resource already exist)");
 	}else{
 		intcont.push(newIntcont);
 		res.sendStatus(201,"CREATED");
-		
 	}
 } );
 //PUT AUTONOMOUS COMMUNITYS
@@ -131,10 +141,11 @@ app.put(BASE_API_URL+"/intcont-stats", (req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });
 
-//DELETE CONTACTS
+//DELETE AUTONOMOUS COMMUNITYS
 app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
-	res.sendStatus(400,"DELETED req CONTACT");
+	res.sendStatus(200,"DELETED req CONTACT");
 });
+
 
 //GET CONTACT/XXX //DONE
 app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
@@ -144,6 +155,8 @@ app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	});
 	if(filteredCommunitys.length>=1){
 		res.send(filteredCommunitys[0]);
+		
+		
 	}else{
 		res.sendStatus(404,"AUTONOMOUS COMMUNITY NOT FOUND");
 	}
@@ -162,16 +175,16 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 
 //DELETE CONTACT/XXX
 
-app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+app.delete(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	var community = req.params.aut_com;
 	var filteredCommunitys = intcont.filter((i)=>{
 		return (i.aut_com != community);
 	});
 	if(filteredCommunitys.length < intcont.length){
-		res.sendStatus(200,"CONTACT DELETED");
 		intcont = filteredCommunitys;
+		res.sendStatus(200,""+community+" DELETED");
 	}else{
-		res.sendStatus(404,"CONTACT NOT FOUND FOR DELETE");
+		res.sendStatus(404,"AUTONOMOUS COMMUNITY NOT FOUND FOR DELETE");
 	}
 	
 });
