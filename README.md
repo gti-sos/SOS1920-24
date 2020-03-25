@@ -34,5 +34,5 @@ List of projects registered in the course of **Service Oriented Systems** (2019/
 	- [https://documenter.getpostman.com/view/10637391/SzYUY13W(Heroku Version)](https://sos1920-24.herokuapp.com/api/v1/intcont-stats) (developed by [Miguel Ángel Toranzo García](https://github.com/Nerk1))
     - [https://documenter.getpostman.com/view/9628258/SzYUXzjh (Goorm Version)](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-2/docs) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
 	 - [https://documenter.getpostman.com/view/9628258/SzYUXzjh (Heroku Version)](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-2/docs) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
-    - [https://documenter.getpostman.com/view/10642365/SzYT51yd(Goorm Version)](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
-	-[https://documenter.getpostman.com/view/10642365/SzYT51yd(Heroku Version)](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
+    - [https://documenter.getpostman.com/view/10642365/SzYT51yd(Goorm Version)](https://documenter.getpostman.com/view/10642365/SzYT51yd) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
+	-[https://documenter.getpostman.com/view/10642365/SzYUY1CL(Heroku Version)](https://documenter.getpostman.com/view/10642365/SzYUY1CL) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
