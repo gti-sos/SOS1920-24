@@ -929,8 +929,6 @@ app.post(BASE_API_URL+"/univregs-stats",(req,res) =>{
 	if((newUnivReg_Data.community == "") || (newUnivReg_Data.community == null)){
 		res.sendStatus(400,"BAD REQUEST (no name inserted)");
 	
-	} else if((newUnivReg_Data.year == "") || (newUnivReg_Data.name == null)){
-		res.sendStatus(400,"BAD REQUEST (invalid year)");	
 	
 	}else {
 		univregs_stats.push(newUnivReg_Data); 	
@@ -952,7 +950,7 @@ app.get(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	
 	if(filteredCommunity.length >= 1){
-		res.send(filteredContacts[0]);
+		res.send(filteredCommunity[0]);
 	}else{
 		res.sendStatus(404,"COMMUNITY NOT FOUND");
 	}
@@ -984,9 +982,8 @@ app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 });
 
 // PUT COMMUNITIES/XXXX
-app.put(BASE_API_URL+"/univregs-stats/:community/:year", (req,res)=>{
+app.put(BASE_API_URL+"/univregs-stats/:community", (req,res)=>{
 	var community = req.params.community;
-	var year = req.params.year
 	var body = req.body;
 	var newData = univregs_stats.map((i)=>{
 		auxUpdate = i;
@@ -995,10 +992,6 @@ app.put(BASE_API_URL+"/univregs-stats/:community/:year", (req,res)=>{
 			for (var p in body){ // UPDATING PARAMETERS
 				if(!(body.community==community || body.community==null)){ //COMMUNITY UPDATED NOT ALLOWED
 					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
-					break;
-				}
-				if(!(body.year==year || body.year==null)){ //year UPDATED NOT ALLOWED
-					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE YEAR"); 
 					break;
 				}
 				auxUpdate[p] = body[p];	
