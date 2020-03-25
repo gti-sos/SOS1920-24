@@ -22,8 +22,8 @@ List of projects registered in the course of **Service Oriented Systems** (2019/
 	- Public Waste on University
 	- Internship Contracts
 	
-- **Repository**: [gti-sos/SOS1920-24](https://github.com/gti-sos/SOS1920-00)
-- **URL**: [http://sos1920-24.herokuapp.com](http://sos1920-00.herokuapp.com)
+- **Repository**: [gti-sos/SOS1920-24](https://github.com/gti-sos/SOS1920-24)
+- **URL**: [http://sos1920-24.herokuapp.com](http://sos1920-24.herokuapp.com)
 -  **APIs**:
     - [https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-1/docs](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-1/docs) (developed by [Miguel Ángel Toranzo García](https://github.com/Nerk1))
     - [https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-2/docs](https://sos1920-24.herokuapp.com/api/v1/my-awesome-resource-2/docs) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
