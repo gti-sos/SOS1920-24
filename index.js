@@ -1,13 +1,21 @@
+//SERVER MANAGING
+const express = require("express"); //INCLUDING EXPRESS MODULE ON A CONST
+const bodyParser = require("body-parser") //INCLUDING BODY-PARSER
+const BASE_API_URL= "/api/v1"; //API BASE PATH
 
-const express = require("express");
-var app = express();
-const bodyParser = require("body-parser")
+var app = express(); //CALLING EXPRESS
+var port = process.env.PORT || 80; //HTTP CONNECTION MANAGING
 
-var port = process.env.PORT || 80;
-
+//USING BODYPARSER AND DECLARING ROOT DIRECTORY
 app.use(bodyParser.json());
-
 app.use("/",express.static("./public"));
+
+/*RESOURCE
+-----------------------------------------------
+ INTCONT = INTERNSHIPCONTRACT-RESOURCE  
+{AUTONOMOUS-COMMUNITY, YEAR, INTCONT-CCOO, INTCONT-SEPE, PUBLIC-WASTE-UNIVERSITY-EDUCATION}
+-----------------------------------------------
+*/
 var intcont = [{
 	aut_com: "Andalucia",
 	year: 2018,
@@ -112,20 +120,19 @@ var intcont = [{
 	gobesp: 4653.0
 }];
 
-var testResource = {
-	name:"incredible"	
-}
+//---------------------------------------------------------------------------
 
-const BASE_API_URL= "/api/v1";
-//GET AUTONOMOUS COMMUNITYS
+
+//GET INTCONT RESOURCE LIST
 app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
 	res.send(JSON.stringify(intcont,null,2));
 });
-//POST AUTONOMOUS COMMUNITYS
+
+//POST VS RESOURCE LIST
 app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	var newIntcont=req.body;
 	var existContact = false;
-	for(i=0;i<intcont.length;i++){
+	for(i in intcont){
 		if(newIntcont.aut_com==intcont[i].aut_com){
 			existContact = true;
 			break;
@@ -139,19 +146,19 @@ app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 		intcont.push(newIntcont);
 		res.sendStatus(201,"CREATED");
 	}
-} );
-//PUT AUTONOMOUS COMMUNITYS
+});
+
+//PUT RESOURCE LIST /NOT ALLOWED
 app.put(BASE_API_URL+"/intcont-stats", (req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });
 
-//DELETE AUTONOMOUS COMMUNITYS
+//DELETE RESOURCE LIST
 app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
 	res.sendStatus(200,"DELETED req CONTACT");
 });
 
-
-//GET CONTACT/XXX //DONE
+//GET A RESOURCE
 app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	var community = req.params.aut_com;
 	var filteredCommunitys = intcont.filter((i)=>{
@@ -159,26 +166,40 @@ app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	});
 	if(filteredCommunitys.length>=1){
 		res.send(filteredCommunitys[0]);
-		
-		
 	}else{
 		res.sendStatus(404,"AUTONOMOUS COMMUNITY NOT FOUND");
 	}
 });
 
-//POST CONTACT/XXX
+//POST VS A RESOURCE /NOT ALLOWED
 app.post(BASE_API_URL+"/intcont-stats/:aut_com",(req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 } );
 
-//PUT CONTACT/XXX
+//PUT RESOURCE
 app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	var community = req.params.aut_com;
-	res.send(JSON.stringify(community,null,2));
+	var body = req.body;
+	var updatedData = intcont.map((i)=>{
+		auxUpdate = i;
+		if(auxUpdate.aut_com == community){
+			for (var p in body){ // UPDATING PARAMETERS
+				if(p!=0){// WE CANNOT UPDATE AUTONOMOUS COMMUNITY PARAMETER
+					auxUpdate[p] = body[p];
+				}
+			}
+		}
+		return (auxUpdate);
+	});
+	if(auxUpdate.length==0){
+		res.sendStatus(404,"RESOURCE NOT FOUND");
+	}else{
+		intcont = updatedData;
+		res.sendStatus(200,"RESOURCE UPDATED");
+	}
 });
 
-//DELETE CONTACT/XXX
-
+//DELETE A RESOURCE
 app.delete(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	var community = req.params.aut_com;
 	var filteredCommunitys = intcont.filter((i)=>{
