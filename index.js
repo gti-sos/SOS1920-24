@@ -236,13 +236,57 @@ app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 });
 
 // PUT COMMUNITIES/XXXX
+app.put(BASE_API_URL+"/univregs_stats/:community/:year", (req,res)=>{
+	var community = req.params.community;
+	var year = req.params.year
+	var body = req.body;
+	var newData = univregs_stats.map((i)=>{
+		auxUpdate = i;
+		
+		if(auxUpdate.community == community){
+			for (var p in body){ // UPDATING PARAMETERS
+				if(!(body.community==community || body.community==null)){ //COMMUNITY UPDATED NOT ALLOWED
+					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
+					break;
+				}
+				if(!(body.year==year || body.year==null)){ //year UPDATED NOT ALLOWED
+					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE YEAR"); 
+					break;
+				}
+				auxUpdate[p] = body[p];	
+			}
+		}
+		return (auxUpdate);
+	});
+	
+	if(auxUpdate.length==0){
+		res.sendStatus(404,"RESOURCE NOT FOUND");
+	}else{
+		univregs_stats = newData;
+		res.sendStatus(200,"RESOURCE UPDATED");
+	}
+});
+
 
 //POST COMMUNITIES/XXXX MUST FAIL!! METODO NO PERMITIDO
+app.post(BASE_API_URL+"/univregs_stats/:community",(req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+} );
+
+
 
 //PUT COMMUNITY MUST FAIL!! METODO NO PERMITIDO
+app.put(BASE_API_URL+"/univregs_stats", (req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+});
+
+
 
 //DELETE COMMUNITIES MUST DELETE ALL DATA CONTAINED
-
+app.delete(BASE_API_URL+"/univregs_stats", (req,res)=>{
+	univregs_stats = [];
+	res.sendStatus(200,"DELETED DATA");
+});
 
 app.listen(port, () => {
 	console.log("Server ready");
