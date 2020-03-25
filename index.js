@@ -182,14 +182,15 @@ app.post(BASE_API_URL+"/univregs-stats",(req,res) =>{
 		res.sendStatus(400,"BAD REQUEST (no name inserted)");
 	
 	} else if((newUnivReg_Data.year == "") || (newUnivReg_Data.name == null)){
-		res.sendStatus(400,"BAD REQUEST (invalid year)");
-	} else {
+		res.sendStatus(400,"BAD REQUEST (invalid year)");	
+	
+	}else {
 		univregs_stats.push(newUnivReg_Data); 	
 		res.sendStatus(201,"CREATED");
 	}
 });
 
-// DELETE COMMUNITIES
+
 
 // GET COMMUNITY/XXXX
 
@@ -197,19 +198,21 @@ app.get(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	var name = req.params.name;
 	
-	var filteredContacts = contacts.filter((c) => {
+	var filteredCommunity = univregs_stats.filter((c) => {
 		return (c.name == name);
 	});
 	
 	
-	if(filteredContacts.length >= 1){
+	if(filteredCommunity.length >= 1){
 		res.send(filteredContacts[0]);
 	}else{
-		res.sendStatus(404,"CONTACT NOT FOUND");
+		res.sendStatus(404,"COMMUNITY NOT FOUND");
 	}
 });
 
-// PUT COMMUNITIES/XXXX
+
+
+
 
 // DELETE COMMUNITIES/XXXX
 
@@ -217,13 +220,13 @@ app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	var name = req.params.name;
 	
-	var filteredContacts = contacts.filter((c) => {
+	var filteredCommunity = univregs_stats.filter((c) => {
 		return (c.name != name);
 	});
 	
 	
-	if(filteredContacts.length < contacts.length){
-		contacts = filteredContacts;
+	if(filteredCommunity.length < univregs_stats.length){
+		univregs_stats = filteredCommunity;
 		res.sendStatus(200);
 	}else{
 		res.sendStatus(404,"CONTACT NOT FOUND");
@@ -231,6 +234,14 @@ app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 	
 	
 });
+
+// PUT COMMUNITIES/XXXX
+
+//POST COMMUNITIES/XXXX MUST FAIL!! METODO NO PERMITIDO
+
+//PUT COMMUNITY MUST FAIL!! METODO NO PERMITIDO
+
+//DELETE COMMUNITIES MUST DELETE ALL DATA CONTAINED
 
 
 app.listen(port, () => {
