@@ -262,7 +262,7 @@ app.put(BASE_API_URL+"/intcont-stats", (req,res)=>{
 
 //DELETE RESOURCE LIST
 app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
-	intcont = null;
+	intcont = [];
 	res.sendStatus(200,"DELETED req CONTACT");
 });
 
@@ -295,6 +295,7 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 			for (var p in body){ // UPDATING PARAMETERS
 				if(!(body.aut_com==community || body.aut_com==null)){ //COMMUNITY UPDATED NOT ALLOWED
 					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
+					break;
 				}
 				auxUpdate[p] = body[p];	
 			}
