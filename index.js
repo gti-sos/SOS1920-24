@@ -177,14 +177,14 @@ app.post(BASE_API_URL+"/intcont-stats/:aut_com",(req,res)=>{
 } );
 
 //PUT RESOURCE
-app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+/*app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 	var community = req.params.aut_com;
 	var body = req.body;
 	var updatedData = intcont.map((i)=>{
 		auxUpdate = i;
 		if(auxUpdate.aut_com == community){
 			for (var p in body){ // UPDATING PARAMETERS
-				if(p!=0){// WE CANNOT UPDATE AUTONOMOUS COMMUNITY PARAMETER
+				if(p!=body[0]){// WE CANNOT UPDATE AUTONOMOUS COMMUNITY PARAMETER
 					auxUpdate[p] = body[p];
 				}
 			}
@@ -197,7 +197,7 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 		intcont = updatedData;
 		res.sendStatus(200,"RESOURCE UPDATED");
 	}
-});
+});*/
 
 //DELETE A RESOURCE
 app.delete(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
