@@ -1,4 +1,3 @@
-
 //SERVER MANAGING
 const express = require("express"); //INCLUDING EXPRESS MODULE ON A CONST
 const bodyParser = require("body-parser") //INCLUDING BODY-PARSER
@@ -556,18 +555,6 @@ app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
 	res.send(JSON.stringify(atc,null,2));
 });
 
-//POST-BASEROUTE
-app.post(BASE_API_URL+"/atc-stats",(req,res) =>{
- 
-    var newAtc = req.body;
-    if((newAtc == "") || (newAtc.aut_com == null)){  //Si está vacío o es nulo
-        res.sendStatus(400, "BAD REQUEST");
-    }else{
-        atc.push(newAtc);
-        res.sendStatus(201,"CREATED"); 
-    }
-});
-
 //GET-RESOURCE
 
 app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ 
@@ -582,6 +569,31 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 	}else{
 		res.sendStatus(404, "AUTONOMOUS COMMUNITY NOT FOUND");
 	}
+});
+
+//POST-BASEROUTE
+app.post(BASE_API_URL+"/atc-stats",(req,res) =>{
+ 
+    var newAtc = req.body;
+    if((newAtc == "") || (newAtc.aut_com == null)){  //Si está vacío o es nulo
+        res.sendStatus(400, "BAD REQUEST");
+    }else{
+        atc.push(newAtc);
+        res.sendStatus(201,"CREATED"); 
+    }
+});
+
+//POST-RESOURCE
+app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+} );
+
+
+//DELETE-BASEROUTE
+
+app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
+	atc = [];
+	res.sendStatus(200, "atc DELETED");
 });
 
 //DELETE-RESOURCE
@@ -627,17 +639,9 @@ app.put(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 });
 
 
-//PUT AUTONOMOUS COMMUNITYS
+//PUT-BASEROUTE
 app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
-});
-
-
-//DELETE-BASEROUTE
-
-app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
-	atc = ["DELETE"];
-	res.sendStatus(200, "atc DELETED");
 });
 
 
