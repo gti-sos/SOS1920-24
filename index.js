@@ -156,6 +156,11 @@ app.get(BASE_API_URL+"/univregs-stats/loadInitialData", (req,res) =>{
 	console.log("Data sent:"+JSON.stringify(loadInitialData,null,2));
 });
 
+//GET COMMUNITIES
+
+app.get(BASE_API_URL+"/univregs_stats", (req,res)=>{
+	res.send(JSON.stringify(univregs_stats,null,2));
+});
 
 // POST COMMUNITIES
 
