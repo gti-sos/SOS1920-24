@@ -940,12 +940,12 @@ app.post(BASE_API_URL+"/univregs-stats",(req,res) =>{
 
 // GET COMMUNITY/XXXX
 
-app.get(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
+app.get(BASE_API_URL+"/univregs-stats/:community", (req,res)=>{
 	
-	var name = req.params.name;
+	var community = req.params.community;
 	
 	var filteredCommunity = univregs_stats.filter((c) => {
-		return (c.name == name);
+		return (c.community == community);
 	});
 	
 	
@@ -960,14 +960,15 @@ app.get(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
 
 
 
+
 // DELETE COMMUNITIES/XXXX
 
-app.delete(BASE_API_URL+"/univregs-stats/:name", (req,res)=>{
+app.delete(BASE_API_URL+"/univregs-stats/:community", (req,res)=>{
 	
-	var name = req.params.name;
+	var community = req.params.community;
 	
 	var filteredCommunity = univregs_stats.filter((c) => {
-		return (c.name != name);
+		return (c.community != community);
 	});
 	
 	
