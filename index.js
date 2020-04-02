@@ -1,10 +1,20 @@
 //SERVER MANAGING
 const express = require("express"); //INCLUDING EXPRESS MODULE ON A CONST
 const bodyParser = require("body-parser") //INCLUDING BODY-PARSER
-const BASE_API_URL= "/api/v1"; //API BASE PATH
+const path = require("path"); //para hacer que funcione en linux o en windows
+//PARA MODULARIZAR
+const vicpaltor = require(path.join(__dirname ,"vicpaltor"));//para usar la libreria nedb
 
-var app = express(); //CALLING EXPRESS
-var port = process.env.PORT || 80; //HTTP CONNECTION MANAGING
+const port = process.env.PORT || 80; //HTTP CONNECTION MANAGING
+const app = express(); //CALLING EXPRESS
+
+//API 1 VICTOR para modulos separados
+vicpaltor(app);
+//API 2 TORA
+//API 3 ALVARO
+
+const BASE_API_URL= "/api/v1"; //API BASE PATH           ESTO SE ELIMINA CUANDO TODO EL MUNDO MODULARIZE SU API
+
 
 //USING BODYPARSER AND DECLARING ROOT DIRECTORY
 app.use(bodyParser.json());
@@ -334,7 +344,7 @@ app.delete(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 */
 
 /**PARTE_VICTOR**/
-
+/**
 var atc = [{
 	aut_com: "Andalucia",
 	year: 2018,
@@ -441,6 +451,13 @@ var atc = [{
 
 //GET-INITIALDATA
 app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
+	//depurar en consola que es lo que a ejercutado
+	console.log("New GET .../loadInitialData");
+	//meter datos en contacts.db
+	
+	db.insert(atc);
+	//res.sendStatus(200);
+	
 	
 	atc = [{
 	aut_com: "Andalucia",
@@ -545,6 +562,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 	yaq: 1411,
 	obu: 1411
 }];
+	
 	res.send(JSON.stringify(atc,null,2));
 	
 });
@@ -552,11 +570,25 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 
 //GET-BASEROUTE
 app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
-	res.send(JSON.stringify(atc,null,2));
+	
+	console.log("New GET .../contacts");
+	//¿como se hacen las query?-> le pasamos un objeto y ese objeto sera un patron que deben cumplir 
+	//si creo un objeto vacio {} me da todos los objetos
+	db.find({}, (err,atc) => {
+		//para quitar el id que te crea mongo db
+		
+		atc.forEach((c) => {
+			delete c._id;
+		});
+		
+		res.send(JSON.stringify(atc,null,2));
+	});
+	
+	
 });
 
 //GET-RESOURCE
-
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ 
 	var community = req.params.aut_com;
 	
@@ -572,6 +604,7 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 });
 
 //POST-BASEROUTE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.post(BASE_API_URL+"/atc-stats",(req,res) =>{
  
     var newAtc = req.body;
@@ -584,12 +617,14 @@ app.post(BASE_API_URL+"/atc-stats",(req,res) =>{
 });
 
 //POST-RESOURCE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 } );
 
 
 //DELETE-BASEROUTE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 
 app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
 	atc = [];
@@ -597,6 +632,7 @@ app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
 });
 
 //DELETE-RESOURCE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 
 app.delete(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
 	var aut_com = req.params.aut_com;
@@ -614,6 +650,7 @@ app.delete(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ //Para el delete pod
 });
 
 //PUT-RESOURCE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 
 app.put(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 	var aut_com = req.params.aut_com;
@@ -640,11 +677,12 @@ app.put(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 
 
 //PUT-BASEROUTE
+//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });
 
-
+**/
 //PARTE ALVARO 
 var univregs_stats = [ {
 		community: "Andalucia",
