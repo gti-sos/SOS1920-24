@@ -182,6 +182,10 @@ app.get(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	var newIntcont=req.body;
 	var existIntcont = false;
+	/*db.find({}, (err,intcont)=>{
+		
+		
+	});*/
 	for(i in intcont){
 		if(newIntcont.aut_com==intcont[i].aut_com && newIntcont.year==intcont[i].year){
 			existIntcont = true;
