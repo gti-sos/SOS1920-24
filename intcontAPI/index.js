@@ -132,15 +132,23 @@ app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
 
 //GET INTCONT RESOURCE LIST
 app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
+	
+	var q = req.query; //Registering query
+	var off= q.offset;  //extracting offset from query
+	var l= q.limit;  //extracting limit from query
+	
+	delete q.offset; //cleaning fields
+	delete q.limit;
+	
 	console.log("NEW GET .../intcont");
-	db.find({}, (err, intcont)=>{
+	db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
 		intcont.forEach((i)=>{
 			delete i._id; //borrar id
 		});
 		res.send(JSON.stringify(intcont,null,2));
 	});
 });
-	
+
 //GET A RESOURCE
 app.get(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 	var params = req.params;
@@ -187,11 +195,14 @@ app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	  || newIntcont.gobesp==null
 	  ){
 		res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
+		console.log("Any of fields are not provided");
 	}else if(existIntcont){
 		res.sendStatus(400,"BAD REQUEST(resource already exist)");
+		console.log("Trying to create an existing resource");
 	}else{
-		intcont.push(newIntcont);
+		db.insert(newIntcont); //pushing on db
 		res.sendStatus(201,"CREATED");
+		console.log("New Resource "+newIntcont.aut_com+" created")
 	}
 });
 	
@@ -244,7 +255,9 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
 
 //DELETE RESOURCE LIST
 app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
-	intcont = [];
+	db.remove({},{multi: true}, function(err, numRemoved){
+		console.log("Deleted "+numRemoved+" resources");
+	})
 	res.sendStatus(200,"DELETED req CONTACT");
 });
 
