@@ -190,7 +190,7 @@ app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 	}
 	/*var element = db.find({"aut_com":"newIntcont.aut_com"}, (err,docs)=>{
 		
-	
+	*/
 	if((newIntcont.aut_com=="") || (newIntcont.aut_com==null)
 	  || newIntcont.year==null
 	  || newIntcont.ccoo==null
