@@ -223,9 +223,9 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 	var params = req.params;
 	var body = req.body;
 	var communityProvided = params.aut_com;
-	var yearProvided = params.year;
+	var yearProvided = parseInt(params.year);
 	
-	db.update({aut_com:communityProvided , year:yearProvided}, {$set: {ccoo:body.ccoo, sepe:body.sepe, gobesp:body.gobesp}},
+	db.update({aut_com:communityProvided, year:yearProvided}, {$set: {ccoo:body.ccoo, sepe:body.sepe, gobesp:body.gobesp}},
 			  {},(err,numUpdated)=>{
 		if(numUpdated==0){
 			res.sendStatus(404, "RESOURCE NOT FOUND");
@@ -234,6 +234,29 @@ app.put(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 		}
 		
 	});
+	/*
+	var updatedData = intcont.map((i)=>{
+		auxUpdate = i;
+		
+
+		if(auxUpdate.aut_com == community && auxUpdate.year == year){
+			for (var p in body){ // UPDATING PARAMETERS
+				if(!(body.aut_com==community || body.aut_com==null || body.year==year)){ //COMMUNITY UPDATED NOT ALLOWED
+					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
+					break;
+				}
+				auxUpdate[p] = body[p];	
+			}
+		}
+		return (auxUpdate);
+	});
+	
+	if(auxUpdate.length==0){
+		res.sendStatus(404,"RESOURCE NOT FOUND");
+	}else{
+		intcont = updatedData;
+		res.sendStatus(200,"RESOURCE UPDATED");
+	}*/
 });
 	
 //PUT RESOURCE NO COMPLETE ID
