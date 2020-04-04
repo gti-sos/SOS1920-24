@@ -180,36 +180,29 @@ app.get(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 
 //POST VS RESOURCE LIST
 app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
-	var newIntcont=req.body;
-	var existIntcont = false;
-	/*db.find({}, (err,intcont)=>{
-		
-		
-	});*/
-	for(i in intcont){
-		if(newIntcont.aut_com==intcont[i].aut_com && newIntcont.year==intcont[i].year){
-			existIntcont = true;
-			break;
-		}
-	}
-	/*var element = db.find({"aut_com":"newIntcont.aut_com"}, (err,docs)=>{
-		
-	*/
-	if((newIntcont.aut_com=="") || (newIntcont.aut_com==null)
-	  || newIntcont.year==null
+	var newIntcont = req.body;
+	var communityProvided = newIntcont.aut_com;
+	var yearProvided = newIntcont.year;
+	if((communityProvided=="") || (communityProvided==null)
+	  || yearProvided==null
 	  || newIntcont.ccoo==null
 	  || newIntcont.sepe==null
 	  || newIntcont.gobesp==null
 	  ){
 		res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
 		console.log("Any of fields are not provided");
-	}else if(existIntcont){
-		res.sendStatus(400,"BAD REQUEST(resource already exist)");
-		console.log("Trying to create an existing resource");
 	}else{
-		db.insert(newIntcont); //pushing on db
-		res.sendStatus(201,"CREATED");
-		console.log("New Resource "+newIntcont.aut_com+" created")
+		
+	db.find({aut_com:communityProvided, year:yearProvided}, (err,intcont)=>{
+		if(intcont.length<=0){
+			db.insert(newIntcont);
+			res.sendStatus(201,"CREATED");
+			console.log("Creating??");
+		}else{
+			res.sendStatus(400,"BAD REQUEST(RESOURCE ALREADY EXIST)");
+			console.log("PEEEEEERFECT");
+		}
+	});
 	}
 });
 	
