@@ -152,7 +152,7 @@ module.exports = function(app){
 			}
 		});
 	});
-
+	
 	//GET A RESOURCE
 	app.get(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
@@ -168,11 +168,10 @@ module.exports = function(app){
 			});
 		});
 		
-	//GET COLLECTION OF RESOURCES BY A COMMUNITY PROVIDED
-	app.get(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+	//GET COLLECTION OF RESOURCES BY A PARAM
+	app.get(BASE_API_URL+"/intcont-stats/:paramProvided", (req,res)=>{
 		var params = req.params;
-		var communityProvided = params.aut_com;
-		
+		var paramProvided = params.paramProvided;
 		var q = req.query; //Registering query
 		var off= q.offset;  //extracting offset from query
 		var l= q.limit;  //extracting limit from query
@@ -180,20 +179,33 @@ module.exports = function(app){
 		delete q.offset; //cleaning fields
 		delete q.limit;
 		
-		db.find({aut_com:communityProvided}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
-			if(intcont.length==0){
-				res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
-			}else{
-				intcont.forEach((i)=>{
-					delete i._id; //borrar id
-				});
-				res.send(JSON.stringify(intcont,null,2));
-			}
-		});
+		//GETTING BY YEAR IN RANGE FROM 2000 TO 2040 && ITS AN INTEGER AND CORRECT YEAR
+		if(parseInt(paramProvided)%2000<=40){
+			db.find({year:parseInt(paramProvided)}).sort({aut_com:1, year:1}).skip(off).limit(l).exec((err,intcont)=>{
+				if(intcont.length==0){
+					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
+				}else{
+					intcont.forEach((i)=>{
+						delete i._id; //borrar id
+					});
+					res.send(JSON.stringify(intcont,null,2));
+				}
+			});
+		}else{
+			//GETTING BY AUTONOMOUS COMMUNITY
+			db.find({aut_com:paramProvided}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
+				if(intcont.length==0){
+					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
+				}else{
+					intcont.forEach((i)=>{
+						delete i._id; //borrar id
+					});
+					res.send(JSON.stringify(intcont,null,2));
+				}
+			});
+		}
 	});
 	
-	
-
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
 		var newIntcont = req.body;
@@ -222,6 +234,7 @@ module.exports = function(app){
 	app.post(BASE_API_URL+"/intcont-stats/:aut_com/:year",(req,res)=>{
 		res.sendStatus(405,"METHOD NOT ALLOWED");
 	});
+	
 	app.post(BASE_API_URL+"/intcont-stats/:aut_com",(req,res)=>{
 		res.sendStatus(405,"METHOD NOT ALLOWED");
 	});
@@ -279,44 +292,56 @@ module.exports = function(app){
 
 	//DELETE RESOURCE LIST
 	app.delete(BASE_API_URL+"/intcont-stats", (req,res)=>{
-		db.remove({},{multi: true}, function(err, numRemoved){
-			console.log("Deleted "+numRemoved+" resources");
+		db.remove({},{multi: true}, (err, numRemoved)=>{
+			if(numRemoved==0){
+				res.sendStatus(404, "RESOURCE NOT FOUND FOR REMOVE");
+			}else{
+				res.sendStatus(200, "DELETED RESOURCE");
+			}
 		});
-		res.sendStatus(200,"DELETED req CONTACT");
+		
 	});
 
 	//DELETE A RESOURCE
 	app.delete(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
-		var community = params.aut_com;
-		var year = params.year;
-		var filteredCommunitys = intcont.filter((i)=>{
-			return (i.aut_com != community && i.year != year);
+		var communityProvided = params.aut_com;
+		var yearProvided = params.year;
+		
+		db.remove({aut_com:communityProvided, year: yearProvided},{},(err,numRemoved)=>{
+			if(numRemoved==0){
+				res.sendStatus(404, "RESOURCE NOT FOUND FOR REMOVE");
+			}else{
+				res.sendStatus(200, "DELETED RESOURCE");
+			}
 		});
-		if(filteredCommunitys.length < intcont.length){
-			intcont = filteredCommunitys;
-			res.sendStatus(200,""+community+" DELETED");
-		}else{
-			res.sendStatus(404,"AUTONOMOUS COMMUNITY NOT FOUND FOR DELETE");
-		}
 	
 	});
 	
-	//DELETE BY AUTONOMOUS COMMUNITY
+	//DELETE BY A PARAM
 	
-	app.delete(BASE_API_URL+"/intcont-stats/:aut_com", (req,res)=>{
+	app.delete(BASE_API_URL+"/intcont-stats/:paramProvided", (req,res)=>{
 		var params = req.params;
-		var community = params.aut_com;
-		var filteredCommunitys = intcont.filter((i)=>{
-			return (i.aut_com != community);
-		});
-		if(filteredCommunitys.length < intcont.length){
-			intcont = filteredCommunitys;
-			res.sendStatus(200,""+community+" DELETED");
+		var paramProvided = params.paramProvided;
+		if(parseInt(paramProvided)%2000<=40){
+			//DELETING BY YEAR PROVIDED
+			db.remove({year:parseInt(paramProvided)},{multi:true},(err,numRemoved)=>{
+				if(numRemoved==0){
+					res.sendStatus(404, "COLLECTION NOT FOUND FOR DELETING");
+				}else{
+					res.sendStatus(200, "COLLECTION DELETED");
+				}
+			});
 		}else{
-			res.sendStatus(404,"AUTONOMOUS COMMUNITY NOT FOUND FOR DELETE");
+			//DELETING BY AUTONOMOUS COMMUNITY PROVIDED
+			db.remove({aut_com:paramProvided},{},(err,numRemoved)=>{
+				if(numRemoved==0){
+					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND FOR DELETE");
+				}else{
+					res.sendStatus(200, "COLLECTION DELETED");
+				}
+			});
 		}
-
 	});
 
 
