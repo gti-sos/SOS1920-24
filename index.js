@@ -14,11 +14,11 @@ app.use(bodyParser.json());
 app.use("/",express.static("./public"));
 
 
-//API 1 VICTOR para modulos separados
+//API VICTOR para modulos separados
 atcAPI(app);
-//API 2 TORA
+//API TORA
 intcontAPI(app); //puedo importar las apis que yo quiera
-//API 3 ALVARO
+//API ALVARO
 
 const BASE_API_URL= "/api/v1"; //API BASE PATH           ESTO SE ELIMINA CUANDO TODO EL MUNDO MODULARIZE SU API
 
@@ -407,6 +407,9 @@ app.delete(BASE_API_URL+"/univregs-stats", (req,res)=>{
 	univregs_stats = [];
 	res.sendStatus(200,"DELETED DATA");
 });
+
+
+
 
 app.listen(port, () => {
 	console.log("Server ready");

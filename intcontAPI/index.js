@@ -239,6 +239,7 @@ module.exports = function(app){
 		res.sendStatus(405,"METHOD NOT ALLOWED");
 	});
 	
+///////////////////////////////////////////////////////////////////////////////////	
 	//PUT RESOURCE LIST /NOT ALLOWED
 	app.put(BASE_API_URL+"/intcont-stats", (req,res)=>{
 		res.sendStatus(405,"METHOD NOT ALLOWED");
