@@ -126,8 +126,7 @@ module.exports = function(app){
 	//GET INTCONT/LOADINITIALDATA
 	app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
 		db.insert(intcont);
-		res.sendStatus(200);
-		console.log("Initial Internship Contracts loaded:" + JSON.stringify(intcont, null, 2));
+		res.send(JSON.stringify(intcont, null, 2))
 	});
 
 	//GET INTCONT RESOURCE LIST
