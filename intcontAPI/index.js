@@ -135,9 +135,12 @@ module.exports = function(app){
 		var q = req.query; //Registering query
 		var off= q.offset;  //extracting offset from query
 		var l= q.limit;  //extracting limit from query
+		
 	
 		delete q.offset; //cleaning fields
 		delete q.limit;
+		
+		
 	
 		console.log("NEW GET .../intcont");
 		db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
@@ -183,6 +186,10 @@ module.exports = function(app){
 			db.find({year:parseInt(paramProvided)}).sort({aut_com:1, year:1}).skip(off).limit(l).exec((err,intcont)=>{
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
+					
+				}else if(intcont.length == 1){
+					delete intcont[0]._id;
+					res.send(JSON.stringify(intcont[0],null,2));
 				}else{
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
@@ -195,6 +202,9 @@ module.exports = function(app){
 			db.find({aut_com:paramProvided}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
+				}else if(intcont.length == 1){
+					delete intcont[0]._id;
+					res.send(JSON.stringify(intcont[0],null,2));
 				}else{
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
@@ -258,30 +268,8 @@ module.exports = function(app){
 				res.sendStatus(200, "RESOURCE UPDATED");	
 			}
 		
-	});
-	/*
-	var updatedData = intcont.map((i)=>{
-		auxUpdate = i;
-		
-
-		if(auxUpdate.aut_com == community && auxUpdate.year == year){
-			for (var p in body){ // UPDATING PARAMETERS
-				if(!(body.aut_com==community || body.aut_com==null || body.year==year)){ //COMMUNITY UPDATED NOT ALLOWED
-					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
-					break;
-				}
-				auxUpdate[p] = body[p];	
-			}
-		}
-		return (auxUpdate);
-	});
+		});
 	
-	if(auxUpdate.length==0){
-		res.sendStatus(404,"RESOURCE NOT FOUND");
-	}else{
-		intcont = updatedData;
-		res.sendStatus(200,"RESOURCE UPDATED");
-	}*/
 	});
 	
 	//PUT RESOURCE NO COMPLETE ID
@@ -342,7 +330,6 @@ module.exports = function(app){
 			});
 		}
 	});
-
 
 	app.get("/time", (req,res)=>{
 		let d = new Date();
