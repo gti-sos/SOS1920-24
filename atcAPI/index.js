@@ -15,7 +15,7 @@ module.exports = function(app){
 	    	       autoload: true
                 });
 	
-	///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 	
 /**PARTE_VICTOR**/
 
@@ -129,31 +129,14 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 	console.log("New GET .../loadInitialData");
 	//meter datos en contacts.db
 	db.insert(atc);
-	res.sendStatus(200);///////////////////////////////////////////funciona??
-	                                            //res.send(JSON.stringify(atc,null,2));
-	console.log("Initial Internship Contracts loaded:" + JSON.stringify(atc,null,2));
+	//res.sendStatus(200);
+	res.send(JSON.stringify(atc,null,2));
+	//console.log("Initial Internship Contracts loaded:" + JSON.stringify(atc,null,2));
 	
 });
 
 
 //GET-BASEROUTE
-/**app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
-	
-	console.log("New GET .../contacts");
-	//¿como se hacen las query?-> le pasamos un objeto y ese objeto sera un patron que deben cumplir 
-	//si creo un objeto vacio {} me da todos los objetos
-
-	db.find({}).sort().skip().limit().exec( (err,atc) => {
-		//para quitar el id que te crea mongo db
-		
-		atc.forEach((c) => {
-			delete c._id;
-		});
-		res.send(JSON.stringify(atc,null,2));
-		
-	});
-});
-**/
 	app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
 	
 		var q = req.query; //Registering query
@@ -179,21 +162,6 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 ////////////////////////////////////////////////////////////////////	
 	
 //GET-RESOURCE
-	/**
-//TODO hacer lo mismo que explica en el ejercicio con el inicial data
-app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ 
-	var community = req.params.aut_com;
-	
-	var filteredCommunitys = atc.filter((p) => {
-		return (p.aut_com == community);
-	});
-	
-	if(filteredCommunitys.length >= 1){
-		res.send(filteredCommunitys[0]);
-	}else{
-		res.sendStatus(404, "AUTONOMOUS COMMUNITY NOT FOUND");
-	}
-});**/
 	//GET para buscar por cualquier parametro
 	app.get(BASE_API_URL+"/atc-stats/:paramProvided", (req,res)=>{
 		var params = req.params;
@@ -206,7 +174,7 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 		delete q.offset; //cleaning fields
 		delete q.limit;
 		
-		//GETTING BY YEAR IN RANGE FROM 2000 TO 2040 && ITS AN INTEGER AND CORRECT YEAR
+//comprobamos que sea un año que sea valido se puede hasta el año 2040
 		if(parseInt(paramProvided)%2000<=40){
 			
 			db.find({year:parseInt(paramProvided)}).sort({aut_com:1, year:1}).skip(off).limit(l).exec((err,atc)=>{
@@ -237,23 +205,6 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 //GET-RESOURCE_AUT_COM_AND_YEAR
-	/**
-	app.get(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{ 
-	var aut_com = req.params.aut_com;
-	var year = req.params.year;
-	
-	var filteredAtcstats = atc.filter((p) => {
-		return (p.aut_com == aut_com && p.year == year);
-	});
-	
-	if(filteredAtcstats.length >= 1){
-		res.send(filteredAtcstats[0]); //me da el primer elemento del array
-	}else{
-		res.sendStatus(404, "ATCSTAT NOT FOUND");
-	}
-});
-	**/
-	//GET A RESOURCE
 	app.get(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
 		var aut_com = params.aut_com;
@@ -270,17 +221,6 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 ///////////////////////////////////////////////////////////////////////////////
 
 //POST-BASEROUTE
-/**
-	app.post(BASE_API_URL+"/atc-stats",(req,res) =>{
- 
-    var newAtc = req.body;
-    if((newAtc == "") || (newAtc.aut_com == null)){  //Si está vacío o es nulo
-        res.sendStatus(400, "BAD REQUEST");
-    }else{
-        atc.push(newAtc);
-        res.sendStatus(201,"CREATED"); 
-    }
-});**/
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/atc-stats",(req,res)=>{
 		var newAtc = req.body;
@@ -308,7 +248,6 @@ app.get(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 ///////////////////////////////////////////////////////////////////
 	
 //POST-RESOURCE
-//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 } );
@@ -321,15 +260,6 @@ app.post(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{
 ////////////////////////////////////////////////////////////////////////////////////////	
 	
 //DELETE-BASEROUTE
-//TODO hacer lo mismo que explica en el ejercicio con el inicial data
-/**
-app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
-	console.log("New DELETE .../RESOURCE");
-	atc = [];
-	res.sendStatus(200, "atc DELETED");
-});
-**/
-	
 	app.delete(BASE_API_URL+"/atc-stats", (req,res)=>{
 		db.remove({},{multi: true}, (err, numRemoved)=>{
 			if(numRemoved==0){
@@ -344,24 +274,6 @@ app.delete(BASE_API_URL+ "/atc-stats", (req,res) =>{
 //////////////////////////////////////////////////////////////////////////////////////	
 
 //DELETE-RESOURCE
-/**
-app.delete(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
-		console.log("New DELETE .../aut_com");
-	var aut_com = req.params.aut_com;
-	
-	var filteredAtc = atc.filter((c) => {
-		return (c.aut_com != aut_com);
-	});
-	
-	if(filteredAtc.length < atc.length){
-		atc = filteredAtc;
-		res.sendStatus(200);
-	}else{
-		res.sendStatus(404,"ATC NOT FOUND");
-	}	
-});
-	**/
-	
 	app.delete(BASE_API_URL+"/atc-stats/:paramProvided", (req,res)=>{
 		var params = req.params;
 		var paramProvided = params.paramProvided;
@@ -389,26 +301,6 @@ app.delete(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{ //Para el delete pod
 ///////////////////////////////////////////////////////////////////////
 
 //DELETE-RESOURCE_AUT_COM_AND_YEAR
-	/**
-
-app.delete(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
-	var aut_com = req.params.aut_com;
-	var year = req.params.year;
-	
-	var filteredAtcstats = atc.filter((c) => {
-		return (c.aut_com != aut_com || c.year != year);
-	});
-	
-	
-	if(filteredAtcstats.length < atc.length){
-		atc = filteredAtcstats;
-		res.sendStatus(200);
-	}else{
-		res.sendStatus(404,"ATCSTAT NOT FOUND");
-	}	
-});
-	
-	**/
 	app.delete(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
 		var communityProvided = params.aut_com;
@@ -427,32 +319,6 @@ app.delete(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{ //Para el del
 ///////////////////////////////////////////////////////////////////////////	
 	
 //PUT-RESOURCE_AUT_COM_AND_YEAR
-/**
-app.put(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
-	var aut_com = req.params.aut_com;
-	var body = req.body;
-	
-	var updatedAtcstats = atc.map((c) => {
-		var updatedC = c;
-		
-		if (c.aut_com == aut_com) {
-			for (var p in body) {
-				updatedC[p] = body[p];
-			}	
-		}
-		return (updatedC);
-	});
-	
-	if (updatedAtcstats.length == 0) {
-		res.sendStatus(404, "ATCSTAT NOT FOUND");
-	} else {
-		atc = updatedAtcstats;
-		res.sendStatus(200, "OK");
-	}
-});
-	
-	**/
-	////////////////////////////////////////////////////////////////////////////¿NO ENTIENDO POR QUE HACEMOS UN PUT Y LUEGO ABAJO LE DECIMOS QUE NO?
 	app.put(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
 		var body = req.body;
@@ -474,7 +340,6 @@ app.put(BASE_API_URL+"/atc-stats/:aut_com", (req,res)=>{
 
 
 //PUT-BASEROUTE
-//TODO hacer lo mismo que explica en el ejercicio con el inicial data
 app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });

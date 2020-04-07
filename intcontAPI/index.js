@@ -127,7 +127,7 @@ module.exports = function(app){
 	app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
 		db.insert(intcont);
 		res.sendStatus(200);
-		console.log("Initial Internship Contracts loaded:" + JSON.stringify(intcont, null, 2));
+		console.log("Initial Internship Contracts loaded:" + JSON.stringify(intcont, null, 2));////////////////////////////
 	});
 
 	//GET INTCONT RESOURCE LIST
@@ -179,7 +179,7 @@ module.exports = function(app){
 		delete q.offset; //cleaning fields
 		delete q.limit;
 		
-		//GETTING BY YEAR IN RANGE FROM 2000 TO 2040 && ITS AN INTEGER AND CORRECT YEAR
+		//GETTING BY YEAR IN RANGE FROM 2000 TO 2040 && ITS AN INTEGER AND CORRECT YEAR/////////////////////////////////////////////////
 		if(parseInt(paramProvided)%2000<=40){
 			db.find({year:parseInt(paramProvided)}).sort({aut_com:1, year:1}).skip(off).limit(l).exec((err,intcont)=>{
 				if(intcont.length==0){
@@ -261,29 +261,7 @@ module.exports = function(app){
 			}
 		
 	});
-	/*
-	var updatedData = intcont.map((i)=>{
-		auxUpdate = i;
-		
-
-		if(auxUpdate.aut_com == community && auxUpdate.year == year){
-			for (var p in body){ // UPDATING PARAMETERS
-				if(!(body.aut_com==community || body.aut_com==null || body.year==year)){ //COMMUNITY UPDATED NOT ALLOWED
-					res.sendStatus(405,"ITS NOT ALLOWED TO CHANGE AUTONOMOUS COMMUNITY"); 
-					break;
-				}
-				auxUpdate[p] = body[p];	
-			}
-		}
-		return (auxUpdate);
-	});
 	
-	if(auxUpdate.length==0){
-		res.sendStatus(404,"RESOURCE NOT FOUND");
-	}else{
-		intcont = updatedData;
-		res.sendStatus(200,"RESOURCE UPDATED");
-	}*/
 	});
 	
 	//PUT RESOURCE NO COMPLETE ID
