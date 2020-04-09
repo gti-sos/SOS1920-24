@@ -123,31 +123,56 @@ var atc = [{
 	obu: 1411
 }];
 
+	
 //GET-INITIALDATA
 app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 	//depurar en consola que es lo que a ejercutado
 	console.log("New GET .../loadInitialData");
 	//meter datos en contacts.db
-	db.insert(atc);
 	//res.sendStatus(200);
+	atc.forEach((i)=>{
+			db.find({aut_com:i.aut_com, year:i.year},(err,atcFiltrado)=>{
+				if(atcFiltrado.length==0) 
+					db.insert(i);
+				});
+			});	
+	res.sendStatus(200);
 	res.send(JSON.stringify(atc,null,2));
 	//console.log("Initial Internship Contracts loaded:" + JSON.stringify(atc,null,2));
 	
 });
 
 
-//GET-BASEROUTE
+//GET-BASEROUTE /api/v1/atc-stats
+	
 	app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
 	
 		var q = req.query; //Registering query
 		var off= q.offset;  //extracting offset from query
 		var l= q.limit;  //extracting limit from query
-	
+		
+		//BUSQUEDA
+		var community = (q.community==undefined)?null:q.community;
+		
+		var simpleYear = isNaN(parseInt(q.year))?null:parseInt(q.year);
+		
+		var fromYear = isNaN(parseInt(q.fromYear))?2000:parseInt(q.fromYear);
+		var toYear	= isNaN(parseInt(q.toYear))?2040:parseInt(q.toYear);
+		
+		var fromEspce = isNaN(parseInt(q.fromEspce))?0:parseInt(q.fromEspce);
+		var toEspce = isNaN(parseInt(q.toEspce))?100000:parseInt(q.toEspce);
+		
+		var fromYaq = isNaN(parseInt(q.fromYaq))?0:parseInt(q.fromYaq);
+		var toYaq = isNaN(parseInt(q.toYaq))?100000:parseInt(q.toYaq);
+		
+		var fromObu = isNaN(parseFloat(q.fromObu))?0.0:parseFloat(q.fromObu);
+		var toObu = isNaN(parseFloat(q.toObu))?2000000.0:parseFloat(q.toObu);
+		
 		delete q.offset; //cleaning fields
 		delete q.limit;
 	
-		console.log("NEW GET .../atc");
-		db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err, atc)=>{
+		//console.log("NEW GET .../atc");
+		//db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err, atc)=>{
 			if(atc.length==0){
 				res.sendStatus(404, "COLLECTION NOT FOUND");
 			}else{
@@ -156,10 +181,47 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 				});
 				res.send(JSON.stringify(atc,null,2));
 			}
-		});
+		//});
+		
+		if(simpleYear!=null){
+			db.find({year:simpleYear, espce:{$gte:fromEspce, $lte:toEspce}, yaq:{$gte:fromYaq, $lte:toYaq},
+					 obu:{$gte:fromObu, $lte:toObu}}).sort({aut_com:1}).skip(off).limit(l).exec((err, act)=>{
+				if(community!=null){
+					var filteredByCommunity = atc.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					atc=filteredByCommunity;
+				}
+				atc.forEach((i)=>{
+					delete i._id; //borrar id
+				});
+				if(atc.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
+				}	
+			});
+			
+		}else{
+			db.find({year:{$gte:fromYear, $lte:toYear}, espce:{$gte:fromEspce, $lte:toEspce}, yaq:{$gte:fromYaq, $lte:toYaq},
+					 obu:{$gte:fromObu, $lte:toObu}}).sort({aut_com:1}).skip(off).limit(l).exec((err, act)=>{
+				if(community!=null){
+					var filteredByCommunity = atc.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					atc=filteredByCommunity;
+				}
+				atc.forEach((i)=>{
+					delete i._id; //borrar id
+				});
+				if(atc.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
+				}	
+			});		
+		}
 	});
-	
-////////////////////////////////////////////////////////////////////	
 	
 //GET-RESOURCE
 	//GET para buscar por cualquier parametro
@@ -184,7 +246,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					atc.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify(atc,null,2));
+					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));/////////////////////////////CAMBIAR
 				}
 			});
 		}else{
@@ -196,19 +258,21 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					atc.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify(atc,null,2));
+					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
 				}
 			});
 		}
 	});
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 //GET-RESOURCE_AUT_COM_AND_YEAR
 	app.get(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
+		
 		var params = req.params;
 		var aut_com = params.aut_com;
 		var yearProvided = parseInt(params.year);
+		
 		db.find({aut_com:aut_com,year:yearProvided}, (err,atc)=>{
 			if(atc.length==0){
 				res.sendStatus(404, "RESOURCE NOT FOUND");
@@ -218,8 +282,31 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 			}
 			});
 		});
-///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////MODIFICADO
 
+/**	//GET-RESOURCE_AUT_COM_AND_YEAR
+	app.get(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
+		
+		var params = req.params;
+		var aut_com = params.aut_com;
+		var yearProvided = parseInt(params.year);
+		var limit = parseInt(req.query.offset);
+		var offSet = parseInt(req.query.offset);
+		
+		db.find({aut_com : aut_com, year : yearProvided}).skip(offSet).limit(limit).exec((err,atc)=>{
+			if(atc.length==0){
+				res.sendStatus(404, "RESOURCE NOT FOUND");
+			    }else{
+				    atc.forEach((i)=>{
+						delete i._id; //borrar id
+					});
+				 	res.send(JSON.stringify(atc,null,2));
+                 				  }
+			                  });
+		});
+	
+	**/
+	
 //POST-BASEROUTE
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/atc-stats",(req,res)=>{
