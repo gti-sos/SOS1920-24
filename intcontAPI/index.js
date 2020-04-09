@@ -125,34 +125,82 @@ module.exports = function(app){
 
 	//GET INTCONT/LOADINITIALDATA
 	app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
-		db.insert(intcont);
-		res.send(JSON.stringify(intcont, null, 2))
+		intcont.forEach((i)=>{
+			db.find({aut_com:i.aut_com, year:i.year},(err,doc)=>{
+				if(doc.length==0) db.insert(i);
+				});
+			});	
+		res.sendStatus(200);
 	});
 
 	//GET INTCONT RESOURCE LIST
 	app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
-	
+		
 		var q = req.query; //Registering query
 		var off= q.offset;  //extracting offset from query
 		var l= q.limit;  //extracting limit from query
 		
-	
+		//Custom Searchs
+		var community = (q.community==undefined)?null:q.community;
+		var simpleYear = isNaN(parseInt(q.year))?null:parseInt(q.year);
+		var fromYear = isNaN(parseInt(q.fromYear))?2000:parseInt(q.fromYear);
+		var toYear	= isNaN(parseInt(q.toYear))?2040:parseInt(q.toYear);
+		var fromCcoo = isNaN(parseInt(q.fromCcoo))?0:parseInt(q.fromCcoo);
+		var toCcoo = isNaN(parseInt(q.toCcoo))?100000:parseInt(q.toCcoo);
+		var fromSepe = isNaN(parseInt(q.fromSepe))?0:parseInt(q.fromSepe);
+		var toSepe = isNaN(parseInt(q.toSepe))?100000:parseInt(q.toSepe);
+		var fromGobesp = isNaN(parseFloat(q.fromGobesp))?0.0:parseFloat(q.fromGobesp);
+		var toGobesp = isNaN(parseFloat(q.toGobesp))?2000000.0:parseFloat(q.toGobesp);
+		
+		
+		//Number.MAX_SAFE_INTEGER
+		
 		delete q.offset; //cleaning fields
 		delete q.limit;
-		
-		
 	
 		console.log("NEW GET .../intcont");
-		db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
-			if(intcont.length==0){
-				res.sendStatus(404, "COLLECTION NOT FOUND");
-			}else{
+		console.log(" "+community+" "+simpleYear+" "+fromYear+" "+toYear+" "+fromCcoo+" "+toCcoo+" "+fromSepe+" "+toSepe+" "+fromGobesp+" "+toGobesp+"");
+		//db.find({}, (err,intcont){
+		//})
+	
+		if(simpleYear!=null){
+			db.find({year:simpleYear, ccoo:{$gte:fromCcoo, $lte:toCcoo}, sepe:{$gte:fromSepe, $lte:toSepe},
+					 gobesp:{$gte:fromGobesp, $lte:toGobesp}}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
+				if(community!=null){
+					var filteredByCommunity = intcont.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					intcont=filteredByCommunity;
+				}
 				intcont.forEach((i)=>{
 					delete i._id; //borrar id
 				});
-				res.send(JSON.stringify(intcont,null,2));
-			}
-		});
+				if(intcont.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+				}	
+			});
+			
+		}else{
+			db.find({year:{$gte:fromYear, $lte:toYear}, ccoo:{$gte:fromCcoo, $lte:toCcoo}, sepe:{$gte:fromSepe, $lte:toSepe},
+					 gobesp:{$gte:fromGobesp, $lte:toGobesp}}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
+				if(community!=null){
+					var filteredByCommunity = intcont.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					intcont=filteredByCommunity;
+				}
+				intcont.forEach((i)=>{
+					delete i._id; //borrar id
+				});
+				if(intcont.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+				}	
+			});		
+		}
 	});
 	
 	//GET A RESOURCE
@@ -177,7 +225,6 @@ module.exports = function(app){
 		var q = req.query; //Registering query
 		var off= q.offset;  //extracting offset from query
 		var l= q.limit;  //extracting limit from query
-	
 		delete q.offset; //cleaning fields
 		delete q.limit;
 		
@@ -186,15 +233,11 @@ module.exports = function(app){
 			db.find({year:parseInt(paramProvided)}).sort({aut_com:1, year:1}).skip(off).limit(l).exec((err,intcont)=>{
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
-					
-				}else if(intcont.length == 1){
-					delete intcont[0]._id;
-					res.send(JSON.stringify(intcont[0],null,2));
 				}else{
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify(intcont,null,2));
+					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
 				}
 			});
 		}else{
@@ -202,14 +245,11 @@ module.exports = function(app){
 			db.find({aut_com:paramProvided}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND");
-				}else if(intcont.length == 1){
-					delete intcont[0]._id;
-					res.send(JSON.stringify(intcont[0],null,2));
 				}else{
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify(intcont,null,2));
+					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
 				}
 			});
 		}
@@ -286,7 +326,6 @@ module.exports = function(app){
 				res.sendStatus(200, "DELETED RESOURCE");
 			}
 		});
-		
 	});
 
 	//DELETE A RESOURCE
@@ -302,7 +341,6 @@ module.exports = function(app){
 				res.sendStatus(200, "DELETED RESOURCE");
 			}
 		});
-	
 	});
 	
 	//DELETE BY A PARAM
