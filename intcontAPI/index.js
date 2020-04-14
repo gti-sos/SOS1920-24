@@ -137,8 +137,8 @@ module.exports = function(app){
 	app.get(BASE_API_URL+"/intcont-stats", (req,res)=>{
 		
 		var q = req.query; //Registering query
-		var off= q.offset;  //extracting offset from query
-		var l= q.limit;  //extracting limit from query
+		var off= parseInt(q.offset);  //extracting offset from query
+		var l= parseInt(q.limit);  //extracting limit from query
 		
 		//Custom Searchs
 		var community = (q.community==undefined)?null:q.community;
@@ -299,17 +299,18 @@ module.exports = function(app){
 		var body = req.body;
 		var communityProvided = params.aut_com;
 		var yearProvided = parseInt(params.year);
-	
-		db.update({aut_com:communityProvided, year:yearProvided}, {$set: {ccoo:body.ccoo, sepe:body.sepe, gobesp:body.gobesp}},
-			  	{},(err,numUpdated)=>{
-			if(numUpdated==0){
-				res.sendStatus(404, "RESOURCE NOT FOUND");
-			}else{
-				res.sendStatus(200, "RESOURCE UPDATED");	
-			}
-		
-		});
-	
+		if(!(body.aut_com == communityProvided || body.aut_com == null) || !(body.year == yearProvided || body.year == null)){
+			res.sendStatus(400, "Bad Request | Community in Body is not Equal to Request");
+		}else{
+			db.update({aut_com:communityProvided, year:yearProvided}, {$set: {ccoo:body.ccoo, sepe:body.sepe, gobesp:body.gobesp}},
+			  		{},(err,numUpdated)=>{
+				if(numUpdated==0){
+					res.sendStatus(404, "RESOURCE NOT FOUND");
+				}else{
+					res.sendStatus(200, "RESOURCE UPDATED");	
+				}
+			});
+		}
 	});
 	
 	//PUT RESOURCE NO COMPLETE ID
@@ -332,7 +333,7 @@ module.exports = function(app){
 	app.delete(BASE_API_URL+"/intcont-stats/:aut_com/:year", (req,res)=>{
 		var params = req.params;
 		var communityProvided = params.aut_com;
-		var yearProvided = params.year;
+		var yearProvided = parseInt(params.year);
 		
 		db.remove({aut_com:communityProvided, year: yearProvided},{},(err,numRemoved)=>{
 			if(numRemoved==0){
@@ -359,7 +360,7 @@ module.exports = function(app){
 			});
 		}else{
 			//DELETING BY AUTONOMOUS COMMUNITY PROVIDED
-			db.remove({aut_com:paramProvided},{},(err,numRemoved)=>{
+			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{
 				if(numRemoved==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND FOR DELETE");
 				}else{
