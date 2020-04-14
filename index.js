@@ -15,9 +15,6 @@ app.use("/",express.static("./public"));
 
 //API VICTOR para modulos separados
 atcAPI(app);
-//API TORA
-intcontAPI(app); //puedo importar las apis que yo quiera
-//API ALVARO
 
 
 app.listen(port, () => {
