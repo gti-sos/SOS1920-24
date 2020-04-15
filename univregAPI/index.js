@@ -154,8 +154,8 @@ module.exports = function(app){
 	app.get(BASE_API_URL+"/univregs-stats", (req,res)=>{
 		
 		var q = req.query; //Registering query
-		var off= q.offset;  //extracting offset from query
-		var l= q.limit;  //extracting limit from query
+		var off= parseInt(q.offset);  //extracting offset from query
+		var l= parseInt(q.limit);  //extracting limit from query
 		
 		//Custom Searchs lo que se mete por la URL
 		var community = (q.community==undefined)?null:q.community;
@@ -248,7 +248,8 @@ module.exports = function(app){
 		var q = req.query; //Registering query
 		var off= parseInt(q.offset);  //extracting offset from query
 		var l= parseInt(q.limit);  //extracting limit from query
-		
+		delete q.offset; //cleaning fields
+		delete q.limit;
 		
 		//GETTING BY YEAR IN RANGE FROM 2000 TO 2040 && ITS AN INTEGER AND CORRECT YEAR
 		if(parseInt(paramProvided)%2000<=40){
@@ -284,7 +285,7 @@ module.exports = function(app){
 		var yearProvided = newUnivregs.year;
 	
 		if((communityProvided=="") || (communityProvided==null)	|| yearProvided==null
-		   || newUnivregs.gob==null || newUnivregs.educ==null || newUnivregs.offer==null){
+		   || newUnivregs.univreg_gob==null || newUnivregs.univreg_educ==null || newUnivregs.univreg_offer==null){
 			
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
 			console.log("Any of fields are not provided");
@@ -324,7 +325,7 @@ module.exports = function(app){
 		
 		if(!(body.community == communityProvided || body.community == null) ||
 		   !(body.year == yearProvided || body.year == null)){
-			
+			res.sendStatus(400, "Bad Request | Community or Year in Body is not Equal to Request");
 		}else{
 	
 		db.update({community:communityProvided, year:yearProvided}, {$set: {univreg_gob:body.univreg_gob,
