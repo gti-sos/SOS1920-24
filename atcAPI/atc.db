@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {"aut_com":"Catalunya","year":2018,"espce":2371.8,"yaq":2372,"obu":2372,"_id":"1H2eoZbRPihEm90h"}
 {"aut_com":"Asturias","year":2018,"espce":1255.8,"yaq":1322,"obu":1322,"_id":"4eME6vK6vSx5rQIG"}
 {"aut_com":"Extremadura","year":2018,"espce":1110.6,"yaq":1111,"obu":1111,"_id":"FN5QKS6mq2GAe7LY"}
@@ -56,3 +57,22 @@
 {"$$deleted":true,"_id":"9NkdlHjwpVFNk9ME"}
 {"aut_com":"test","year":2017,"espce":1,"yaq":2,"obu":3,"_id":"5iQNeaR95A922mBI"}
 {"$$deleted":true,"_id":"5iQNeaR95A922mBI"}
+=======
+{"aut_com":"Murcia","year":2018,"espce":1006.8,"yaq":1007,"obu":1007,"_id":"5obGbMp4lVghxi9d"}
+{"aut_com":"Andalucia","year":2018,"espce":757.2,"yaq":757,"obu":757,"_id":"5uEqjw0LuI60mFFY"}
+{"aut_com":"Catalunya","year":2018,"espce":2371.8,"yaq":2372,"obu":2372,"_id":"8lRcjZqi1VCdlbrq"}
+{"aut_com":"Navarra","year":2018,"espce":1383,"yaq":1383,"obu":1352,"_id":"94ZyR6N3J589dUon"}
+{"aut_com":"Galicia","year":2018,"espce":835.8,"yaq":836,"obu":836,"_id":"9muVF9zWQYO3bwgF"}
+{"aut_com":"PaisVasco","year":2018,"espce":1190.4,"yaq":1190,"obu":1190,"_id":"C91u6kXTp7atENRo"}
+{"aut_com":"Aragon","year":2018,"espce":1403.4,"yaq":1403,"obu":1550,"_id":"DWSx8awtFhLrLWe2"}
+{"aut_com":"Extremadura","year":2018,"espce":1110.6,"yaq":1111,"obu":1111,"_id":"JekuClrGJgzAQeH6"}
+{"aut_com":"LaRioja","year":2018,"espce":1410.6,"yaq":1411,"obu":1411,"_id":"Kp1oA6gm3lPFCk4u"}
+{"aut_com":"ComunidadValenciana","year":2018,"espce":1269,"yaq":1389,"obu":1493,"_id":"RsRipvCJD31Quhke"}
+{"aut_com":"IslasBaleares","year":2018,"espce":1249.2,"yaq":1388,"obu":1388,"_id":"X2dTha2OvWzDHdEd"}
+{"aut_com":"CastillaLaMancha","year":2018,"espce":1132.2,"yaq":1132,"obu":1132,"_id":"XLuMjOLP3rsdESU7"}
+{"aut_com":"Madrid","year":2018,"espce":1568.4,"yaq":1609,"obu":1693,"_id":"amhLYhiVyLQTcPxS"}
+{"aut_com":"Canarias","year":2018,"espce":941.4,"yaq":1046,"obu":1137,"_id":"dWsAqgByzNXpkUwO"}
+{"aut_com":"CastillaYLeon","year":2018,"espce":1724.4,"yaq":1815,"obu":1815,"_id":"eg717qwWEStayrKa"}
+{"aut_com":"Asturias","year":2018,"espce":1255.8,"yaq":1322,"obu":1322,"_id":"kAhdrkGS8b4n8Tg3"}
+{"aut_com":"Cantabria","year":2018,"espce":964.2,"yaq":964,"obu":999,"_id":"zBDmVAJzCqf1cllH"}
+>>>>>>> b60789416098e6b7592cec3016e419132064da81
