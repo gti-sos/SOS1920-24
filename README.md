@@ -30,9 +30,9 @@ List of projects registered in the course of **Service Oriented Systems** (2019/
     - [https://sos1920-24.herokuapp.com/api/v1/atc-stats](https://sos1920-24.herokuapp.com/api/v1/atc-stats) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
 
 -  **POSTMAN**:
-    - [https://documenter.getpostman.com/view/10637391/SzYUXfiF(Goorm Version)](https://documenter.getpostman.com/view/10637391/SzYUXfiF) (developed by [Miguel Ángel Toranzo García](https://github.com/Nerk1))
-	- [https://documenter.getpostman.com/view/10637391/SzYUY13W(Heroku Version)](https://sos1920-24.herokuapp.com/api/v1/intcont-stats) (developed by [Miguel Ángel Toranzo García](https://github.com/Nerk1))
-    - [https://documenter.getpostman.com/view/9628258/SzYUXzjh (Goorm Version)](https://documenter.getpostman.com/view/9628258/SzYUXzjh) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
-	 - [https://documenter.getpostman.com/view/9628258/SzYUa25v (Heroku Version)](https://documenter.getpostman.com/view/9628258/SzYUa25v) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
-    - [https://documenter.getpostman.com/view/10642365/SzYT51yd(Goorm Version)](https://documenter.getpostman.com/view/10642365/SzYT51yd) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
-	-[https://documenter.getpostman.com/view/10642365/SzYUY1CL(Heroku Version)](https://documenter.getpostman.com/view/10642365/SzYUY1CL) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
+    - [https://documenter.getpostman.com/view/10637391/SzYUXfiF(Postman test)](https://documenter.getpostman.com/view/10637391/SzYUXfiF) (developed by [Miguel Ángel Toranzo García](https://github.com/Nerk1))
+	
+    - [https://documenter.getpostman.com/view/9628258/SzYUXzjh (Postman test)](https://documenter.getpostman.com/view/9628258/SzYUXzjh) (developed by [Alvaro Maya Cano](https://github.com/AlvaroMaya))
+	
+    - [https://documenter.getpostman.com/view/10642365/SzYT51yd(Postman test)](https://documenter.getpostman.com/view/10642365/SzYT51yd) (developed by [Victor Manuel Palos Torres](https://github.com/vicpaltor))
+	
