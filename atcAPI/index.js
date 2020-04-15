@@ -346,7 +346,7 @@ app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
 	
 	if(!(body.aut_com == communityProvided || body.aut_com == null) || !(body.year == yearProvided || body.year == null)){
 		
-	    res.sendStatus(405, "Method not Allowed | Community in Body is not Equal to Request");
+	    res.sendStatus(400, "Bad request");
 		
 	   }else{
 		   
