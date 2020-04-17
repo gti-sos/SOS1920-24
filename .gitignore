@@ -1,6 +1,3 @@
 node_modules
 f01/node_modules
 goorm.manifest
-/intcontAPI/intcont.db
-/univregAPI/univregs.db
-/atcAPI/atc.db
