@@ -1,6 +1,6 @@
 module.exports = function(app){
 	//BASE DE DATOS////////////////////////////////////////
-	console.log("Registering vicpaltor API....");
+	console.log("Registering vicpaltor API.....");
 	const dataStore = require("nedb");//para usar la libreria nedb
     const path = require("path"); //para hacer que funcione en linux o en windows
     const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
@@ -15,6 +15,7 @@ module.exports = function(app){
 ///////////////////////////////////////////////////////////////////////////
 	
 /**PARTE_VICTOR**/
+	
 
 var atc = [{
 	aut_com: "Andalucia",
