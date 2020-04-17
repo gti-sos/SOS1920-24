@@ -120,6 +120,8 @@ var atc = [{
 	yaq: 1411,
 	obu: 1411
 }];
+	db.remove({}, {multi:true});
+	db.insert(atc);
 
 	
 //GET-INITIALDATA

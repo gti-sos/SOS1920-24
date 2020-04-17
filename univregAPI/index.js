@@ -139,6 +139,9 @@ module.exports = function(app){
 		univreg_offer: 1000
 	}
  ];
+	
+	db.remove({}, {multi:true});
+	db.insert(univregs);
 
 	//GET univregs_stats/LOADINITIALDATA
 	app.get(BASE_API_URL+"/univregs-stats/loadInitialData", (req,res) =>{

@@ -123,6 +123,9 @@ module.exports = function(app){
 		sepe: 449,
 		gobesp: 4653.0
 	}];
+	
+	db.remove({}, {multi:true});
+	db.insert(intcont);
 
 	//GET INTCONT/LOADINITIALDATA
 	app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
