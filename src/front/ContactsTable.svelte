@@ -40,23 +40,22 @@
 
 		console.log("Inserting atc"+JSON.stringify(newAtc));
 		//fetch es la solicitud a la API
+		
 		const res = await fetch("/api/v1/atc-stats", {
 			method: "POST",
 			body: JSON.stringify(newAtc),
 			headers: {
 				"Content-Type": "application/json"
 			}
-		});
-
+        }).then(function(res){
+			//para actualizar los valores de la tabla
+            getAtc();
+        });
 	}
-
-
-	
 </script>
 
 <main>
 	{#await atc} 
-
 	{:then atc}
 			<Table bordered> 
 				<thead>
@@ -70,7 +69,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					
 					<tr> 
 						<td><input bind:value = "{newAtc.aut_com}"> </td>
 						<td><input bind:value = "{newAtc.year}">    </td>
@@ -80,8 +78,6 @@
 						<td> <Button outline color="primary"  on:click={insertAtc} 
 							> Insert </Button> </td>
 					</tr>
-					
-					
 					<!--para iterar con svelte-->
 					{#each atc as e}
 					<tr> 
@@ -94,7 +90,6 @@
 					</tr>
 					{/each}
 				</tbody>
-			</Table>
+		</Table>
 	{/await}
-	
 </main>
