@@ -32,6 +32,7 @@ const port = process.env.PORT || 12345; //HTTP CONNECTION MANAGING
 const app = express(); //CALLING EXPRESS
 
 app.use(bodyParser.json());
+
 app.use("/",express.static("./public")); //ROOT DIRECTORY
 
 <<<<<<< HEAD

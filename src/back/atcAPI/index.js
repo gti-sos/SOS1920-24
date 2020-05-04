@@ -1,17 +1,18 @@
-module.exports = function(app){
-	//BASE DE DATOS////////////////////////////////////////
-	console.log("Registering vicpaltor API....");
-	const dataStore = require("nedb");//para usar la libreria nedb
-    const path = require("path"); //para hacer que funcione en linux o en windows
-    const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
-    const BASE_API_URL= "/api/v1"; //API BASE PATH
+//BASE DE DATOS////////////////////////////////////////
+console.log("Registering vicpaltor API....");
+const dataStore = require("nedb");//para usar la libreria nedb
+const path = require("path"); //para hacer que funcione en linux o en windows
+const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
+const BASE_API_URL= "/api/v1"; //API BASE PATH
 
 //creamos nuestro dataStore para guardar en el archivo contacts.db por lo cual le pasamos los siguientes parametros
-    const db = new dataStore({
-	    	       filename: dbFileName,
-	    	       autoload: true
-                });
-	
+const db = new dataStore({
+			   filename: dbFileName,
+			   autoload: true
+			});
+
+
+module.exports = function(app){
 ///////////////////////////////////////////////////////////////////////////
 	
 /**PARTE_VICTOR**/
@@ -294,6 +295,8 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		}
 	});
 
+	///////////////////////////////////////////////////////////////////////////////
+
 //POST-BASEROUTE
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/atc-stats",(req,res)=>{
@@ -319,7 +322,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		}
 	});
 	
-///////////////////////////////////////////////////////////////////
+
 //POST-RESOURCE_AUT_COM_AND_YEAR
 app.post(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{
 	res.sendStatus(405, "METHOD NOT ALLOWED");
