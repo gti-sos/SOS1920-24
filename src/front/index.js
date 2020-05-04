@@ -1,3 +1,4 @@
+//NO TOCAR
 //este es siempre igual
 import App from './App.svelte';//primer componente
 
