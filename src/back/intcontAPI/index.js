@@ -260,7 +260,7 @@ module.exports = function(app){
 	});
 	
 	//POST VS RESOURCE LIST
-	app.post(BASE_API_URL+"/intcont-stats",(req,res)=>{
+	app.post(BASE_API_URL+"/intcont-stats", (req,res)=>{
 		var newIntcont = req.body;
 		var communityProvided = newIntcont.aut_com;
 		var yearProvided = newIntcont.year;

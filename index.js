@@ -4,12 +4,12 @@ const bodyParser = require("body-parser"); //INCLUDING BODY-PARSER
 const path = require("path");
 
 
-const atcAPI = require(path.join(__dirname ,"atcAPI"));
-const intcontAPI = require(path.join(__dirname, "intcontAPI"));
-const univregAPI = require(path.join(__dirname, "univregAPI"));
+const atcAPI = require(path.join(__dirname ,"./src/back/atcAPI"));
+const intcontAPI = require(path.join(__dirname, "./src/back/intcontAPI"));
+const univregAPI = require(path.join(__dirname, "./src/back/univregAPI"));
 
 
-const port = process.env.PORT || 80; //HTTP CONNECTION MANAGING
+const port = process.env.PORT || 4444; //HTTP CONNECTION MANAGING
 
 const app = express(); //CALLING EXPRESS
 
