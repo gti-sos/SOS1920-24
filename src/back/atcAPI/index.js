@@ -192,7 +192,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 				if(atc.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
-					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
+					res.send(JSON.stringify(atc,null,2));
 				}	
 			});
 			
@@ -224,7 +224,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 				{
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
-					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
+					res.send(JSON.stringify(atc,null,2));
 				}	
 			});		
 		}

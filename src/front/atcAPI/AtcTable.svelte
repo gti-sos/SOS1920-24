@@ -23,19 +23,23 @@
 	//cargar datos desde la API 
 	let atc = [];
 	let newAtc = {
-		"aut_com"        : "",
-		"year"           :    0,
-		"updated-Espce"  :   0.0,
-		"updated-Yaq"    :     0,
-		"updated-Obu"    :    0
+		aut_com: "",
+		year:    0,
+		espce:   0.0,
+		yaq:     0,
+		obu:    0
 	};
 
 	//variables para las busquedas
+
 	let aut_coms= [];
 	let years = [];
 	let currentAut_com = "-";
 	let currentYear = "-";
-
+/**
+	let campo="";
+	let valor ="";
+	**/
 //opciones de paginacion
 	let numberElementsPages = 5;
 	let currentPage = 1;
@@ -104,15 +108,20 @@
         const res = await fetch("/api/v1/atc-stats/loadInitialData").then(function (res) {
 			if (res.ok){
 				console.log("OK");
+
 				getAtc();
 				initialDataAlert();
+				location.reload();
 			}else {
 				errorAlert=("Error al intentar borrar todos los elementos iniciales");
 				console.log("ERROR!");
 			}
 			
 		});
-    }
+	}
+	
+
+
 //funcion para insertar un elemento
 
 async function insertAtc() {
@@ -171,10 +180,11 @@ async function deleteAtcs() {
 				getAtc();
 				getAutComsYears();
 				deleteAllAlert();
+				location.reload();
+				
 			}else {
 				errorAlert=("Error al intentar borrar todos los elementos");
 			}
-			
 		});
 	}
 //funciones de busqueda
@@ -188,7 +198,6 @@ async function searchYears(aut_com) {
 			atc.map((d) => {
 				return d.year;
 			});
-
 			console.log("Update years")
 		} else {
 			console.log("ERROR!")
@@ -200,9 +209,9 @@ async function searchYears(aut_com) {
 		//miramos si los campos estan vacios
 		var url = "/api/v1/atc-stats";
 		if (aut_com != "-" && year != "-") {
-			url = url + "?aut_com=" + aut_com + "&year=" + year;
+			url = url + "?community=" + aut_com + "&year=" + year;
 		} else if (aut_com != "-" && year == "-") {
-			url = url + "?country=" + aut_com;
+			url = url + "?community=" + aut_com;
 		} else if (aut_com == "-" && year != "-") {
 			url = url + "?year=" + year;
 		}
@@ -217,9 +226,6 @@ async function searchYears(aut_com) {
 			console.log("ERROR!");
 		}
 	}
-
-
-
 
 //funcioines adicionales
 
@@ -286,8 +292,6 @@ async function searchYears(aut_com) {
 		alert_element.innerHTML = "";
 	}
 
-
-
 </script>
 
 <main>
@@ -296,6 +300,7 @@ async function searchYears(aut_com) {
 		Loading atc
 	{:then atc}
 	<!--select para buscar por comunidad autonoma-->
+
 	<FormGroup> 
         <Label for="selectAut_com">Búsqueda por comunidad autonoma </Label>
         <Input type="select" name="selectAut_com" id="selectAut_com" bind:value="{currentAut_com}">
@@ -305,7 +310,7 @@ async function searchYears(aut_com) {
 			<option>-</option>
         </Input>
 	</FormGroup>
-	<!--select para buscar por año-->
+
 	<FormGroup>
 		<Label for="selectYear">Año</Label>
 		<Input type="select" name="selectYear" id="selectYear" bind:value = "{currentYear}">
@@ -315,9 +320,8 @@ async function searchYears(aut_com) {
 			<option>-</option>
 		</Input>
 	</FormGroup>
-	
-	<Button outline color="success" on:click="{search(currentAut_com, currentYear)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
 
+<Button outline color="success" on:click="{search(currentAut_com, currentYear)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
 
 			<Table bordered> 
 				<thead>
@@ -332,24 +336,22 @@ async function searchYears(aut_com) {
 				</thead>
 				<tbody>
 					<tr> 
-				
-						<td><input                                                     bind:value = "{newAtc.aut_com}"> </td>
-						<td><input required type="number"                              bind:value = "{newAtc.year}">    </td>
-						<td><input type="number" placeholder="0.0" step="0.01" min="0" bind:value = "{newAtc['updated-Espce']}">   </td>
-						<td><input type="number" placeholder="0.0" step="0.01" min="0" bind:value = "{newAtc['updated-Yaq']}">     </td>
-						<td><input type="number" placeholder="0.0" step="0.01" min="0" bind:value = "{newAtc['updated-Obu']}">     </td>
-
-						<td> <Button outline color="primary"  on:click={insertAtc} > <i class="far fa-edit"></i> Insertar </Button> </td>
+						<td><input bind:value = "{newAtc.aut_com}"> </td>
+						<td><input bind:value = "{newAtc.year}">    </td>
+						<td><input bind:value = "{newAtc.espce}">   </td>
+						<td><input bind:value = "{newAtc.yaq}">     </td>
+						<td><input bind:value = "{newAtc.obu}">     </td>
+						<td> <Button outline color="primary"  on:click={insertAtc} > Insertar </Button> </td>
 					</tr>
 					<!--para iterar con svelte-->
 					{#each atc as e}
 					<tr> 
 						<td> <a href="#/atc-stats/{e.aut_com}/{e.year}" > {e.aut_com} </a></td>
 						<td>{e.year}  </td>
-						<td>{e['updated-Espce']}   </td>
-						<td>{e['updated-Yaq']}   </td>
-						<td>{e['updated-Obu']}   </td>
-						<td> <Button outline color="danger"  on:click="{deleteAtc(e.aut_com,e.year)}" > Borrar </Button> </td>
+						<td>{e.espce} </td>
+						<td>{e.yaq}   </td>
+						<td>{e.obu}   </td>
+						<td> <Button outline color="danger" on:click="{deleteAtc(e.aut_com,e.year)}" > Borrar </Button> </td>
 					</tr>
 					{/each}
 				</tbody>
