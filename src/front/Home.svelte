@@ -35,6 +35,6 @@
 </li>
 </ul>
 </main>
-<a href="#/atc">GUI ATC</a>
+<a href="#/atc-stats">GUI ATC</a>
 <br> <br/>
 <a href="#/gui2">GUI del recurso 2</a>
