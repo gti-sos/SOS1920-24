@@ -29,7 +29,7 @@
 	let toSepe=0;
 	let fromGobesp=0;
 	let toGobesp=0;
-	
+	let centinel=0;
 	//pagination options
 	let offset = 0;
 	let numberElementsPages = 10;
@@ -65,7 +65,7 @@
             aut_coms = Array.from(new Set(aut_coms)); 
             
         } else {
-			errorAlert=("Error interno al intentar obtener las comunidades autonomas y los años")
+			errorAlert=("Error interno al intentar obtener las comunidades autonomas")
             console.log("ERROR!");
         }
     }
@@ -85,8 +85,9 @@
 				moreData=true;
 			}
 			console.log("Received "+ intcont.length + " data.");
+			centinel=0;
 		}else{
-			errorAlert=("Error interno al intentar obtener todos los elementos");
+			errorAlert("Error interno al intentar obtener todos los elementos");
 			console.log("ERROR");
 		}
 	}
@@ -98,10 +99,11 @@
 			if (res.ok){
 				console.log("OK");
 				getIntcont();
-				initialDataAlert();
+				deleteAllAlerts();
+				InstructionAlert("Carga de datos realizada correctamente.");
 				location.reload();
-			}else {
-				errorAlert=("Error al intentar borrar todos los elementos iniciales");
+			}else if(res.status==404){
+				errorAlert("ERROR! No se han encontrado datos para borrar.");
 				console.log("ERROR!");
 			}
 			
@@ -114,7 +116,7 @@
 			|| newIntcont.aut_com == null
 			|| newIntcont.year == ""
 			|| newIntcont.year == null) {
-			alert("Es obligatorio el campo País y año");
+			errorAlert("Es obligatorio el campo País y año");
 		} else {
 			const res = await fetch("/api/v1/intcont-stats", {
 				method: "POST",
@@ -126,9 +128,11 @@
 				/* we can update it each time we insert*/
 				if (res.ok){
 					getIntcont();
-					insertAlert("Éxito al instertar");
-				}else {
-					alert("Fallo");
+					InstructionAlert("Éxito al instertar "+newIntcont.aut_com+"/"+newIntcont.year);
+				}else if(res.status(409)) {
+					errorAlert("Fallo, el dato a insertar Ya Existe");
+				}else{
+					errorAlert("Se ha intentando realizar una acción no Permitida")
 				}
 			});
 		};
@@ -141,10 +145,9 @@
 		}).then(function (res) {
 			if (res.ok){
 				getIntcont();
-				getAutComsYears();
-				deleteAlert();
-			} else if (res.status==404){
-				errorAlert("Se ha intentado borrar un dato inexistente");
+				getAutComs();
+				deleteAllAlert();
+				InstructionAlert("Borrado elemento "+autcom+"/"+year+" Correctamente");
 			} else {
 				errorAlert("Error interno al intentar borrar un elemento concreto");
 			}
@@ -160,12 +163,13 @@
 				currentPage = 1;
 				offset=0;
 				getIntcont();
-				getAutComsYears();
+				getAutComs();
 				deleteAllAlert();
+				InstructionAlert("Borrado realizado con éxito");
 				location.reload();
 				
 			}else {
-				errorAlert=("Error al intentar borrar todos los elementos");
+				errorAlert("Error al intentar borrar todos los elementos");
 			}
 		});
 	}
@@ -217,47 +221,18 @@
 			}else{
 				moreData=true;
 			}
+			centinel=1;
+			InstructionAlert("Búsqueda realizada con éxito");
 			
 		} else if(res.status==404){
-			errorAlert=("No se han encontrado datos");
+			errorAlert("No se han encontrado datos");
 			console.log("ERROR ELEMENTO NO ENCONTRADO!");
 		}else{
-			errorAlert=("ERROR INTERNO");
+			errorAlert("Ha ocurrido un fallo inesperado");
 			console.log("ERROR INTERNO");
-		/*}if(res.ok){
-			console.log("Ok:");
-			//recogemos los datos json de la API
-			const json = await res.json();
-			//lo cargamos dentro de la variable
-			intcont = json;
-			if(intcont.length<numberElementsPages){
-				moreData=false;
-			}else{
-				moreData=true;
-			}
-			console.log("Received "+ intcont.length + " data.");
-		}else{
-			errorAlert=("Error interno al intentar obtener todos los elementos");
-			console.log("ERROR");*/
+		
 		}
-		/*
-		if (aut_com != "-" && year != "-") {
-			url = url + "?community=" + aut_com + "&year=" + year;
-		} else if (aut_com != "-" && year == "-") {
-			url = url + "?community=" + aut_com;
-		} else if (aut_com == "-" && year != "-") {
-			url = url + "?year=" + year;
-		}
-		const res = await fetch(url);
-		if (res.ok) {
-			console.log("OK:");
-			const json = await res.json();
-			intcont = json;
-			console.log("Found " + intcont.length + "intcont.");
-		} else {
-			errorAlert=("Error interno al intentar realizar la búsqueda");
-			console.log("ERROR!");
-		}*/
+		
 	}
 	function incOffset(v) {
 		offset += v;
@@ -269,62 +244,24 @@
 		currentPage += v;
 		search(field);
 	}
-	function insertAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-success ";
-		alert_element.innerHTML = "<strong>¡Dato insertado!</strong> El dato ha sido insertado correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-	function deleteAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡Dato borrado!</strong> El dato ha sido borrado correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-	function deleteAllAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡Datos borrados!</strong> Todos los datos han sido borrados correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-	function initialDataAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-warning ";
-		alert_element.innerHTML = "<strong>Datos iniciales!</strong> ¡ Se han generado los datos iniciales !";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
+	
+	
+	function InstructionAlert(msg){
+
+		var alertEr = document.getElementById("div_alert");
+		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
+		alertEr.className = " alert alert dismissible in alert-info ";
+		alertEr.innerHTML = "<strong>La instruccion</strong> ha sido un éxito!" + msg;
+		
 	}
 	function errorAlert(error){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
+		var alertEr = document.getElementById("div_alert");
+		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
+		alertEr.className = " alert alert dismissible in alert-danger ";
+		alertEr.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
+		
 	}
-    function clearAlert(){
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "display: none; ";
-		alert_element.className = "alert alert-dismissible in";
-		alert_element.innerHTML = "";
-	}
+    
 
 	
 </script>
@@ -445,7 +382,8 @@
 				</tbody>
 		</Table>
 	{/await}
-	
+	{#if intcont.length>0}
+	{#if centinel==0 || field =='vacio'}
 	<Pagination style="float:right;" ariaLabel="Cambiar de página">
     
 		
@@ -475,7 +413,8 @@
         </PaginationItem>
       
 	</Pagination>
-	
+	{/if}
+	{#if centinel==1 && field!='vacio'}
 	<Pagination style="float:right;" ariaLabel="Cambiar de página">
     
 		
@@ -505,10 +444,12 @@
         </PaginationItem>
       
 	</Pagination>
+	{/if}
+	{/if}
 	
 
 	
-	
+
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>
 	<Button outline color= "warning" on:click = {loadInitialIntcont}> <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Datos Iniciales </Button>

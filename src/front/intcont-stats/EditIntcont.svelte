@@ -55,6 +55,7 @@
 		}).then(function(res){
 			if(res.ok){
                 getIntcont();
+                pop();
             }else if(res.status == 404){
                 errorAlert("No se ha encontrado el elemento para editar");
             }else{
