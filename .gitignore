@@ -1,6 +1,9 @@
 node_modules
-f01/node_modules
+svelte-sample
 goorm.manifest
-univregAPI/univregs.db
-intcontAPI/intcont.db
-atcAPI/atc.db
+back/intcontAPI/v1/intcont.db
+back/intcontAPI/v2/intcont.db
+back/univregAPI/v1/univregs.db
+back/univregAPI/v1/univregs.db
+back/atcAPI/v1/atc.db
+back/atcAPI/v2/atc.db
