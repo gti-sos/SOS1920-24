@@ -18,12 +18,21 @@
 	let aut_coms= [];
 	let years = [];
 	let currentAut_com = "-";
-	let currentYear = "-";
-	let campos=[];
-
+	let currentYear = "";
+	let field="";
+	let value="";
+	let fromYear=2000;
+	let toYear=2040;
+	let fromCcoo=0;
+	let toCcoo=0;
+	let fromSepe=0;
+	let toSepe=0;
+	let fromGobesp=0;
+	let toGobesp=0;
+	
 	//pagination options
 	let offset = 0;
-	let numberElementsPages = 5;
+	let numberElementsPages = 10;
 	let currentPage = 1;
 	let moreData = true;
 
@@ -39,10 +48,10 @@
 		"gobesp":    0.0
 	};
 	onMount(getIntcont);
-	onMount(getAutComsYears);
+	onMount(getAutComs);
 
 	
-	async function getAutComsYears() {
+	async function getAutComs() {
         const res = await fetch("/api/v1/intcont-stats");
  
         /* Getting the countries for the select */
@@ -55,16 +64,6 @@
             /* Deleting duplicated countries */
             aut_coms = Array.from(new Set(aut_coms)); 
             
-            /* Getting the years for the select */
-            years = json.map((i) => {
-                    return i.year;
-            });
-            /* Deleting duplicated years */
-			years = Array.from(new Set(years));  
-			
- 
-            console.log("Counted " + aut_coms.length + " aut_coms and " + years.length + " years.");
- 
         } else {
 			errorAlert=("Error interno al intentar obtener las comunidades autonomas y los años")
             console.log("ERROR!");
@@ -95,7 +94,7 @@
 
 	async function loadInitialIntcont() {
         console.log("Loading initial intcont stats data..."); 
-        const res = await fetch("/api/v1/intcont-stats/loadInitialData").then(function (res) {
+        const res = await fetch("/api/v1/intcont-stats/loadInitialData").then(function(res) {
 			if (res.ok){
 				console.log("OK");
 				getIntcont();
@@ -170,24 +169,78 @@
 			}
 		});
 	}
-	async function searchYears(aut_com) {
-		console.log("Searching years in aut_com...");
-		const res = await fetch("/api/v1/intcont-stats/" + aut_com)
+	async function search(field) {
+		var url = "/api/v1/intcont-stats";
+		//miramos si los campos estan vacios
+		switch(field){
+			case "autcom":
+			console.log(url);
+			url = url + "?community="+currentAut_com;
+			console.log(url);
+			break;
+			case "year":
+			console.log(url);
+			url = url + "?year="+ currentYear;
+			console.log(url);
+			break;
+			case "rangeYear":
+			console.log(url);
+			url = url +"?fromYear="+ fromYear+"&toYear=" + toYear;
+			console.log(url);
+			break;
+			console.log(url);
+			case "ccoostat":
+			url = url +"?fromCcoo="+ fromCcoo+"&toCcoo=" + toCcoo;
+			console.log(url);
+			break;
+			console.log(url);
+			case "sepestat":
+			url = url +"?fromSepe="+ fromSepe+"&toSepe=" + toSepe;
+			console.log(url);
+			break;
+			case "gobespstat":
+			console.log(url);
+			url = url +"?fromGobesp="+ fromGobesp+"&toGobesp=" + toGobesp;
+			console.log(url);
+			break;
+			default:
+			break;
+		}
+		const res = await fetch(url+"&offset="+numberElementsPages*offset+"&limit="+numberElementsPages);
 		if (res.ok) {
+			console.log("OK:");
 			const json = await res.json();
 			intcont = json;
-			intcont.map((i) => {
-				return i.year;
-			});
-			console.log("Update years")
-		} else {
-			console.log("ERROR!")
+			console.log("Found " + intcont.length + "intcont.");
+			if(intcont.length<numberElementsPages){
+				moreData=false;
+			}else{
+				moreData=true;
+			}
+			
+		} else if(res.status==404){
+			errorAlert=("No se han encontrado datos");
+			console.log("ERROR ELEMENTO NO ENCONTRADO!");
+		}else{
+			errorAlert=("ERROR INTERNO");
+			console.log("ERROR INTERNO");
+		/*}if(res.ok){
+			console.log("Ok:");
+			//recogemos los datos json de la API
+			const json = await res.json();
+			//lo cargamos dentro de la variable
+			intcont = json;
+			if(intcont.length<numberElementsPages){
+				moreData=false;
+			}else{
+				moreData=true;
+			}
+			console.log("Received "+ intcont.length + " data.");
+		}else{
+			errorAlert=("Error interno al intentar obtener todos los elementos");
+			console.log("ERROR");*/
 		}
-	}
-	async function search(aut_com, year) {
-		console.log("Searching data: " + aut_com + " and " + year);
-		//miramos si los campos estan vacios
-		var url = "/api/v1/intcont-stats";
+		/*
 		if (aut_com != "-" && year != "-") {
 			url = url + "?community=" + aut_com + "&year=" + year;
 		} else if (aut_com != "-" && year == "-") {
@@ -204,12 +257,17 @@
 		} else {
 			errorAlert=("Error interno al intentar realizar la búsqueda");
 			console.log("ERROR!");
-		}
+		}*/
 	}
 	function incOffset(v) {
 		offset += v;
 		currentPage += v;
 		getIntcont();
+	}
+	function incOffsetSearch(v) {
+		offset += v;
+		currentPage += v;
+		search(field);
 	}
 	function insertAlert(){
 		clearAlert();
@@ -279,7 +337,20 @@
 	<!--select para buscar por comunidad autonoma-->
 
 	<FormGroup> 
-        <Label for="selectAut_com">Búsqueda por comunidad autonoma </Label>
+        <Label for="selectAut_com">Elige Dato para la búsqueda</Label>
+        <Input type="select" name="selectField" id="selectField" bind:value="{field}">
+			<option value=vacio></option>
+			<option value="autcom">Comunidad Autonoma</option>
+			<option value="year">Año</option>
+			<option value="rangeYear">Rango de Años</option>
+			<option value="ccoostat">Estadisticas CCOO</option>
+			<option value="sepestat">Estadisticas SEPE</option>
+			<option value="gobespstat">Estadisticas GOBESP</option>
+        </Input>
+	</FormGroup>
+	{#if field == "autcom"}
+	<FormGroup> 
+        <Label>Búsqueda por comunidad autonoma </Label>
         <Input type="select" name="selectAut_com" id="selectAut_com" bind:value="{currentAut_com}">
             {#each aut_coms as aut_com}
             <option>{aut_com}</option>
@@ -287,18 +358,58 @@
 			<option>-</option>
         </Input>
 	</FormGroup>
+	{/if}
 
+	{#if field == "year"}
 	<FormGroup>
-		<Label for="selectYear">Año</Label>
-		<Input type="select" name="selectYear" id="selectYear" bind:value = "{currentYear}">
-			{#each years as year}
-			<option>{year}</option>
-			{/each}
-			<option>-</option>
+		<Label>Año</Label>
+		<Input type="text" name="simpleYear" id="simpleYear" bind:value = "{currentYear}">
 		</Input>
 	</FormGroup>
+	{/if}
+	{#if field == "rangeYear"}
+	<FormGroup>
+		<Label>Año Inicial</Label>
+		<Input type="text" name="fromYear" id="fromYear" bind:value = "{fromYear}">
+		</Input>
+		<Label>Año Final</Label>
+		<Input type="text" name="toYear" id="toYear" bind:value = "{toYear}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "ccoostat"}
+	<FormGroup>
+		<Label>CCOO Inicial</Label>
+		<Input type="text" name="fromCcoo" id="fromCcoo" bind:value = "{fromCcoo}">
+		</Input>
+		<Label>CCOO Final</Label>
+		<Input type="text" name="toCcoo" id="toCcoo" bind:value = "{toCcoo}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "sepestat"}
+	<FormGroup>
+		<Label>SEPE Inicial</Label>
+		<Input type="text" name="fromSepe" id="fromSepe" bind:value = "{fromSepe}">
+		</Input>
+		<Label>SEPE Final</Label>
+		<Input type="text" name="toSepe" id="toSepe" bind:value = "{toSepe}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "gobespstat"}
+	<FormGroup>
+		<Label>GOBESP Inicial</Label>
+		<Input type="text" name="fromGobesp" id="fromGobesp" bind:value = "{fromGobesp}">
+		</Input>
+		<Label>GOBESP Final</Label>
+		<Input type="text" name="toGobesp" id="toGobesp" bind:value = "{toGobesp}">
+		</Input>
+	</FormGroup>
+	{/if}
+	
 
-<Button outline color="success" on:click="{search(currentAut_com, currentYear)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
+<Button outline color="success" on:click="{search(field)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
 
 			<Table bordered> 
 				<thead>
@@ -334,7 +445,7 @@
 				</tbody>
 		</Table>
 	{/await}
-
+	
 	<Pagination style="float:right;" ariaLabel="Cambiar de página">
     
 		
@@ -347,7 +458,7 @@
             <PaginationLink href="#/intcont-stats" on:click="{() => incOffset(-1)}" >{currentPage - 1}</PaginationLink>
 		</PaginationItem>
 		{/if}
-
+		
         <PaginationItem active>
             <PaginationLink href="#/intcont-stats" >{currentPage}</PaginationLink>
 		</PaginationItem>
@@ -364,6 +475,39 @@
         </PaginationItem>
       
 	</Pagination>
+	
+	<Pagination style="float:right;" ariaLabel="Cambiar de página">
+    
+		
+        <PaginationItem class = "{currentPage === 1 ? 'disabled' : ''}">
+          <PaginationLink previous href="#/intcont-stats" on:click="{() => incOffsetSearch(-1)}" />
+        </PaginationItem>
+		
+		{#if currentPage != 1}
+        <PaginationItem>
+            <PaginationLink href="#/intcont-stats" on:click="{() => incOffsetSearch(-1)}" >{currentPage - 1}</PaginationLink>
+		</PaginationItem>
+		{/if}
+
+        <PaginationItem active>
+            <PaginationLink href="#/intcont-stats" >{currentPage}</PaginationLink>
+		</PaginationItem>
+
+		<!-- more elements...-->
+		{#if moreData}
+        <PaginationItem >
+            <PaginationLink href="#/intcont-stats" on:click="{() => incOffsetSearch(1)}">{currentPage + 1}</PaginationLink>
+         </PaginationItem>
+		 {/if}
+
+        <PaginationItem class = "{moreData ? '' : 'disabled'}">
+          <PaginationLink next href="#/intcont-stats" on:click="{() => incOffsetSearch(1)}"/>
+        </PaginationItem>
+      
+	</Pagination>
+	
+
+	
 	
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>

@@ -186,7 +186,7 @@ module.exports = function(app){
 				}	
 			});
 			
-		}else if(simpleYear==null && (fromYear!=2000 || toYear!=2040 )){
+		}else if(simpleYear==null){
 			db.find({year:{$gte:fromYear, $lte:toYear}, ccoo:{$gte:fromCcoo, $lte:toCcoo}, sepe:{$gte:fromSepe, $lte:toSepe},
 					 gobesp:{$gte:fromGobesp, $lte:toGobesp}}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
 				if(community!=null){
@@ -206,6 +206,18 @@ module.exports = function(app){
 			});		
 		}else{
 			db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
+				if(community!=null){
+					var filteredByCommunity = intcont.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					intcont=filteredByCommunity;
+				}
+				if(simpleYear!=null){
+					var filteredByYear = intcont.filter((c)=>{
+						return (c.year == simpleYear);
+					});
+					intcont=filteredByYear;
+				}
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
@@ -270,7 +282,15 @@ module.exports = function(app){
 	
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/intcont-stats", (req,res)=>{
-		var newIntcont = req.body;
+		var newIntcont = {	
+			aut_com: req.body.aut_com,
+			year: parseInt(req.body.year),
+			ccoo: parseInt(req.body.ccoo),
+			sepe: parseInt(req.body.sepe),
+			gobesp: parseFloat(req.body.gobesp)
+		}
+
+
 		var communityProvided = newIntcont.aut_com;
 		var yearProvided = newIntcont.year;
 	
@@ -362,23 +382,25 @@ module.exports = function(app){
 	app.delete(BASE_API_URL+"/intcont-stats/:paramProvided", (req,res)=>{
 		var params = req.params;
 		var paramProvided = params.paramProvided;
-		if(parseInt(paramProvided)%2000<=40){
+		if(isNaN(paramProvided)){
 			//DELETING BY YEAR PROVIDED
-			db.remove({year:parseInt(paramProvided)},{multi:true},(err,numRemoved)=>{
-				if(numRemoved==0){
-					res.sendStatus(404, "COLLECTION NOT FOUND FOR DELETING");
-				}else{
-					res.sendStatus(200, "COLLECTION DELETED");
-				}
-			});
-		}else{
-			//DELETING BY AUTONOMOUS COMMUNITY PROVIDED
 			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{
 				if(numRemoved==0){
 					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND FOR DELETE");
 				}else{
 					res.sendStatus(200, "COLLECTION DELETED");
 				}
+			
+			});
+		}else{
+			//DELETING BY AUTONOMOUS COMMUNITY PROVIDED
+			db.remove({year:parseInt(paramProvided)},{multi:true},(err,numRemoved)=>{
+				if(numRemoved==0){
+					res.sendStatus(404, "COLLECTION NOT FOUND FOR DELETING");
+				}else{
+					res.sendStatus(200, "COLLECTION DELETED");
+				}
+			
 			});
 		}
 	});
