@@ -1,17 +1,16 @@
 <script>
 	import Router from 'svelte-spa-router'
-	import IntcontTable from './IntcontTable.svelte';
+	import Intcont from './intcont-stats/App.svelte';
 	import Home from './Home.svelte'
 	import NotFound from './NotFound.svelte'
-	import EditIntcont from './EditIntcont.svelte';
+	import EditIntcont from './intcont-stats/EditIntcont.svelte';
 	import GUI1 from './GUI1/Home.svelte';
-	import GUI2 from './GUI2/Home.svelte';
+
 	const routes = {
 		"/": Home,
-		"/intconts": IntcontTable,
-		"/intcont/:aut_com": EditIntcont,
+		"/intcont-stats": Intcont,
+		"/intcont-stats/:aut_com/:year": EditIntcont,
 		"/gui1": GUI1,
-		"/gui2": GUI2,
 		"*": NotFound
 		
 	};

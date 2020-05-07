@@ -6,11 +6,11 @@
     export let params = {};
     let intcont = {};
 
-    let updatedAutcom=intcont.aut_com;
-    let updatedYear=params.year;
-    let updatedCcoo=2000;
-    let updatedSepe=2000;
-    let updatedGobesp=20000.0;
+    let updatedAutcom="";
+    let updatedYear=0;
+    let updatedCcoo=0;
+    let updatedSepe=0;
+    let updatedGobesp=0.0;
     let errorMsg="";
 
     onMount(getIntcont);
@@ -23,13 +23,13 @@
 			console.log("Ok:");
 			//recogemos los datos json de la API
             const json = await res.json();
-            updatedAutcom=intcont.aut_com;
-            updatedYear=intcont.year;
-            updatedCcoo=intcont.ccoo;
-            updatedSepe=intcont.sepe;
-            updatedGobesp=intcont.gobesp;
+            intcont = json;
+            updatedAutcom = intcont.aut_com;
+            updatedYear = intcont.year;
+            updatedCcoo = intcont.ccoo;
+            updatedSepe = intcont.sepe;
+            updatedGobesp = intcont.gobesp;
 			//lo cargamos dentro de la variable
-			intcont = json;
 			console.log("Received data.");
 		}else{
             errorMsg = res.status = ":" + res.statusText;
@@ -44,16 +44,22 @@
 			method: "PUT",
 			body: JSON.stringify({
                 aut_com : params.aut_com,
-                year : updatedYear,
-                ccoo : updatedCcoo,
-                sepe : updatedSepe,
-                gobesp : updatedGobesp
+                year : parseInt(params.year),
+                ccoo : parseInt(updatedCcoo),
+                sepe : parseInt(updatedSepe),
+                gobesp : parseFloat(updatedGobesp)
             }),
 			headers: {
 				"Content-Type": "application/json"
 			}
 		}).then(function(res){
-			getIntcont();
+			if(res.ok){
+                getIntcont();
+            }else if(res.status == 404){
+                errorAlert("No se ha encontrado el elemento para editar");
+            }else{
+                errorAlert();
+            }
 		});
 
     }
@@ -66,23 +72,23 @@
        <Table bordered> 
            <thead>
                <tr>
-                   <th>aut_com </th>
-                   <th>year  </th>
-                   <th>ccoo </th>
-                   <th>sepe   </th>
-                   <th>gobesp  </th>	
-                   <th>Actions </th>	
+                   <th>Comunidad </th>
+                   <th>Año  </th>
+                   <th>Estadistica CCOO </th>
+                   <th>Estadistica SEPE  </th>
+                   <th>Estadistica Gobierno España  </th>	
+                   <th>Acciones </th>	
                </tr>
            </thead>
            <tbody>
                <tr> 
-                   <td>{updatedAutcom}</td>
-                   <td>{updatedYear}</td>
+                   <td>{params.aut_com}</td>
+                   <td>{params.year}</td>
                    <td><input bind:value = "{updatedCcoo}"></td>
                    <td><input bind:value = "{updatedSepe}"></td>
                    <td><input bind:value = "{updatedGobesp}"></td>
-                   <td> <Button outline color="primary" on:click={updateIntcont} 
-                       > Editar </Button> </td>
+                   <td> <Button outline color="primary" on:click={updateIntcont}
+                       > Aceptar </Button> </td>
                </tr>
            </tbody>
        </Table>

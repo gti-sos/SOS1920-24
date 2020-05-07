@@ -20,7 +20,7 @@ module.exports = function(app){
 	//---------------------------------------------------------------------------
 	
 	
-	var intcont =[{
+	var initialIntcont =[{
 		aut_com: "Andalucia",
 		year: 2018,
 		ccoo: 16096,
@@ -124,12 +124,12 @@ module.exports = function(app){
 		gobesp: 4653.0
 	}];
 	
-	db.remove({}, {multi:true});
-	db.insert(intcont);
+
 
 	//GET INTCONT/LOADINITIALDATA
 	app.get(BASE_API_URL+"/intcont-stats/loadInitialData", (req,res) =>{
-		intcont.forEach((i)=>{
+	
+		initialIntcont.forEach((i)=>{
 			db.find({aut_com:i.aut_com, year:i.year},(err,doc)=>{
 				if(doc.length==0) db.insert(i);
 				});
@@ -182,11 +182,11 @@ module.exports = function(app){
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
-					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+					res.send(JSON.stringify(intcont,null,2));
 				}	
 			});
 			
-		}else{
+		}else if(simpleYear==null && (fromYear!=2000 || toYear!=2040 )){
 			db.find({year:{$gte:fromYear, $lte:toYear}, ccoo:{$gte:fromCcoo, $lte:toCcoo}, sepe:{$gte:fromSepe, $lte:toSepe},
 					 gobesp:{$gte:fromGobesp, $lte:toGobesp}}).sort({aut_com:1}).skip(off).limit(l).exec((err, intcont)=>{
 				if(community!=null){
@@ -201,9 +201,18 @@ module.exports = function(app){
 				if(intcont.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
-					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+					res.send(JSON.stringify(intcont,null,2));
 				}	
 			});		
+		}else{
+			db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err,intcont)=>{
+				if(intcont.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify(intcont,null,2));
+				}
+
+			});
 		}
 	});
 	
@@ -241,7 +250,7 @@ module.exports = function(app){
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+					res.send(JSON.stringify(intcont,null,2));
 				}
 			});
 		}else{
@@ -253,7 +262,7 @@ module.exports = function(app){
 					intcont.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify((intcont.length==1)?intcont[0]:intcont,null,2));
+					res.send(JSON.stringify(intcont,null,2));
 				}
 			});
 		}
@@ -277,7 +286,7 @@ module.exports = function(app){
 					db.insert(newIntcont);
 					res.sendStatus(201,"CREATED");
 				}else{
-					res.sendStatus(400,"BAD REQUEST(RESOURCE ALREADY EXIST)");
+					res.sendStatus(409,"BAD REQUEST(RESOURCE ALREADY EXIST)");
 				}
 			});
 		}
