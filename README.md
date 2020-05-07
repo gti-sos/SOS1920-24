@@ -9,9 +9,9 @@
 </li>
 <li><p><strong>Project description</strong>: We will represent the correlation in Spain by autonomous community in 2018 between:</p>
 <ul>
-<li><a href="#/atc-stats">Average Tuition Cost</a></li>
+<li><a href="http://sos1920-24.herokuapp.com/#/atc-stats">Average Tuition Cost</a></li>
 <li><a href="http://sos1920-24.herokuapp.com/#/univreg-stats">Number of University Tuition</a></li>
-<li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
+<li><a href="http://sos1920-24.herokuapp.com/#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
 </ul>
 </li>
 <li><p><strong>Repository</strong>: <a href="https://github.com/gti-sos/SOS1920-24">gti-sos/SOS1920-24</a></p>
