@@ -17,9 +17,33 @@
 	import {
 		pop
 	} from "svelte-spa-router";
+	//variables para las busquedas
 
+	const BASE_API_URL = "/api/v2/atc-stats";
+
+
+	let aut_coms= [];
+	let years = [];
+	let currentAut_com = "-";
+	let currentYear = "";
+	let field="";
+	let value="";
+	let fromYear=2000;
+	let toYear=2040;
+	let fromEspce=0;
+	let toEspce=0;
+	let fromYaq=0;
+	let toYaq=0;
+	let fromObu=0;
+	let toObu=0;
+	let centinel=0;
+	//opciones de paginacion
+	let offset = 0;
+	let numberElementsPages = 5;
+	let currentPage = 1;
 	
-
+	let moreData = true;
+	
 	//cargar datos desde la API 
 	let atc = [];
 	let newAtc = {
@@ -30,49 +54,23 @@
 		obu:    0
 	};
 
-	//variables para las busquedas
-
-	let aut_coms= [];
-	let years = [];
-	let currentAut_com = "-";
-	let currentYear = "-";
-/**
-	let campo="";
-	let valor ="";
-	**/
-//opciones de paginacion
-	let numberElementsPages = 5;
-	let currentPage = 1;
-	let offset = 0;
-	let moreData = true;
-
 	onMount(getAtc);
-	onMount(getAutComsYears);
+	onMount(getAutComs);
 	
-	async function getAutComsYears() {
-        const res = await fetch("/api/v1/atc-stats");
- 
-        /* Getting the countries for the select */
+	async function getAutComs() {
+		const res = await fetch(BASE_API_URL);
+		
         if (res.ok) {
             const json = await res.json();
  
-            aut_coms = json.map((d) => {
-                    return d.aut_com;
-            });
-            /* Deleting duplicated countries */
-            aut_coms = Array.from(new Set(aut_coms)); 
-            
-            /* Getting the years for the select */
-            years = json.map((d) => {
-                    return d.year;
-            });
-            /* Deleting duplicated years */
-            years = Array.from(new Set(years)); 
- 
-            console.log("Counted " + aut_coms.length + " aut_coms and " + years.length + " years.");
+            aut_coms = json.map((i) => {
+                    return i.aut_com;
+			});
+			
+			aut_coms = Array.from(new Set(aut_coms));
  
         } else {
-			errorAlert=("Error interno al intentar obtener las comunidades autonomas y los años")
+			AlertInstructions("No se han podido encontrar los datos iniciales")
             console.log("ERROR!");
         }
     }
@@ -80,216 +78,201 @@
 	async function getAtc(){
 		console.log("Fetching atc");
 		//fetch es la solicitud a la API
-		const res = await fetch("/api/v1/atc-stats?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
-		const next = await fetch("/api/v1/atc-stats?offset=" + numberElementsPages * (offset + 1) + "&limit=" + numberElementsPages); 
-		if(res.ok && next.ok){
+		const res = await fetch(BASE_API_URL + "?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
+		if(res.ok){
 			console.log("Ok:");
 			//recogemos los datos json de la API
 			const json = await res.json();
-			const jsonNext = await next.json();
-			//lo cargamos dentro de la variable
 			atc = json;
 
-			if (jsonNext.length == 0) {
-                moreData = false;
+			if (atc.length<numberElementsPages) {
+               moreData = false;
             } else {
                 moreData = true;
             }
-
 			console.log("Received "+ atc.length + " data.");
+			centinel=0;
 		}else{
-			errorAlert=("Error interno al intentar obtener todos los elementos");
-			console.log("ERROR en get");
+			AlertInstructions("Error interno al intentar obtener todos los elementos");
+			console.log("ERROR");
 		}
+		
 	}
 
 	async function loadInitialAtc() {
         console.log("Loading initial atc stats data..."); 
-        const res = await fetch("/api/v1/atc-stats/loadInitialData").then(function (res) {
+        const res = await fetch(BASE_API_URL + "/loadInitialData").then(function (res) {
 			if (res.ok){
 				console.log("OK");
 
 				getAtc();
-				initialDataAlert();
+				AlertInstructions("realizado correctamente");
 				location.reload();
-			}else {
-				errorAlert=("Error al intentar borrar todos los elementos iniciales");
+			}else if(res.status==404) {
+				errorAlert("No se han podido encontrar los datos para borrar");
 				console.log("ERROR!");
 			}
 			
 		});
 	}
 	
-
-
 //funcion para insertar un elemento
-
-async function insertAtc() {
+	async function insertAtc() {
 		console.log("Inserting element atc...");
 		if (newAtc.aut_com == ""
 			|| newAtc.aut_com == null
 			|| newAtc.year == ""
 			|| newAtc.year == null) {
-			alert("Es obligatorio la comunidad autonoma y año");
+			errorAlert("Los datos no pueden ser nulos o vacios.")
 		} else {
-			const res = await fetch("/api/v1/atc-stats", {
+			console.log(newAtc);
+			const res = await fetch(BASE_API_URL, {
 				method: "POST",
 				body: JSON.stringify(newAtc),
 				headers: {
 					"Content-Type": "application/json"
 				}
 			}).then(function (res) {
-				/* we can update it each time we insert*/
 				if (res.ok){
 					getAtc();
-					insertAlert();
-				}else {
-					errorAlert("No se han podido insetar los elementos");
+					AlertInstructions("Exito al meter " + newAtc.aut_com + "/"+newAtc.year);
+					
+				}else{
+					errorAlert("Dato ya existente.")
 				}
+				
 			});
-		};
+		}
 	}
 
 //funciona el delete para eliminar un elemento en expecifico
 	async function deleteAtc(country, year) {
 		console.log("Deleting atc...");
-		const res = await fetch("/api/v1/atc-stats" + "/" + country + "/" + year, {
+		const res = await fetch(BASE_API_URL + "/" + country + "/" + year, {
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
 				getAtc();
-				getAutComsYears();
-				deleteAlert();
-			} else if (res.status==404){
-				errorAlert("Se ha intentado borrar un dato inexistente");
+				getAutComs();
+				AlertInstructions("Borrado correctamente el elemento" +country+"/"+year+" correctamente");
 			} else {
-				errorAlert("Error interno al intentar borrar un elemento concreto");
+				errorAlert("No se han podido encontrar los datos.");
 			}
 			
 		});
 	}
 //funcion delete para eliminar todo la base de datos
-async function deleteAtcs() {
+	async function deleteAtcs() {
 		console.log("Deleting base route atc...");
-		const res = await fetch("/api/v1/atc-stats/", {
+		const res = await fetch(BASE_API_URL +"/", {
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
 				currentPage = 1;
 				offset=0;
 				getAtc();
-				getAutComsYears();
-				deleteAllAlert();
+				getAutComs();
+				AlertInstructions("Borrado realizado corectamente");
 				location.reload();
 				
 			}else {
-				errorAlert=("Error al intentar borrar todos los elementos");
+				errorAlert("No se han podido encontrar los datos.");
 			}
 		});
 	}
 //funciones de busqueda
-
-async function searchYears(aut_com) {
-		console.log("Searching years in aut_com...");
-		const res = await fetch("/api/v1/atc-stats/" + aut_com)
-		if (res.ok) {
-			const json = await res.json();
-			atc = json;
-			atc.map((d) => {
-				return d.year;
-			});
-			console.log("Update years")
-		} else {
-			console.log("ERROR!")
-		}
-	}
-
-	async function search(aut_com, year) {
-		console.log("Searching data: " + aut_com + " and " + year);
+	
+async function search(field) {
+		var url = BASE_API_URL;
 		//miramos si los campos estan vacios
-		var url = "/api/v1/atc-stats";
-		if (aut_com != "-" && year != "-") {
-			url = url + "?community=" + aut_com + "&year=" + year;
-		} else if (aut_com != "-" && year == "-") {
-			url = url + "?community=" + aut_com;
-		} else if (aut_com == "-" && year != "-") {
-			url = url + "?year=" + year;
+		switch(field){
+			case "autcom":
+			console.log(url);
+			url = url + "?community="+currentAut_com;
+			console.log(url);
+			break;
+			case "year":
+			console.log(url);
+			url = url + "?year="+ currentYear;
+			console.log(url);
+			break;
+			case "rangeYear":
+			console.log(url);
+			url = url +"?fromYear="+ fromYear+"&toYear=" + toYear;
+			console.log(url);
+			break;
+			console.log(url);
+			case "espcestat":
+			url = url +"?fromEspce="+ fromEspce+"&toEspce=" + toEspce;
+			console.log(url);
+			break;
+			console.log(url);
+			case "yaqstat":
+			url = url +"?fromYaq="+ fromYaq+"&toYaq=" + toYaq;
+			console.log(url);
+			break;
+			case "obustat":
+			console.log(url);
+			url = url +"?fromObu="+ fromObu+"&toObu=" + toObu;
+			console.log(url);
+			break;
+			default:
+			break;
 		}
-		const res = await fetch(url);
+		const res = await fetch(url+"&offset="+numberElementsPages*offset+"&limit="+numberElementsPages);
 		if (res.ok) {
 			console.log("OK:");
 			const json = await res.json();
 			atc = json;
 			console.log("Found " + atc.length + "atc.");
-		} else {
-			errorAlert=("Error interno al intentar realizar la búsqueda");
-			console.log("ERROR!");
+			if(atc.length<numberElementsPages){
+				moreData=false;
+			}else{
+				moreData=true;
+			}
+			centinel=1;
+			///////////////////
+			AlertInstructions("Búsqueda realizada con éxito");
+			
+		} else if(res.status==404){
+			errorAlert("No se han encontrado datos");
+			console.log("ERROR ELEMENTO NO ENCONTRADO!");
+		}else{
+			errorAlert("Ha ocurrido un fallo inesperado");
+			console.log("ERROR INTERNO");
+		
 		}
+		
 	}
+
+	
 
 //funcioines adicionales
 
-	function addOffset(increment) {
-		offset += increment;
-		currentPage += increment;
+function incOffset(v) {
+		offset += v;
+		currentPage += v;
 		getAtc();
 	}
 
-	function insertAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-success ";
-		alert_element.innerHTML = "<strong>¡Dato insertado!</strong> El dato ha sido insertado correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
+	function incOffsetSearch(v) {
+		offset += v;
+		currentPage += v;
+		search(field);
 	}
-	function deleteAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡Dato borrado!</strong> El dato ha sido borrado correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-	function deleteAllAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡Datos borrados!</strong> Todos los datos han sido borrados correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-	function initialDataAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-warning ";
-		alert_element.innerHTML = "<strong>Datos iniciales!</strong> ¡ Se han generado los datos iniciales !";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
+
 	function errorAlert(error){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
+		var alert_Er = document.getElementById("div_alert");
+		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_Er.className = " alert alert dismissible in alert-danger ";
+		alert_Er.innerHTML = "ERROR. La instruccion no se a procesado correctamente " + error;
 	}
-    function clearAlert(){
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "display: none; ";
-		alert_element.className = "alert alert-dismissible in";
-		alert_element.innerHTML = "";
+
+	function AlertInstructions(msg){
+		var alert_Er = document.getElementById("div_alert");
+		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_Er.className = " alert alert dismissible in alert-info ";
+		alert_Er.innerHTML = "La instruccion se a procesado correctamente " + msg;
 	}
 
 </script>
@@ -299,10 +282,23 @@ async function searchYears(aut_com) {
 	{#await atc} 
 		Loading atc
 	{:then atc}
-	<!--select para buscar por comunidad autonoma-->
 
+<FormGroup> 
+        <Label for="selectAut_com">Elige Dato para la búsqueda</Label>
+        <Input type="select" name="selectField" id="selectField" bind:value="{field}">
+			<option value=vacio></option>
+			<option value="autcom">Comunidad Autonoma</option>
+			<option value="year">Año</option>
+			<option value="rangeYear">Rango de Años</option>
+			<option value="espcestat">Estadisticas ESPCE</option>
+			<option value="yaqstat">Estadisticas YAQ</option>
+			<option value="obustat">Estadisticas OBU</option>
+        </Input>
+</FormGroup>
+
+{#if field == "autcom"}
 	<FormGroup> 
-        <Label for="selectAut_com">Búsqueda por comunidad autonoma </Label>
+        <Label>Búsqueda por comunidad autonoma </Label>
         <Input type="select" name="selectAut_com" id="selectAut_com" bind:value="{currentAut_com}">
             {#each aut_coms as aut_com}
             <option>{aut_com}</option>
@@ -310,20 +306,59 @@ async function searchYears(aut_com) {
 			<option>-</option>
         </Input>
 	</FormGroup>
+	{/if}
 
+	{#if field == "year"}
 	<FormGroup>
-		<Label for="selectYear">Año</Label>
-		<Input type="select" name="selectYear" id="selectYear" bind:value = "{currentYear}">
-			{#each years as year}
-			<option>{year}</option>
-			{/each}
-			<option>-</option>
+		<Label>Año</Label>
+		<Input type="text" name="simpleYear" id="simpleYear" bind:value = "{currentYear}">
 		</Input>
 	</FormGroup>
+	{/if}
+	{#if field == "rangeYear"}
+	<FormGroup>
+		<Label>Año Inicial</Label>
+		<Input type="text" name="fromYear" id="fromYear" bind:value = "{fromYear}">
+		</Input>
+		<Label>Año Final</Label>
+		<Input type="text" name="toYear" id="toYear" bind:value = "{toYear}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "espcestat"}
+	<FormGroup>
+		<Label>ESPCE Inicial</Label>
+		<Input type="text" name="fromEspce" id="fromEspce" bind:value = "{fromEspce}">
+		</Input>
+		<Label>ESPCE Final</Label>
+		<Input type="text" name="toEspce" id="toEspce" bind:value = "{toEspce}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "yaqstat"}
+	<FormGroup>
+		<Label>YAQ Inicial</Label>
+		<Input type="text" name="fromYaq" id="fromYaq" bind:value = "{fromYaq}">
+		</Input>
+		<Label>YAQ Final</Label>
+		<Input type="text" name="toYaq" id="toYaq" bind:value = "{toYaq}">
+		</Input>
+	</FormGroup>
+	{/if}
+	{#if field == "obustat"}
+	<FormGroup>
+		<Label>OBU Inicial</Label>
+		<Input type="text" name="fromObu" id="fromObu" bind:value = "{fromObu}">
+		</Input>
+		<Label>OBU Final</Label>
+		<Input type="text" name="toObu" id="toObu" bind:value = "{toObu}">
+		</Input>
+	</FormGroup>
+	{/if}
 
-<Button outline color="success" on:click="{search(currentAut_com, currentYear)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
-
-			<Table bordered> 
+	<Button outline color="success" on:click="{search(field)}" class="button-search" > <i class="fas fa-search"></i> Buscar </Button>
+			
+	<Table bordered> 
 				<thead>
 					<tr>
 						<th>Comunidad autonoma </th>
@@ -358,16 +393,49 @@ async function searchYears(aut_com) {
 		</Table>
 	{/await}
 
+	{#if atc.length>0}
+	{#if centinel==0 || field =='vacio'}
 	<Pagination style="float:right;" ariaLabel="Cambiar de página">
     
 		
         <PaginationItem class = "{currentPage === 1 ? 'disabled' : ''}">
-          <PaginationLink previous href="#/atc-stats" on:click="{() => addOffset(-1)}" />
+          <PaginationLink previous href="#/atc-stats" on:click="{() => incOffset(-1)}" />
         </PaginationItem>
 		
 		{#if currentPage != 1}
         <PaginationItem>
-            <PaginationLink href="#/atc-stats" on:click="{() => addOffset(-1)}" >{currentPage - 1}</PaginationLink>
+            <PaginationLink href="#/atc-stats" on:click="{() => incOffset(-1)}" >{currentPage - 1}</PaginationLink>
+		</PaginationItem>
+		{/if}
+		
+        <PaginationItem active>
+            <PaginationLink href="#/atc-stats" >{currentPage}</PaginationLink>
+		</PaginationItem>
+
+		<!-- more elements...-->
+		{#if moreData}
+        <PaginationItem >
+            <PaginationLink href="#/atc-stats" on:click="{() => incOffset(1)}">{currentPage + 1}</PaginationLink>
+         </PaginationItem>
+		 {/if}
+
+        <PaginationItem class = "{moreData ? '' : 'disabled'}">
+          <PaginationLink next href="#/atc-stats" on:click="{() => incOffset(1)}"/>
+        </PaginationItem>
+      
+	</Pagination>
+	{/if}
+	{#if centinel==1 && field!='vacio'}
+	<Pagination style="float:right;" ariaLabel="Cambiar de página">
+    
+		
+        <PaginationItem class = "{currentPage === 1 ? 'disabled' : ''}">
+          <PaginationLink previous href="#/atc-stats" on:click="{() => incOffsetSearch(-1)}" />
+        </PaginationItem>
+		
+		{#if currentPage != 1}
+        <PaginationItem>
+            <PaginationLink href="#/atc-stats" on:click="{() => incOffsetSearch(-1)}" >{currentPage - 1}</PaginationLink>
 		</PaginationItem>
 		{/if}
 
@@ -378,15 +446,17 @@ async function searchYears(aut_com) {
 		<!-- more elements...-->
 		{#if moreData}
         <PaginationItem >
-            <PaginationLink href="#/atc-stats" on:click="{() => addOffset(1)}">{currentPage + 1}</PaginationLink>
+            <PaginationLink href="#/atc-stats" on:click="{() => incOffsetSearch(1)}">{currentPage + 1}</PaginationLink>
          </PaginationItem>
 		 {/if}
 
         <PaginationItem class = "{moreData ? '' : 'disabled'}">
-          <PaginationLink next href="#/atc-stats" on:click="{() => addOffset(1)}"/>
+          <PaginationLink next href="#/atc-stats" on:click="{() => incOffsetSearch(1)}"/>
         </PaginationItem>
       
 	</Pagination>
+	{/if}
+	{/if}
 	
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>
