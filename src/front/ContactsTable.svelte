@@ -11,10 +11,10 @@
 	let atc = [];
 	let newAtc = {
 		aut_com: "",
-		year:    "",
-		espce:   "",
-		yaq:     "",
-		obu:    ""
+		year:    0,
+		espce:   0.0,
+		yaq:     0,
+		obu:    0
 	};
 
 	onMount(getAtc);
@@ -36,6 +36,9 @@
 		}
 	}
 
+
+
+/**
 	async function insertAtc(){
 
 		console.log("Inserting atc"+JSON.stringify(newAtc));
@@ -50,8 +53,41 @@
         }).then(function(res){
 			//para actualizar los valores de la tabla
             getAtc();
-        });
+		});
+		
 	}
+
+**/
+
+async function insertAtc(){
+		const res = await fetch("/api/v1/atc-stats", {
+			method: "POST", 
+			body: JSON.stringify(newAtc),
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).then(function(res){
+			getAtc();
+		});
+
+	}
+
+
+
+
+//funciona el delete
+	async function deleteAtc(aut_com){
+		console.log("Delete atc");
+		const res = await fetch("/api/v1/atc-stats/" + aut_com , {
+			method: "DELETE",
+        }).then(function(res){
+			//para actualizar los valores de la tabla
+            getAtc();
+        });
+
+	}
+
+
 </script>
 
 <main>
@@ -86,7 +122,8 @@
 						<td>{e.espce} </td>
 						<td>{e.yaq}   </td>
 						<td>{e.obu}   </td>
-						<td> <Button outline color="danger"> Delete </Button> </td>
+						<td> <Button outline color="danger"  on:click="{deleteAtc(e.aut_com)}" 
+							> Delete </Button> </td>
 					</tr>
 					{/each}
 				</tbody>

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //svelte main file
 import App from './App.svelte';
 
@@ -9,6 +10,9 @@ const app = new App({
 
 	}
 =======
+=======
+//NO TOCAR
+>>>>>>> 308bea3... fata que funciones el insert y edit
 //este es siempre igual
 import App from './App.svelte';//primer componente
 
