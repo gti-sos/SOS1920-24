@@ -123,8 +123,6 @@ var atc = [{
 
 	
 //GET-INITIALDATA
-	
-	
 app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 	//depurar en consola que es lo que a ejercutado
 	console.log("New GET .../loadInitialData");
@@ -144,7 +142,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 //GET-BASEROUTE /api/v1/atc-stats
 	
 	app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
-	console.log("New GET .../atc-stats/baseroute");
+	//console.log("New GET .../atc-stats/baseroute");
 		
 		var q = req.query; //Registering query
 		var off= parseInt(q.offset);  //extracting offset from query
@@ -197,7 +195,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 			});
 			
 			
-		}else{
+		}else if (simpleYear == null){
 			console.log("Es un rango");
 			
 			db.find({year:{$gte:fromYear, $lte:toYear}
@@ -227,6 +225,29 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					res.send(JSON.stringify(atc,null,2));
 				}	
 			});		
+		}else{
+
+			db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err,atc)=>{
+				if(community!=null){
+					var filteredByCommunity = atc.filter((c)=>{
+						return (c.aut_com == community);
+					});
+					atc=filteredByCommunity;
+				}
+				if(simpleYear!=null){
+					var filteredByYear = atc.filter((c)=>{
+						return (c.year == simpleYear);
+					});
+					atc=filteredByYear;
+				}
+				if(atc.length==0){
+					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
+				}else{
+					res.send(JSON.stringify(atc,null,2));
+				}
+
+			});
+
 		}
 	});
 	
@@ -276,7 +297,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					atc.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));/////////////////////////////CAMBIAR
+					res.send(JSON.stringify(atc,null,2));/////////////////////////////CAMBIAR
 				}
 			});
 		}else{
@@ -289,7 +310,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					atc.forEach((i)=>{
 						delete i._id; //borrar id
 					});
-					res.send(JSON.stringify((atc.length==1)?atc[0]:atc,null,2));
+					res.send(JSON.stringify(atc,null,2));
 				}
 			});
 		}
@@ -301,7 +322,16 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 	//POST VS RESOURCE LIST
 	app.post(BASE_API_URL+"/atc-stats",(req,res)=>{
 		console.log("New POST .../atc-stats");
-		var newAtc = req.body;
+
+		var newAtc = {
+			aut_com: req.body.aut_com,
+			year:  parseInt(req.body.year),
+			espce: parseFloat(req.body.espce),
+			yaq:   parseInt(req.body.yaq),
+			obu:   parseInt(req.body.obu)
+			
+		};
+		
 		var communityProvided = newAtc.aut_com;
 		var yearProvided = newAtc.year;
 	
@@ -316,7 +346,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 					db.insert(newAtc);
 					res.sendStatus(201,"CREATED");
 				}else{
-					res.sendStatus(400,"BAD REQUEST(RESOURCE ALREADY EXIST)");
+					res.sendStatus(409,"BAD REQUEST(RESOURCE ALREADY EXIST)");
 				}
 			});
 		}
@@ -409,22 +439,25 @@ app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
 		console.log("New DELETE .../cualquierParametro");
 		var params = req.params;
 		var paramProvided = params.paramProvided;
-		if(parseInt(paramProvided)%2000<=40){
+		if(isNaN(paramProvided)){
 			
 			//DELETING BY YEAR PROVIDED
-			db.remove({year:parseInt(paramProvided)},{multi:true},(err,numRemoved)=>{
+			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{//puesto el multi :true
 				if(numRemoved==0){
-					res.sendStatus(404, "COLLECTION NOT FOUND FOR DELETING");
+					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND FOR DELETE");
 				}else{
 					res.sendStatus(200, "COLLECTION DELETED");
 				}
 			});
+			
 		}else{
+
 			//DELETING BY AUTONOMOUS COMMUNITY PROVIDED
 			//////////////////////////////////{multi:true}
-			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{//puesto el multi :true
+			
+			db.remove({year:parseInt(paramProvided)},{multi:true},(err,numRemoved)=>{
 				if(numRemoved==0){
-					res.sendStatus(404, "COLLECTION OR RESOURCE NOT FOUND FOR DELETE");
+					res.sendStatus(404, "COLLECTION NOT FOUND FOR DELETING");
 				}else{
 					res.sendStatus(200, "COLLECTION DELETED");
 				}

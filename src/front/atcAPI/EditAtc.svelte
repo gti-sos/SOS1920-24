@@ -7,26 +7,26 @@
 
     export let params = {};
     let atc = {};
-    let updatedAut_com = "";
-    let updatedYear = 0;
-    let updatedEspce=0.0;
-    let updatedYaq=0;
-    let updatedObu=0;
+    let updatedAut_com = params.aut_com;
+    let updatedYear = params.year;
+    let updatedEspce = parseFloat(params.espce);
+    let updatedYaq=parseInt(params.yaq);
+    let updatedObu=parseInt(params.obu);
 
     onMount(getAtc);
 
     async function getAtc() {
         console.log("Fetching atc...");
-        const res = await fetch("/api/v1/atc-stats/" + params.aut_com + "/" + params.year);
+        const res = await fetch("/api/v2/atc-stats/" + params.aut_com + "/" + params.year);
         if (res.ok) {
             console.log("Ok:");
             const json = await res.json();
             atc = json;
             updatedAut_com = atc.aut_com;
             updatedYear = atc.year;
-            updatedEspce = atc["updated-Espce"];
-            updatedYaq = atc["updated-Yaq"];
-            updatedObu = atc["updated-Obu"];
+            updatedEspce = atc.espce;
+            updatedYaq = atc.yaq;
+            updatedObu = atc.obu;
             console.log("Received contact.");
         } else {
             console.log("ERROR!");
@@ -35,14 +35,14 @@
 
     async function updateAtc() {
         console.log("Updating atc...");
-        const res = await fetch("/api/v1/atc-stats/" + params.aut_com + "/" + params.year, {
+        const res = await fetch("/api/v2/atc-stats/" + params.aut_com + "/" + params.year, {
             method: "PUT",
             body: JSON.stringify({
                 aut_com: params.aut_com,
                 year: parseInt(params.year),
-                "updated-Espce": updatedEspce,
-                "updated-Yaq": updatedYaq,
-                "updated-Obu": updatedObu
+                espce: updatedEspce,
+                yaq: updatedYaq,
+                obu: updatedObu
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -50,9 +50,10 @@
         }).then(function (res) {
             if (res.ok) {
                 getAtc();
-                updateAlert();
+                AlertInstructions();
+            
             } else if (res.status == 404){
-                errorAlert=("Se ha intentado borrar un elemento inexistente.");
+                errorAlert=("No se han podido encontrar los datos.");
             }else {
                 errorAlert=("");
             }
@@ -60,41 +61,30 @@
         });
     }
 
-    function errorAlert(error){
-		clearAlert();
+	function errorAlert(error){
 		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
+		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
 		alert_element.className = " alert alert dismissible in alert-danger ";
-		alert_element.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-    }
-    
-    function updateAlert(){
-		clearAlert();
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
-		alert_element.className = " alert alert dismissible in alert-info ";
-		alert_element.innerHTML = "<strong>¡Datos actualizado!</strong> El dato se ha actualizado correctamente!";
-		setTimeout(() => {
-			clearAlert();
-		}, 3000);
-	}
-    function clearAlert(){
-		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "display: none; ";
-		alert_element.className = "alert alert-dismissible in";
-		alert_element.innerHTML = "";
+        alert_element.innerHTML = "ERROR. La instruccion no se a procesado correctamente " + error;
+        setTimeout(() => {
+			
+		}, 10000);
 	}
 
+	function AlertInstructions(){
+		var alert_element = document.getElementById("div_alert");
+		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_element.className = " alert alert dismissible in alert-info ";
+        alert_element.innerHTML = "La instruccion se a procesado correctamente ";
+        setTimeout(() => {
+			
+		}, 10000);
+	}
 
 </script>
 
 <main>
-
-    
-    <div role ="alert" id ="div_alert" style = "display: none;">
+    <div role ="alert" id ="div_alert" style = "background-color:rebeccapurple;">
 	</div>
     <h2  style="text-align: center;"><small> Editar datos: </small></h2>
     <h2  style="text-align: center; margin-bottom: 2%;"><small><strong>{params.aut_com}</strong> - <strong>{params.year}</strong></small></h2>
@@ -116,9 +106,9 @@
                 <tr>
                     <td>{updatedAut_com}</td>
                     <td>{updatedYear}</td>
-                    <td><Input type="number" placeholder="0.0" step="0.01" min="0"  bind:value="{updatedEspce}"/></td>
-                    <td><Input type="number"                                        bind:value="{updatedYaq}"/></td>
-                    <td><Input type="number"                                        bind:value="{updatedObu}"/></td>
+                    <td><Input type="number" placeholder="0.0" step="0.01" min="0"  bind:value={updatedEspce}/></td>
+                    <td><Input type="number"                                        bind:value={updatedYaq}/></td>
+                    <td><Input type="number"                                        bind:value={updatedObu}/></td>
                     <td> <Button outline  color="primary" on:click={updateAtc}> <i class="fas fa-pencil-alt"></i> Actualizar</Button> </td>
                 </tr>
         </tbody>
