@@ -30,26 +30,18 @@
 	import Atc from './atcAPI/App.svelte';
 	import EditAtc from './atcAPI/EditAtc.svelte';
 
-
-
-
 	import NotFound from './NotFound.svelte';
 	
-
 	const routes = {
 		"/":Home,
-		
-		"/atc": Atc,
+		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,
-
-
 		"*" : NotFound
 	}
 </script>
 
 <main>
-
-	<h1>Manager API</h1>
+	<h1 class="display-2" style="text-align:center;" >SOS1920-24</h1>
 	<Router {routes}/>
 
 </main>

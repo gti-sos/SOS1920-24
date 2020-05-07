@@ -40,11 +40,15 @@
 </ul>
 </main>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <a href="#/intcont-stats">IntcontAPI</a>
 
 
 =======
 <a href="#/atc">GUI ATC</a>
+=======
+<a href="#/atc-stats">GUI ATC</a>
+>>>>>>> 7572f5b... esqueleto
 <br> <br/>
 <a href="#/gui2">GUI del recurso 2</a>
 >>>>>>> f20982d... poco a poco

@@ -6,9 +6,7 @@
 </script>
 
 <main>
-
-	<h1>Manager Atc</h1>
-
+	<h1 class="display-5" style="text-align:center;" >Administrador de coste medio de matrícula univesitaria</h1>
 	<AtcTable />
 
 </main>
