@@ -10,7 +10,7 @@
 <li><p><strong>Project description</strong>: We will represent the correlation in Spain by autonomous community in 2018 between:</p>
 <ul>
 <li><a href="#/atc-stats">Average Tuition Cost</a></li>
-<li><a href="#/univreg-stats">Number of University Tuition</a></li>
+<li><a href="https://sos1920-24.herokuapp.com/api/v2/#/univreg-stats">Number of University Tuition</a></li>
 <li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
 </ul>
 </li>
@@ -27,9 +27,9 @@
 	
 <li><a href="https://documenter.getpostman.com/view/10637391/SzYUXfiF">https://documenter.getpostman.com/view/10637391/SzYUXfiF (Postman test)</a> (developed by <a href="https://github.com/Nerk1">Miguel Ángel Toranzo García</a>)</li>
 	
-	<li><a href="https://documenter.getpostman.com/view/9628258/SzYUXzjh">https://documenter.getpostman.com/view/9628258/SzYUXzjh (Postman test)</a> (developed by <a href="https://github.com/AlvaroMaya">Alvaro Maya Cano</a>)</li>
+<li><a href="https://documenter.getpostman.com/view/9628258/SzYUXzjh">https://documenter.getpostman.com/view/9628258/SzYUXzjh (Postman test)</a> (developed by <a href="https://github.com/AlvaroMaya">Alvaro Maya Cano</a>)</li>
 	
-	<li><a href="https://documenter.getpostman.com/view/10642365/SzYT51yd">https://documenter.getpostman.com/view/10642365/SzYT51yd (Postman test)</a> (developed by <a href="https://github.com/vicpaltor">Victor Manuel Palos Torres</a>)</li>
+<li><a href="https://documenter.getpostman.com/view/10642365/SzYT51yd">https://documenter.getpostman.com/view/10642365/SzYT51yd (Postman test)</a> (developed by <a href="https://github.com/vicpaltor">Victor Manuel Palos Torres</a>)</li>
 </ul>
 </li>
 </ul>
