@@ -51,6 +51,7 @@
 >>>>>>> c7df031... init
 =======
     "path": "^0.12.7",
+    "svelte-spa-router": "^2.1.0",
     "sveltestrap": "^3.3.3"
 >>>>>>> c5fcbaa... falta que funciones los botones
   }

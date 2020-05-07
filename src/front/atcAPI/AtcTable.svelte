@@ -36,29 +36,6 @@
 		}
 	}
 
-
-
-/**
-	async function insertAtc(){
-
-		console.log("Inserting atc"+JSON.stringify(newAtc));
-		//fetch es la solicitud a la API
-		
-		const res = await fetch("/api/v1/atc-stats", {
-			method: "POST",
-			body: JSON.stringify(newAtc),
-			headers: {
-				"Content-Type": "application/json"
-			}
-        }).then(function(res){
-			//para actualizar los valores de la tabla
-            getAtc();
-		});
-		
-	}
-
-**/
-
 async function insertAtc(){
 		const res = await fetch("/api/v1/atc-stats", {
 			method: "POST", 
@@ -72,9 +49,6 @@ async function insertAtc(){
 
 	}
 
-
-
-
 //funciona el delete
 	async function deleteAtc(aut_com){
 		console.log("Delete atc");
@@ -86,7 +60,6 @@ async function insertAtc(){
         });
 
 	}
-
 
 </script>
 
@@ -111,19 +84,17 @@ async function insertAtc(){
 						<td><input bind:value = "{newAtc.espce}">   </td>
 						<td><input bind:value = "{newAtc.yaq}">     </td>
 						<td><input bind:value = "{newAtc.obu}">     </td>
-						<td> <Button outline color="primary"  on:click={insertAtc} 
-							> Insert </Button> </td>
+						<td> <Button outline color="primary"  on:click={insertAtc} > Insertar </Button> </td>
 					</tr>
 					<!--para iterar con svelte-->
 					{#each atc as e}
 					<tr> 
-						<td>{e.aut_com} </td>
+						<td> <a href="#/atc/{e.aut_com}" > {e.aut_com} </a></td>
 						<td>{e.year}  </td>
 						<td>{e.espce} </td>
 						<td>{e.yaq}   </td>
 						<td>{e.obu}   </td>
-						<td> <Button outline color="danger"  on:click="{deleteAtc(e.aut_com)}" 
-							> Delete </Button> </td>
+						<td> <Button outline color="danger"  on:click="{deleteAtc(e.aut_com)}" > Eliminar </Button> </td>
 					</tr>
 					{/each}
 				</tbody>
