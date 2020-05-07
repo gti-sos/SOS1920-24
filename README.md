@@ -10,7 +10,7 @@
 <li><p><strong>Project description</strong>: We will represent the correlation in Spain by autonomous community in 2018 between:</p>
 <ul>
 <li><a href="#/atc-stats">Average Tuition Cost</a></li>
-<li><a href="https://sos1920-24.herokuapp.com/api/v2/#/univreg-stats">Number of University Tuition</a></li>
+<li><a href="http://localhost:4444/#/univreg-stats">Number of University Tuition</a></li>
 <li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
 </ul>
 </li>
