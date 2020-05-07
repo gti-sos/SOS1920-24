@@ -1,4 +1,5 @@
 node_modules
+<<<<<<< HEAD
 svelte-sample
 goorm.manifest
 back/intcontAPI/v1/intcont.db
@@ -7,3 +8,11 @@ back/univregAPI/v1/univregs.db
 back/univregAPI/v1/univregs.db
 back/atcAPI/v1/atc.db
 back/atcAPI/v2/atc.db
+=======
+f01/node_modules
+goorm.manifest
+/intcontAPI/intcont.db
+/univregAPI/univregs.db
+/atcAPI/atc.db
+/public/build/
+>>>>>>> c7df031... init

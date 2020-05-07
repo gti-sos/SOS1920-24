@@ -7,7 +7,13 @@ import { terser } from 'rollup-plugin-terser';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
+<<<<<<< HEAD
 	input: 'src/front/index.js',
+=======
+	//este es lo que se va ha iniciar una vez se ejecute el programa se va a src/main.js
+	input: 'src/fromt/index.js',
+	/**y guarda toda la informacion en un fichero js => bundle.js**/
+>>>>>>> c7df031... init
 	output: {
 		sourcemap: true,
 		format: 'iife',
@@ -21,6 +27,10 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
 			css: css => {
+<<<<<<< HEAD
+=======
+				/**y esto guarda toda la informacion css en un fichero css => bundle.css**/
+>>>>>>> c7df031... init
 				css.write('public/build/bundle.css');
 			}
 		}),

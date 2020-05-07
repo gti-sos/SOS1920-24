@@ -4,6 +4,7 @@ const bodyParser = require("body-parser"); //INCLUDING BODY-PARSER
 const path = require("path");
 
 
+<<<<<<< HEAD
 //const atcAPI = require(path.join(__dirname ,"./src/back/atcAPI"));
 const intcontAPI = require(path.join(__dirname, "./src/back/intcontAPI/v1"));
 const intcontAPI2 = require(path.join(__dirname, "./src/back/intcontAPI/v2"));
@@ -11,6 +12,14 @@ const intcontAPI2 = require(path.join(__dirname, "./src/back/intcontAPI/v2"));
 
 
 const port = process.env.PORT || 4444; //HTTP CONNECTION MANAGING
+=======
+const atcAPI = require(path.join(__dirname ,"atcAPI"));
+const intcontAPI = require(path.join(__dirname, "intcontAPI"));
+const univregAPI = require(path.join(__dirname, "univregAPI"));
+
+
+const port = process.env.PORT || 12345; //HTTP CONNECTION MANAGING
+>>>>>>> c7df031... init
 
 const app = express(); //CALLING EXPRESS
 
@@ -18,10 +27,16 @@ app.use(bodyParser.json());
 app.use("/",express.static("./public")); //ROOT DIRECTORY
 
 
+<<<<<<< HEAD
 //atcAPI(app);
 intcontAPI(app);
 intcontAPI2(app);
 //univregAPI(app); 
+=======
+atcAPI(app);
+intcontAPI(app);
+univregAPI(app); 
+>>>>>>> c7df031... init
 
 
 app.listen(port, ()=>{
@@ -29,3 +44,9 @@ app.listen(port, ()=>{
 });
 
 console.log("Starting server...");
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> c7df031... init
