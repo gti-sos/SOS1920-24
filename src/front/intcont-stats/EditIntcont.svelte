@@ -40,7 +40,7 @@
    async function updateIntcont(){
     console.log("Updating intcont"+JSON.stringify(params.aut_com));
 		//fetch es la solicitud a la API
-		const res = await fetch("/api/v1/intcont-stats/"+params.aut_com+"/"+params.year, {
+		const res = await fetch("/api/v2/intcont-stats/"+params.aut_com+"/"+params.year, {
 			method: "PUT",
 			body: JSON.stringify({
                 aut_com : params.aut_com,

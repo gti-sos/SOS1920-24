@@ -47,12 +47,13 @@
 		"sepe":     0,
 		"gobesp":    0.0
 	};
+
 	onMount(getIntcont);
 	onMount(getAutComs);
 
 	
 	async function getAutComs() {
-        const res = await fetch("/api/v1/intcont-stats");
+        const res = await fetch("/api/v2/intcont-stats");
  
         /* Getting the countries for the select */
         if (res.ok) {
@@ -72,7 +73,7 @@
 	async function getIntcont(){
 		console.log("Fetching intcont");
 		//fetch es la solicitud a la API
-		const res = await fetch("/api/v1/intcont-stats?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages); 
+		const res = await fetch("/api/v2/intcont-stats?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages); 
 		if(res.ok){
 			console.log("Ok:");
 			//recogemos los datos json de la API
@@ -95,11 +96,10 @@
 
 	async function loadInitialIntcont() {
         console.log("Loading initial intcont stats data..."); 
-        const res = await fetch("/api/v1/intcont-stats/loadInitialData").then(function(res) {
+        const res = await fetch("/api/v2/intcont-stats/loadInitialData").then(function(res) {
 			if (res.ok){
 				console.log("OK");
 				getIntcont();
-				deleteAllAlerts();
 				InstructionAlert("Carga de datos realizada correctamente.");
 				location.reload();
 			}else if(res.status==404){
@@ -118,7 +118,7 @@
 			|| newIntcont.year == null) {
 			errorAlert("Es obligatorio el campo País y año");
 		} else {
-			const res = await fetch("/api/v1/intcont-stats", {
+			const res = await fetch("/api/v2/intcont-stats", {
 				method: "POST",
 				body: JSON.stringify(newIntcont),
 				headers: {
@@ -140,13 +140,12 @@
 
 	async function deleteIntcont(autcom, year) {
 		console.log("Deleting Intcont...");
-		const res = await fetch("/api/v1/intcont-stats" + "/" + autcom + "/" + year, {
+		const res = await fetch("/api/v2/intcont-stats" + "/" + autcom + "/" + year, {
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
 				getIntcont();
 				getAutComs();
-				deleteAllAlert();
 				InstructionAlert("Borrado elemento "+autcom+"/"+year+" Correctamente");
 			} else {
 				errorAlert("Error interno al intentar borrar un elemento concreto");
@@ -156,7 +155,7 @@
 	}
 	async function deleteIntconts() {
 		console.log("Deleting base route intcont...");
-		const res = await fetch("/api/v1/intcont-stats/", {
+		const res = await fetch("/api/v2/intcont-stats/", {
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
@@ -164,7 +163,6 @@
 				offset=0;
 				getIntcont();
 				getAutComs();
-				deleteAllAlert();
 				InstructionAlert("Borrado realizado con éxito");
 				location.reload();
 				
@@ -174,7 +172,7 @@
 		});
 	}
 	async function search(field) {
-		var url = "/api/v1/intcont-stats";
+		var url = "/api/v2/intcont-stats";
 		//miramos si los campos estan vacios
 		switch(field){
 			case "autcom":
@@ -261,6 +259,7 @@
 		alertEr.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
 		
 	}
+	
     
 
 	

@@ -3,7 +3,7 @@ module.exports = function(app){
 	const dataStore= require("nedb");
 	const path = require("path");
 	const dbFileName= path.join(__dirname, "intcont.db");
-	const BASE_API_URL= "/api/v1"; //API BASE PATH
+	const BASE_API_URL= "/api/v2"; //API BASE PATH
 	const db = new dataStore({
 				filename: dbFileName,
 				autoload: true
@@ -18,6 +18,7 @@ module.exports = function(app){
 	*/
 
 	//---------------------------------------------------------------------------
+	
 	
 	
 	var initialIntcont =[{
@@ -123,6 +124,9 @@ module.exports = function(app){
 		sepe: 449,
 		gobesp: 4653.0
 	}];
+	
+	db.remove({}, {multi:true});
+	db.insert(initialIntcont);
 	
 
 
