@@ -25,10 +25,14 @@
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.1.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "svelte": "^3.21.0"
 =======
     "svelte": "^3.0.0"
 >>>>>>> c7df031... init
+=======
+    "svelte": "^3.21.0"
+>>>>>>> c5fcbaa... falta que funciones los botones
   },
   "author": "",
   "license": "ISC",
@@ -37,6 +41,7 @@
     "express": "^4.17.1",
     "nedb": "^1.8.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "response-time": "^2.3.2",
     "svelte": "^3.22.1",
     "svelte-spa-router": "^2.1.0",
@@ -44,5 +49,9 @@
 =======
     "path": "^0.12.7"
 >>>>>>> c7df031... init
+=======
+    "path": "^0.12.7",
+    "sveltestrap": "^3.3.3"
+>>>>>>> c5fcbaa... falta que funciones los botones
   }
 }
