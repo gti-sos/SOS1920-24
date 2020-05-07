@@ -9,18 +9,18 @@
 </li>
 <li><p><strong>Project description</strong>: We will represent the correlation in Spain by autonomous community in 2018 between:</p>
 <ul>
-<li>Average Tuition Cost</li>
-<li>Number of University Tuition</li>
-<li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a>
+<li><a href="#/atc-stats">Average Tuition Cost</a></li>
+<li><a href="#/univreg-stats">Number of University Tuition</a></li>
+<li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
 </ul>
 </li>
 <li><p><strong>Repository</strong>: <a href="https://github.com/gti-sos/SOS1920-24">gti-sos/SOS1920-24</a></p>
 </li>
 <li><strong>URL</strong>: <a href="http://sos1920-24.herokuapp.com">http://sos1920-24.herokuapp.com</a></li>
-<li><strong>APIs</strong>:<ul>
-<li><a href="https://sos1920-24.herokuapp.com/api/v1/intcont-stats">https://sos1920-24.herokuapp.com/api/v1/intcont-stats</a> (developed by <a href="https://github.com/Nerk1">Miguel Ángel Toranzo García</a>)</li>
-<li><a href="https://sos1920-24.herokuapp.com/api/v1/univregs-stats">https://sos1920-24.herokuapp.com/api/v1/univregs-stats</a> (developed by <a href="https://github.com/AlvaroMaya">Alvaro Maya Cano</a>)</li>
-<li><a href="https://sos1920-24.herokuapp.com/api/v1/atc-stats">https://sos1920-24.herokuapp.com/api/v1/atc-stats</a> (developed by <a href="https://github.com/vicpaltor">Victor Manuel Palos Torres</a>)</li>
+<li><strong>APIs HEROKU V2</strong>:<ul>
+<li><a href="https://sos1920-24.herokuapp.com/api/v2/intcont-stats">https://sos1920-24.herokuapp.com/api/v2/intcont-stats</a> (developed by <a href="https://github.com/Nerk1">Miguel Ángel Toranzo García</a>)</li>
+<li><a href="https://sos1920-24.herokuapp.com/api/v2/univregs-stats">https://sos1920-24.herokuapp.com/api/v2/univregs-stats</a> (developed by <a href="https://github.com/AlvaroMaya">Alvaro Maya Cano</a>)</li>
+<li><a href="https://sos1920-24.herokuapp.com/api/v2/atc-stats">https://sos1920-24.herokuapp.com/api/v2/atc-stats</a> (developed by <a href="https://github.com/vicpaltor">Victor Manuel Palos Torres</a>)</li>
 	</ul>
 </li>
 <li><strong>POSTMAN</strong>:<ul>
@@ -34,6 +34,6 @@
 </li>
 </ul>
 </main>
-<a href="#/intcont-stats">IntcontAPI</a>
+
 
 
