@@ -39,7 +39,7 @@
 	let centinel=0;
 	//opciones de paginacion
 	let offset = 0;
-	let numberElementsPages = 5;
+	let numberElementsPages = 10;
 	let currentPage = 1;
 	
 	let moreData = true;
@@ -397,7 +397,7 @@ function incOffset(v) {
 	{#if centinel==0 || field =='vacio'}
 	<Pagination style="float:right;" ariaLabel="Cambiar de página">
     
-		
+	
         <PaginationItem class = "{currentPage === 1 ? 'disabled' : ''}">
           <PaginationLink previous href="#/atc-stats" on:click="{() => incOffset(-1)}" />
         </PaginationItem>
