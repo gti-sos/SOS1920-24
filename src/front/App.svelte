@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script>
 	import Router from 'svelte-spa-router'
 	import Intcont from './intcont-stats/App.svelte';
@@ -18,3 +19,15 @@
 <main>
 	<Router {routes} />
 </main>
+=======
+<!--pagina principal-->
+<script>
+	import ContactsTable from './ContactsTable.svelte';
+</script>
+
+<main>
+<ContactsTable/> <!--nuevo componente-->
+
+</main>
+
+>>>>>>> fc25ade... cambios 52

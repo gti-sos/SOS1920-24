@@ -11,7 +11,7 @@ export default {
 	input: 'src/front/index.js',
 =======
 	//este es lo que se va ha iniciar una vez se ejecute el programa se va a src/main.js
-	input: 'src/fromt/index.js',
+	input: 'src/front/index.js',
 	/**y guarda toda la informacion en un fichero js => bundle.js**/
 >>>>>>> c7df031... init
 	output: {
