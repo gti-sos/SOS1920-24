@@ -11,12 +11,7 @@
 <ul>
 <li>Average Tuition Cost</li>
 <li>Number of University Tuition</li>
-<<<<<<< HEAD
 <li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a>
-=======
-<li>Public Waste on University</li>
-<li>Internship Contracts</li>
->>>>>>> f20982d... poco a poco
 </ul>
 </li>
 <li><p><strong>Repository</strong>: <a href="https://github.com/gti-sos/SOS1920-24">gti-sos/SOS1920-24</a></p>
