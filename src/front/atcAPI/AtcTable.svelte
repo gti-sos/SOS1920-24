@@ -220,7 +220,8 @@ async function search(field) {
 			break;
 		}
 		const res = await fetch(url+"&offset="+numberElementsPages*offset+"&limit="+numberElementsPages);
-		if (res.ok) {
+		const res1 = await fetch(url+"&offset="+numberElementsPages*(offset +1)+"&limit="+numberElementsPages);
+		if (res.ok || res1.ok) {
 			console.log("OK:");
 			const json = await res.json();
 			atc = json;
