@@ -169,6 +169,10 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		delete q.offset; //cleaning fields
 		delete q.limit;
 
+		console.log("NEW GET .../atc");
+		//console.log(" "+community+" "+simpleYear+" "+fromYear+" "+toYear+" "+fromEspce+" "+toEspce+" "+fromYaq+" "+toYaq+" "+fromObu+" "+toObu+"");
+		
+
 		if(simpleYear!=null){
 			console.log("Es un año normal");
 			

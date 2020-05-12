@@ -6,6 +6,7 @@
 
 	import Atc from './atcAPI/App.svelte';
 	import EditAtc from './atcAPI/EditAtc.svelte';
+	import ChartAtc from './atcAPI/ChartAtc.svelte';
 	
 	import EditIntcont from './intcont-stats/EditIntcont.svelte';
 	import Edit from './univregs-stats/Edit.svelte';
@@ -26,6 +27,7 @@
 
 		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,
+		"/atc-stats/chart": ChartAtc,
 		
 		"*": NotFound
 		
