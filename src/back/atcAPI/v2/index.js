@@ -1,3 +1,4 @@
+module.exports = function(app){
 //BASE DE DATOS////////////////////////////////////////
 console.log("Registering vicpaltor API....");
 const dataStore = require("nedb");//para usar la libreria nedb
@@ -12,7 +13,7 @@ const db = new dataStore({
 			});
 
 
-module.exports = function(app){
+
 ///////////////////////////////////////////////////////////////////////////
 	
 /**PARTE_VICTOR**/

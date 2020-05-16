@@ -24278,6 +24278,33 @@ var app = (function () {
     const { console: console_1$8 } = globals;
     const file$h = "src\\front\\atcAPI\\ChartAtc.svelte";
 
+    // (90:4) <Button outline color="secondary" on:click="{pop}">
+    function create_default_slot$6(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Atrás");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$6.name,
+    		type: "slot",
+    		source: "(90:4) <Button outline color=\\\"secondary\\\" on:click=\\\"{pop}\\\">",
+    		ctx
+    	});
+
+    	return block;
+    }
+
     function create_fragment$i(ctx) {
     	let t0;
     	let script0;
@@ -24292,7 +24319,21 @@ var app = (function () {
     	let main;
     	let figure;
     	let div;
+    	let t2;
+    	let current;
     	let dispose;
+
+    	const button = new Button({
+    			props: {
+    				outline: true,
+    				color: "secondary",
+    				$$slots: { default: [create_default_slot$6] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	button.$on("click", pop);
 
     	const block = {
     		c: function create() {
@@ -24305,19 +24346,21 @@ var app = (function () {
     			main = element("main");
     			figure = element("figure");
     			div = element("div");
+    			t2 = space();
+    			create_component(button.$$.fragment);
     			if (script0.src !== (script0_src_value = "https://code.highcharts.com/highcharts.js")) attr_dev(script0, "src", script0_src_value);
-    			add_location(script0, file$h, 92, 4, 2810);
+    			add_location(script0, file$h, 78, 4, 2525);
     			if (script1.src !== (script1_src_value = "https://code.highcharts.com/modules/treemap.js")) attr_dev(script1, "src", script1_src_value);
-    			add_location(script1, file$h, 93, 4, 2881);
+    			add_location(script1, file$h, 79, 4, 2621);
     			if (script2.src !== (script2_src_value = "https://code.highcharts.com/modules/exporting.js")) attr_dev(script2, "src", script2_src_value);
-    			add_location(script2, file$h, 94, 4, 2957);
+    			add_location(script2, file$h, 80, 4, 2722);
     			if (script3.src !== (script3_src_value = "https://code.highcharts.com/modules/accessibility.js")) attr_dev(script3, "src", script3_src_value);
-    			add_location(script3, file$h, 95, 4, 3035);
+    			add_location(script3, file$h, 81, 4, 2825);
     			attr_dev(div, "id", "container");
-    			add_location(div, file$h, 100, 8, 3212);
+    			add_location(div, file$h, 86, 8, 3002);
     			attr_dev(figure, "class", "highcharts-figure");
-    			add_location(figure, file$h, 99, 4, 3168);
-    			add_location(main, file$h, 98, 0, 3156);
+    			add_location(figure, file$h, 85, 4, 2958);
+    			add_location(main, file$h, 84, 0, 2946);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24332,12 +24375,36 @@ var app = (function () {
     			insert_dev(target, main, anchor);
     			append_dev(main, figure);
     			append_dev(figure, div);
-    			if (remount) dispose();
-    			dispose = listen_dev(script3, "load", loadGraphAtc, false, false, false);
+    			append_dev(main, t2);
+    			mount_component(button, main, null);
+    			current = true;
+    			if (remount) run_all(dispose);
+
+    			dispose = [
+    				listen_dev(script0, "load", loadGraphAtc, false, false, false),
+    				listen_dev(script1, "load", loadGraphAtc, false, false, false),
+    				listen_dev(script2, "load", loadGraphAtc, false, false, false),
+    				listen_dev(script3, "load", loadGraphAtc, false, false, false)
+    			];
     		},
-    		p: noop,
-    		i: noop,
-    		o: noop,
+    		p: function update(ctx, [dirty]) {
+    			const button_changes = {};
+
+    			if (dirty & /*$$scope*/ 1) {
+    				button_changes.$$scope = { dirty, ctx };
+    			}
+
+    			button.$set(button_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(button.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(button.$$.fragment, local);
+    			current = false;
+    		},
     		d: function destroy(detaching) {
     			detach_dev(t0);
     			detach_dev(script0);
@@ -24346,7 +24413,8 @@ var app = (function () {
     			detach_dev(script3);
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(main);
-    			dispose();
+    			destroy_component(button);
+    			run_all(dispose);
     		}
     	};
 
@@ -24370,21 +24438,91 @@ var app = (function () {
     	let MyDataAtcNew = []; //datos guardados
     	let cont = 0; //contador
 
+    	let listcolor = [
+    		112233,
+    		223344,
+    		334455,
+    		445566,
+    		556677,
+    		667788,
+    		778899,
+    		889911,
+    		991122,
+    		998877,
+    		887766,
+    		776655,
+    		665544,
+    		554433,
+    		443322,
+    		332211,
+    		221100,
+    		110099,
+    		112233,
+    		223344,
+    		334455,
+    		445566,
+    		556677,
+    		667788,
+    		778899,
+    		889911,
+    		991122,
+    		998877,
+    		887766,
+    		776655,
+    		665544,
+    		554433,
+    		443322,
+    		332211,
+    		221100,
+    		110099
+    	];
+
     	//transformo los elementos
     	for (let item of MyDataAtc) {
-    		MyDataAtcNew += "{ id: '" + cont + "' ," + "name: '" + MyDataAtc[cont].aut_com + "', color: \"#626567\" }," + "{ name: 'espce', parent: '" + cont + "', value:" + MyDataAtc[cont].espce + "}," + "{ name: 'yaq', parent: '" + cont + "', value:" + MyDataAtc[cont].yaq + "}," + "{ name: 'obu', parent: '" + cont + "', value:" + MyDataAtc[cont].obu + "},\n";
+    		//variable id
+    		let varid = "'" + cont + "'";
+
+    		//variable name
+    		let varname = MyDataAtc[cont].aut_com;
+
+    		//variable color
+    		let varcolor2 = "#" + listcolor[cont];
+
+    		//variables espce,yaq,obu
+    		let varespce = MyDataAtc[cont].espce;
+
+    		let varyaq = MyDataAtc[cont].yaq;
+    		let varobu = MyDataAtc[cont].obu;
+
+    		MyDataAtcNew.push(
+    			{
+    				id: varid,
+    				name: varname,
+    				color: varcolor2
+    			},
+    			{
+    				name: "espce",
+    				parent: varid,
+    				value: varespce
+    			},
+    			{
+    				name: "yaq",
+    				parent: varid,
+    				value: varyaq
+    			},
+    			{
+    				name: "obu",
+    				parent: varid,
+    				value: varobu
+    			}
+    		);
+
     		cont++;
     	}
 
     	console.log(MyDataAtcNew);
 
-    	//let test1 = { id: '2' ,name: 'Asturias', color: "#626567" },{ name: 'espce', parent: '2', value: 1255.8 },{ name: 'yaq', parent: '2', value:1322},{ name: 'obu', parent: '2', value:1322},
-    	/**
-        {id: '1', name: 'Canarias', color: "#626567" },
-        {name: 'espce', parent: '1', value: 941.4}, 
-                { name: 'yaq', parent: '1', value: 1046 },
-                {name: 'obu', parent: '1',value: 1137}
-                **/
+    	//console.log(MyDataAtcNew.length);
     	Highcharts.chart("container", {
     		series: [
     			{
@@ -24403,24 +24541,7 @@ var app = (function () {
     						}
     					}
     				],
-    				data: [
-    					MyDataAtcNew,
-    					{
-    						id: "1",
-    						name: "Canarias",
-    						color: "#626567"
-    					},
-    					{ name: "espce", parent: "1", value: 941.4 },
-    					{ name: "yaq", parent: "1", value: 1046 },
-    					{ name: "obu", parent: "1", value: 1137 },
-    					//elemento por defecto
-    					{
-    						name: "TestDefecto",
-    						parent: "Kiwi",
-    						value: 1000,
-    						color: "#9EDE00"
-    					}
-    				]
+    				data: MyDataAtcNew
     			}
     		],
     		title: {
@@ -24438,7 +24559,7 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("ChartAtc", $$slots, []);
-    	$$self.$capture_state = () => ({ loadGraphAtc });
+    	$$self.$capture_state = () => ({ Button, pop, loadGraphAtc });
     	return [];
     }
 
@@ -24458,33 +24579,17 @@ var app = (function () {
 
     /* src\front\intcont-stats\ChartIntcont.svelte generated by Svelte v3.22.1 */
 
-    const file$i = "src\\front\\intcont-stats\\ChartIntcont.svelte";
-
     function create_fragment$j(ctx) {
-    	let main;
-    	let p;
-
     	const block = {
-    		c: function create() {
-    			main = element("main");
-    			p = element("p");
-    			p.textContent = "Grafica Intcont";
-    			add_location(p, file$i, 2, 4, 14);
-    			add_location(main, file$i, 0, 0, 0);
-    		},
+    		c: noop,
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, main, anchor);
-    			append_dev(main, p);
-    		},
+    		m: noop,
     		p: noop,
     		i: noop,
     		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(main);
-    		}
+    		d: noop
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
@@ -24526,33 +24631,17 @@ var app = (function () {
 
     /* src\front\univregs-stats\ChartUnivregs.svelte generated by Svelte v3.22.1 */
 
-    const file$j = "src\\front\\univregs-stats\\ChartUnivregs.svelte";
-
     function create_fragment$k(ctx) {
-    	let main;
-    	let p;
-
     	const block = {
-    		c: function create() {
-    			main = element("main");
-    			p = element("p");
-    			p.textContent = "Grafica Univregs";
-    			add_location(p, file$j, 2, 4, 14);
-    			add_location(main, file$j, 0, 0, 0);
-    		},
+    		c: noop,
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, main, anchor);
-    			append_dev(main, p);
-    		},
+    		m: noop,
     		p: noop,
     		i: noop,
     		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(main);
-    		}
+    		d: noop
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
@@ -24594,7 +24683,7 @@ var app = (function () {
 
     /* src\front\Home.svelte generated by Svelte v3.22.1 */
 
-    const file$k = "src\\front\\Home.svelte";
+    const file$i = "src\\front\\Home.svelte";
 
     function create_fragment$l(ctx) {
     	let main;
@@ -24798,79 +24887,79 @@ var app = (function () {
     			a19.textContent = "Victor Manuel Palos Torres";
     			t58 = text(")");
     			attr_dev(h2, "id", "sos1920-24");
-    			add_location(h2, file$k, 1, 4, 12);
-    			add_location(strong0, file$k, 3, 4, 59);
+    			add_location(h2, file$i, 1, 4, 12);
+    			add_location(strong0, file$i, 3, 4, 59);
     			attr_dev(a0, "href", "https://github.com/Nerk1");
-    			add_location(a0, file$k, 4, 4, 90);
-    			add_location(li0, file$k, 4, 0, 86);
+    			add_location(a0, file$i, 4, 4, 90);
+    			add_location(li0, file$i, 4, 0, 86);
     			attr_dev(a1, "href", "https://github.com/AlvaroMaya");
-    			add_location(a1, file$k, 5, 4, 167);
-    			add_location(li1, file$k, 5, 0, 163);
+    			add_location(a1, file$i, 5, 4, 167);
+    			add_location(li1, file$i, 5, 0, 163);
     			attr_dev(a2, "href", "https://github.com/vicpaltor");
-    			add_location(a2, file$k, 6, 4, 238);
-    			add_location(li2, file$k, 6, 0, 234);
-    			add_location(ul0, file$k, 3, 25, 80);
-    			add_location(li3, file$k, 3, 0, 55);
-    			add_location(strong1, file$k, 9, 7, 335);
-    			add_location(p0, file$k, 9, 4, 332);
+    			add_location(a2, file$i, 6, 4, 238);
+    			add_location(li2, file$i, 6, 0, 234);
+    			add_location(ul0, file$i, 3, 25, 80);
+    			add_location(li3, file$i, 3, 0, 55);
+    			add_location(strong1, file$i, 9, 7, 335);
+    			add_location(p0, file$i, 9, 4, 332);
     			attr_dev(a3, "href", "#/atc-stats");
-    			add_location(a3, file$k, 11, 4, 472);
-    			add_location(li4, file$k, 11, 0, 468);
+    			add_location(a3, file$i, 11, 4, 472);
+    			add_location(li4, file$i, 11, 0, 468);
     			attr_dev(a4, "href", "#/univreg-stats");
-    			add_location(a4, file$k, 12, 4, 529);
-    			add_location(li5, file$k, 12, 0, 525);
+    			add_location(a4, file$i, 12, 4, 529);
+    			add_location(li5, file$i, 12, 0, 525);
     			attr_dev(a5, "href", "#/intcont-stats");
-    			add_location(a5, file$k, 13, 4, 598);
-    			add_location(li6, file$k, 13, 0, 594);
-    			add_location(ul1, file$k, 10, 0, 462);
-    			add_location(li7, file$k, 9, 0, 328);
-    			add_location(strong2, file$k, 16, 7, 703);
+    			add_location(a5, file$i, 13, 4, 598);
+    			add_location(li6, file$i, 13, 0, 594);
+    			add_location(ul1, file$i, 10, 0, 462);
+    			add_location(li7, file$i, 9, 0, 328);
+    			add_location(strong2, file$i, 16, 7, 703);
     			attr_dev(a6, "href", "https://github.com/gti-sos/SOS1920-24");
-    			add_location(a6, file$k, 16, 36, 732);
-    			add_location(p1, file$k, 16, 4, 700);
-    			add_location(li8, file$k, 16, 0, 696);
-    			add_location(strong3, file$k, 18, 4, 819);
+    			add_location(a6, file$i, 16, 36, 732);
+    			add_location(p1, file$i, 16, 4, 700);
+    			add_location(li8, file$i, 16, 0, 696);
+    			add_location(strong3, file$i, 18, 4, 819);
     			attr_dev(a7, "href", "http://sos1920-24.herokuapp.com");
-    			add_location(a7, file$k, 18, 26, 841);
-    			add_location(li9, file$k, 18, 0, 815);
-    			add_location(strong4, file$k, 19, 4, 929);
+    			add_location(a7, file$i, 18, 26, 841);
+    			add_location(li9, file$i, 18, 0, 815);
+    			add_location(strong4, file$i, 19, 4, 929);
     			attr_dev(a8, "href", "https://sos1920-24.herokuapp.com/api/v2/intcont-stats");
-    			add_location(a8, file$k, 20, 4, 971);
+    			add_location(a8, file$i, 20, 4, 971);
     			attr_dev(a9, "href", "https://github.com/Nerk1");
-    			add_location(a9, file$k, 20, 140, 1107);
-    			add_location(li10, file$k, 20, 0, 967);
+    			add_location(a9, file$i, 20, 140, 1107);
+    			add_location(li10, file$i, 20, 0, 967);
     			attr_dev(a10, "href", "https://sos1920-24.herokuapp.com/api/v2/univregs-stats");
-    			add_location(a10, file$k, 21, 4, 1185);
+    			add_location(a10, file$i, 21, 4, 1185);
     			attr_dev(a11, "href", "https://github.com/AlvaroMaya");
-    			add_location(a11, file$k, 21, 142, 1323);
-    			add_location(li11, file$k, 21, 0, 1181);
+    			add_location(a11, file$i, 21, 142, 1323);
+    			add_location(li11, file$i, 21, 0, 1181);
     			attr_dev(a12, "href", "https://sos1920-24.herokuapp.com/api/v2/atc-stats");
-    			add_location(a12, file$k, 22, 4, 1395);
+    			add_location(a12, file$i, 22, 4, 1395);
     			attr_dev(a13, "href", "https://github.com/vicpaltor");
-    			add_location(a13, file$k, 22, 132, 1523);
-    			add_location(li12, file$k, 22, 0, 1391);
-    			add_location(ul2, file$k, 19, 36, 961);
-    			add_location(li13, file$k, 19, 0, 925);
-    			add_location(strong5, file$k, 25, 4, 1619);
+    			add_location(a13, file$i, 22, 132, 1523);
+    			add_location(li12, file$i, 22, 0, 1391);
+    			add_location(ul2, file$i, 19, 36, 961);
+    			add_location(li13, file$i, 19, 0, 925);
+    			add_location(strong5, file$i, 25, 4, 1619);
     			attr_dev(a14, "href", "https://documenter.getpostman.com/view/10637391/SzYUXfiF");
-    			add_location(a14, file$k, 27, 4, 1657);
+    			add_location(a14, file$i, 27, 4, 1657);
     			attr_dev(a15, "href", "https://github.com/Nerk1");
-    			add_location(a15, file$k, 27, 161, 1814);
-    			add_location(li14, file$k, 27, 0, 1653);
+    			add_location(a15, file$i, 27, 161, 1814);
+    			add_location(li14, file$i, 27, 0, 1653);
     			attr_dev(a16, "href", "https://documenter.getpostman.com/view/9628258/SzYUXzjh");
-    			add_location(a16, file$k, 29, 5, 1896);
+    			add_location(a16, file$i, 29, 5, 1896);
     			attr_dev(a17, "href", "https://github.com/AlvaroMaya");
-    			add_location(a17, file$k, 29, 160, 2051);
-    			add_location(li15, file$k, 29, 1, 1892);
+    			add_location(a17, file$i, 29, 160, 2051);
+    			add_location(li15, file$i, 29, 1, 1892);
     			attr_dev(a18, "href", "https://documenter.getpostman.com/view/10642365/SzYT51yd");
-    			add_location(a18, file$k, 31, 5, 2127);
+    			add_location(a18, file$i, 31, 5, 2127);
     			attr_dev(a19, "href", "https://github.com/vicpaltor");
-    			add_location(a19, file$k, 31, 162, 2284);
-    			add_location(li16, file$k, 31, 1, 2123);
-    			add_location(ul3, file$k, 25, 29, 1644);
-    			add_location(li17, file$k, 25, 0, 1615);
-    			add_location(ul4, file$k, 2, 0, 49);
-    			add_location(main, file$k, 0, 0, 0);
+    			add_location(a19, file$i, 31, 162, 2284);
+    			add_location(li16, file$i, 31, 1, 2123);
+    			add_location(ul3, file$i, 25, 29, 1644);
+    			add_location(li17, file$i, 25, 0, 1615);
+    			add_location(ul4, file$i, 2, 0, 49);
+    			add_location(main, file$i, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25009,7 +25098,7 @@ var app = (function () {
 
     /* src\front\NotFound.svelte generated by Svelte v3.22.1 */
 
-    const file$l = "src\\front\\NotFound.svelte";
+    const file$j = "src\\front\\NotFound.svelte";
 
     function create_fragment$m(ctx) {
     	let main;
@@ -25020,8 +25109,8 @@ var app = (function () {
     			main = element("main");
     			h1 = element("h1");
     			h1.textContent = "La página no existe!";
-    			add_location(h1, file$l, 1, 4, 12);
-    			add_location(main, file$l, 0, 0, 0);
+    			add_location(h1, file$j, 1, 4, 12);
+    			add_location(main, file$j, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25076,7 +25165,7 @@ var app = (function () {
     }
 
     /* src\front\App.svelte generated by Svelte v3.22.1 */
-    const file$m = "src\\front\\App.svelte";
+    const file$k = "src\\front\\App.svelte";
 
     function create_fragment$n(ctx) {
     	let main;
@@ -25091,7 +25180,7 @@ var app = (function () {
     		c: function create() {
     			main = element("main");
     			create_component(router.$$.fragment);
-    			add_location(main, file$m, 41, 0, 1056);
+    			add_location(main, file$k, 41, 0, 1056);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");

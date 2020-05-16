@@ -1,40 +1,47 @@
 <script>
+
+    import Button from "sveltestrap/src/Button.svelte";
+    import {
+        pop
+    } from "svelte-spa-router";
+
+
   async  function loadGraphAtc()
     {
         //recojo los datos de mi servidor
         let MyDataAtc = [];
+
+
         const resData = await fetch("/api/v2/atc-stats");
         MyDataAtc = await resData.json();
 
-
         let MyDataAtcNew = [];//datos guardados
         let cont = 0;//contador
-        
+        let listcolor = [112233,223344,334455,445566,556677,667788,778899,889911,991122,998877,887766,776655,665544,554433,443322,332211,221100,110099,
+                         112233,223344,334455,445566,556677,667788,778899,889911,991122,998877,887766,776655,665544,554433,443322,332211,221100,110099 ];
         //transformo los elementos
         for(let item of MyDataAtc){
+            //variable id
+            let varid = "'"+cont+"'";
+            //variable name
+            let varname = MyDataAtc[cont].aut_com
+            //variable color
+            let varcolor2 = "#"+listcolor[cont];
+            //variables espce,yaq,obu
+            let varespce = MyDataAtc[cont].espce;
+            let varyaq = MyDataAtc[cont].yaq;
+            let varobu = MyDataAtc[cont].obu;
 
-            MyDataAtcNew += "{ id: '"+cont+"' ,"+"name: '"+MyDataAtc[cont].aut_com +"', color: \"#626567\" },"
-            +"{ name: 'espce', parent: '"+cont+"', value:"+MyDataAtc[cont].espce+"},"
-            +"{ name: 'yaq', parent: '"+cont+"', value:"+MyDataAtc[cont].yaq+"},"
-            +"{ name: 'obu', parent: '"+cont+"', value:"+MyDataAtc[cont].obu+"},\n"
+            MyDataAtcNew.push({ id: varid ,name: varname, color: varcolor2 },
+                           { name: 'espce', parent: varid, value: varespce},
+                           { name: 'yaq', parent: varid, value: varyaq},
+                           { name: 'obu', parent: varid, value:varobu})
+                           cont++;
 
-            cont++;
+
         }
-
         console.log(MyDataAtcNew);
-
-        //let test1 = { id: '2' ,name: 'Asturias', color: "#626567" },{ name: 'espce', parent: '2', value: 1255.8 },{ name: 'yaq', parent: '2', value:1322},{ name: 'obu', parent: '2', value:1322},
-
-        /**
-            {id: '1', name: 'Canarias', color: "#626567" },
-            {name: 'espce', parent: '1', value: 941.4}, 
-                    { name: 'yaq', parent: '1', value: 1046 },
-                    {name: 'obu', parent: '1',value: 1137}
-                    **/
-
-       
-
-        
+        //console.log(MyDataAtcNew.length);
 
         Highcharts.chart('container',
          {
@@ -55,31 +62,10 @@
                 }
             }
                 }],
-        data: 
-         [
-             MyDataAtcNew,
-
-         { id: '1',name: 'Canarias', color: "#626567" },
-         { name: 'espce', parent: '1', value: 941.4}, 
-         { name: 'yaq',parent: '1',value: 1046 },
-         { name: 'obu', parent: '1', value: 1137},
-
-         
-
-         
-
-                    //elemento por defecto
-                        {
-                                name: 'TestDefecto',
-                                parent: 'Kiwi',
-                                value: 1000,
-                                color: '#9EDE00'
-                            }
-            ]
-            
-    
+        data: MyDataAtcNew
+                
             }],
-                    title: {
+    title: {
                         text: 'Grafica de coste medio de matrícula univesitaria'
                     }
         });
@@ -90,9 +76,9 @@
 
 <svelte:head>
     <!--librerias externas de svelte para una grafica Tree map-->>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/treemap.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js" on:load="{loadGraphAtc}"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js" on:load="{loadGraphAtc}"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js" on:load="{loadGraphAtc}"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraphAtc}"></script>
 </svelte:head>
 
@@ -101,4 +87,7 @@
         <div id="container"></div>
     </figure>
 
+    <Button outline color="secondary" on:click="{pop}"> Atrás </Button>
 </main>
+
+
