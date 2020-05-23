@@ -24278,7 +24278,7 @@ var app = (function () {
     const { console: console_1$8 } = globals;
     const file$h = "src\\front\\atcAPI\\ChartAtc.svelte";
 
-    // (90:4) <Button outline color="secondary" on:click="{pop}">
+    // (91:4) <Button outline color="secondary" on:click="{pop}">
     function create_default_slot$6(ctx) {
     	let t;
 
@@ -24298,7 +24298,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$6.name,
     		type: "slot",
-    		source: "(90:4) <Button outline color=\\\"secondary\\\" on:click=\\\"{pop}\\\">",
+    		source: "(91:4) <Button outline color=\\\"secondary\\\" on:click=\\\"{pop}\\\">",
     		ctx
     	});
 
@@ -24349,18 +24349,18 @@ var app = (function () {
     			t2 = space();
     			create_component(button.$$.fragment);
     			if (script0.src !== (script0_src_value = "https://code.highcharts.com/highcharts.js")) attr_dev(script0, "src", script0_src_value);
-    			add_location(script0, file$h, 78, 4, 2525);
+    			add_location(script0, file$h, 79, 4, 2615);
     			if (script1.src !== (script1_src_value = "https://code.highcharts.com/modules/treemap.js")) attr_dev(script1, "src", script1_src_value);
-    			add_location(script1, file$h, 79, 4, 2621);
+    			add_location(script1, file$h, 80, 4, 2711);
     			if (script2.src !== (script2_src_value = "https://code.highcharts.com/modules/exporting.js")) attr_dev(script2, "src", script2_src_value);
-    			add_location(script2, file$h, 80, 4, 2722);
+    			add_location(script2, file$h, 81, 4, 2812);
     			if (script3.src !== (script3_src_value = "https://code.highcharts.com/modules/accessibility.js")) attr_dev(script3, "src", script3_src_value);
-    			add_location(script3, file$h, 81, 4, 2825);
+    			add_location(script3, file$h, 82, 4, 2915);
     			attr_dev(div, "id", "container");
-    			add_location(div, file$h, 86, 8, 3002);
+    			add_location(div, file$h, 87, 8, 3092);
     			attr_dev(figure, "class", "highcharts-figure");
-    			add_location(figure, file$h, 85, 4, 2958);
-    			add_location(main, file$h, 84, 0, 2946);
+    			add_location(figure, file$h, 86, 4, 3048);
+    			add_location(main, file$h, 85, 0, 3036);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24535,9 +24535,13 @@ var app = (function () {
     						layoutAlgorithm: "sliceAndDice",
     						dataLabels: {
     							enabled: true,
-    							align: "left",
-    							verticalAlign: "top",
-    							style: { fontSize: "15px", fontWeight: "bold" }
+    							align: "center", //nombre izquierda o derecha
+    							verticalAlign: "top", //nombre arriba o abajo
+    							style: {
+    								//tamaño del nombre
+    								fontSize: "15px",
+    								fontWeight: "bold"
+    							}
     						}
     					}
     				],
