@@ -10,8 +10,6 @@
     {
         //recojo los datos de mi servidor
         let MyDataAtc = [];
-
-
         const resData = await fetch("/api/v2/atc-stats");
         MyDataAtc = await resData.json();
 
