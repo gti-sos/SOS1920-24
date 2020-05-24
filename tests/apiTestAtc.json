@@ -1,0 +1,2168 @@
+{
+	"info": {
+		"_postman_id": "7cf06d69-08d4-4ba6-a749-fc41be6383b1",
+		"name": "SOS1920-24-atc-stats_V2_NewMan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET-INITIALDATA Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49a82f93-b604-4ef3-bfe9-7301810a6ad7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-BASEROUTE Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b1d8704-5615-4c41-899f-9ad5f610f2c6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f5848bd-99f6-4ba3-90f9-5e670e10811a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"pm.environment.set(\"variable_key\", \"variable_value\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-BASEROUTE_THE_DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f0ff29b-5fbf-42d7-a59d-6ce1ad33993b",
+						"exec": [
+							"pm.test(\"Status code is 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-INITIALDATA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0bec8151-8185-4998-bdfd-ae4ee5b6eddc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c65f124-5766-40f5-bf93-2ae7d69473da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77d376c3-acb6-4d95-aff7-54e433523bab",
+						"exec": [
+							"pm.test(\"Status code is 201\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"aut_com\": \"test\",\r\n\t\t\"year\": 2017,\r\n\t\t\"espce\": 757.2,\r\n\t\t\"yaq\": 757,\r\n\t\t\"obu\": 757\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc391359-38ea-4ee1-856e-a2c660ab054a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-BASEROUTE_AUT_COMMUNITY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "683c898a-dae5-42aa-93af-c215db855fef",
+						"exec": [
+							"pm.test(\"Status code is 201\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"aut_com\": \"Andalucia\",\r\n\t\t\"year\": 2017,\r\n\t\t\"espce\": 757.2,\r\n\t\t\"yaq\": 757,\r\n\t\t\"obu\": 757\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_AUT_COMMUNITY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fcc4eea5-07a3-42ef-adc3-cace3d11e97c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"/**pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Andalucia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Andalucia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-RESOURCE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6e235c7-e8be-4364-86e5-d1405a13076d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Andalucia/2017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Andalucia",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-BASEROUTE_YEAR_400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00298e1e-ab56-4f38-9f72-1dd64fc98b90",
+						"exec": [
+							"pm.test(\"Status code is 409\", function() {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"aut_com\": \"Andalucia\",\r\n\t\t\"year\": 2018,\r\n\t\t\"espce\": 757.2,\r\n\t\t\"yaq\": 757,\r\n\t\t\"obu\": 757\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_YEAR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34101bba-f218-4eb3-93c1-617508399c8e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});\r",
+							"\r",
+							"//solo un elemento\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Andalucia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Andalucia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-BASEROUTE_NULL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1472c133-b169-4a21-97a2-ca7d38a46e61",
+						"exec": [
+							"/**pm.test(\"Status code is 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"aut_com\": \"test\",\r\n\t\t\"year\": 2018,\r\n\t\t\"espce\": null,\r\n\t\t\"yaq\": 757,\r\n\t\t\"obu\": 757\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_NULL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22c001de-8d89-49e3-96ba-0838f999dea7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Andalucia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Andalucia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-RESOURCE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9920772-3628-4d6b-9d42-6f407d3c07b9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"test\",\r\n\"year\": 2017,\r\n\"espce\": 1,\r\n\"yaq\": 2,\r\n\"obu\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/test/2017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"test",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_THE_PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db616586-49ec-4a53-a3bf-26b168f23b83",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"this returns an autonomous community \", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"});\r",
+							"**/\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});\r",
+							"\r",
+							"//solo un elemento\r",
+							"/**\r",
+							"\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-RESOURCE_AUT_COMMUNITY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eda8e355-ebe5-4a37-ba14-74ec8ef2068a",
+						"exec": [
+							"pm.test(\"Status code is 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"Madrid2\",\r\n\"year\": 2018,\r\n\"espce\": 1,\r\n\"yaq\": 2,\r\n\"obu\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Madrid/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Madrid",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_THE_PUT_BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4345b7bb-9e9c-4f87-8d61-fe9810fdd038",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"//mas de un elemento\r",
+							"\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-RESOURCE_YEAR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0403971b-97c5-4fe9-b001-4952e91ff69c",
+						"exec": [
+							"pm.test(\"Status code is 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"Madrid\",\r\n\"year\": 2017,\r\n\"espce\": 1,\r\n\"yaq\": 2,\r\n\"obu\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Madrid/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Madrid",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_THE_PUT_BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91cfff5d-3a54-4f46-b902-e803452a2856",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-RESOURCE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7dbc5b7-c353-4ae9-8589-42c9aad51c5f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/test/2017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"test",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_THE_DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea042b39-e3b8-45c4-904e-66851b4ded84",
+						"exec": [
+							"/**pm.test(\"Status code is 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});**/\r",
+							"\r",
+							"/**pm.test(\"this returns an autonomous community \", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"});**/\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE_THE_DELETE_BASEROUTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2fc2a9-3137-49e5-8678-95d536490ed7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"//   var jsonData = pm.response.json();\r",
+							"//   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-RESOURCE_405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c6c4d28-e240-4001-9f65-24b72265a6d2",
+						"exec": [
+							"pm.test(\"Status code is 405\", function() {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"Madrid\",\r\n\"year\": 2018,\r\n\"espce\": 757.2,\r\n\"yaq\": 757,\r\n\"obu\": 757\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/Madrid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-BASEROUTE_405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7354a129-828b-4480-9508-8a9fc5b65cb0",
+						"exec": [
+							"pm.test(\"Status code is 405\", function() {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE-AUT_COM",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f590f902-3b3a-4ffc-bfa5-8b653f8a885b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"//solo un elemento\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?community=Asturias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "community",
+							"value": "Asturias"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE-AUT_COM&YEAR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8b739bd-1fd4-4346-be01-7a71ab579474",
+						"exec": [
+							"/**pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});**/\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/\r",
+							"/**\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"**/\r",
+							"//solo un elemento\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});\r",
+							"**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?year=2017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2017"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOUCE-AUT_COM_RANGE-YEARS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddd16d21-d0cb-4733-820d-b9ceeb46ecc3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"//solo un elemento\r",
+							"/**\r",
+							"\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});\r",
+							"**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?fromYear=2017&toYear=2019&community=Andalucia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "fromYear",
+							"value": "2017"
+						},
+						{
+							"key": "toYear",
+							"value": "2019"
+						},
+						{
+							"key": "community",
+							"value": "Andalucia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE-ESPCE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d633fe9-85da-43b4-9840-e7e702dd7b95",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//solo un elemento\r",
+							"/**\r",
+							"\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});\r",
+							"**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?fromEspce=1402&toEspce=1404",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "fromEspce",
+							"value": "1402"
+						},
+						{
+							"key": "toEspce",
+							"value": "1404"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE-YAQ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43f20b77-236a-4bf3-b9fc-6cd0d47eb1c5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"//solo un elemento\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});\r",
+							"**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?fromYaq=756&toYaq=758",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "fromYaq",
+							"value": "756"
+						},
+						{
+							"key": "toYaq",
+							"value": "758"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-RESOURCE-OBU",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfad6e01-b62d-40f2-960e-6e0491585b11",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"//solo un elemento\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"Its a Resource with All the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"year\");\r",
+							"    pm.expect(jsonData).to.have.property(\"espce\");\r",
+							"    pm.expect(jsonData).to.have.property(\"yaq\");\r",
+							"    pm.expect(jsonData).to.have.property(\"obu\");\r",
+							"});\r",
+							"**/\r",
+							"//mas de un elemento\r",
+							"/**\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"ccoo\");\r",
+							"    pm.expect(i).to.have.property(\"sepe\");\r",
+							"    pm.expect(i).to.have.property(\"gobesp\");\r",
+							"    });\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?fromObu=1387&toObu=1389",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "fromObu",
+							"value": "1387"
+						},
+						{
+							"key": "toObu",
+							"value": "1389"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_BASEROUTE_LIMIT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9716d301-99f4-44ba-9769-6d7a6737564f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"**/\r",
+							"/**\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});**/\r",
+							"\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_BASEROUTE_OFFSET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12db7b0f-004a-4315-bf9f-d428e2a46272",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?offset=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_6PG_3ELEMENTOS_2pagina",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a77fc9d7-9b95-4b0e-81ea-0fa9a463ec14",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"//mas de un elemento\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?offset=3&limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "3"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_6PG_3ELEMENTOS_3pagina",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2d1f5a6-52c0-4b20-b693-3747ac206588",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats?offset=6&limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "6"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-BASEROUTE Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "066e8bdc-11a5-427c-855b-1ead60e9a4c6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"pm.environment.set(\"variable_key\", \"variable_value\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-BASEROUTE_THE_DELETE Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d50835e-16ea-4be4-9fd5-6c6599d4618c",
+						"exec": [
+							"pm.test(\"Status code is 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-INITIALDATA Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f3ed55e-3b98-4f8a-aa12-31b2a836e2b6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});**/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-BASEROUTE Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4810dcbe-2d99-4f9f-83ea-038a0d91a083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"There are more than 1 com-auto\", function() {\r",
+							"   var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData).to.have.lengthOf.above(1);\r",
+							"});\r",
+							"\r",
+							"//mas de un elemento\r",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach((i)=>{\r",
+							"    pm.expect(i).to.have.property(\"aut_com\");\r",
+							"    pm.expect(i).to.have.property(\"year\");\r",
+							"    pm.expect(i).to.have.property(\"espce\");\r",
+							"    pm.expect(i).to.have.property(\"yaq\");\r",
+							"    pm.expect(i).to.have.property(\"obu\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/atc-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"atc-stats"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "19ea57d0-7b94-4960-9e7d-efb674909fa4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9b998ed9-ad84-484d-b9f5-547ac5681d6d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

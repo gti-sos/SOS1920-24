@@ -24705,13 +24705,13 @@ var app = (function () {
     			main = element("main");
     			div = element("div");
     			if (script.src !== (script_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script, "src", script_src_value);
-    			add_location(script, file$i, 52, 4, 1482);
+    			add_location(script, file$i, 51, 4, 1480);
     			attr_dev(div, "id", "chartDiv");
     			set_style(div, "max-width", "740px");
     			set_style(div, "height", "400px");
     			set_style(div, "margin", "0px auto");
-    			add_location(div, file$i, 59, 4, 1627);
-    			add_location(main, file$i, 57, 0, 1610);
+    			add_location(div, file$i, 58, 4, 1625);
+    			add_location(main, file$i, 56, 0, 1608);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
