@@ -15,6 +15,9 @@
 
 	import ChartAtc2 from './atcAPI/ChartAtc2.svelte';
 
+	import IntegrationAtc from './atcAPI/Integration.svelte'
+
+
 	import ChartGroup from './ChartGroup.svelte';
 	
 	import Home from './Home.svelte'
@@ -37,6 +40,7 @@
 		"/atc-stats/:aut_com/:year": EditAtc,
 		"/atc-stats/chart": ChartAtc,
 		"/atc-stats/chart2": ChartAtc2,
+		"/atc-stats/Integration": IntegrationAtc,
 
 		"/ChartGroup": ChartGroup,
 
