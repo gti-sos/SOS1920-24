@@ -25687,7 +25687,7 @@ var app = (function () {
     		c: function create() {
     			main = element("main");
     			create_component(router.$$.fragment);
-    			add_location(main, file$n, 53, 0, 1338);
+    			add_location(main, file$n, 53, 0, 1337);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25738,7 +25738,7 @@ var app = (function () {
     		"/atc-stats/chart": ChartAtc,
     		"/atc-stats/chart2": ChartAtc2,
     		"/atc-stats/Integration": Integration,
-    		"/ChartGroup": ChartGroup,
+    		"/analytics": ChartGroup,
     		"*": NotFound
     	};
 

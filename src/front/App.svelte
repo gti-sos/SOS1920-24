@@ -42,7 +42,7 @@
 		"/atc-stats/chart2": ChartAtc2,
 		"/atc-stats/Integration": IntegrationAtc,
 
-		"/ChartGroup": ChartGroup,
+		"/analytics": ChartGroup,
 
 		
 		"*": NotFound
