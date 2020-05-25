@@ -12,7 +12,6 @@ async  function loadGraphAtc(){
 
      for(let item of MyDataAtc){
         let varname = MyDataAtc[cont].aut_com;
-        let pepe = "\[]";
         let varespce = MyDataAtc[cont].espce;
         let varyaq = MyDataAtc[cont].yaq;
         let varobu = MyDataAtc[cont].obu;
