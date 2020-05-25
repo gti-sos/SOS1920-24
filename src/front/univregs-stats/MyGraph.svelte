@@ -1,8 +1,8 @@
 <script>
     let MyData = [];
 
-    /*const resData = await fetch("/data");
-    MyData = await resData.json();*/
+    const resData = await fetch("/data");
+    MyData = await resData.json();
 
 
 </script>
