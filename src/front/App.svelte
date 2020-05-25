@@ -14,6 +14,8 @@
 	import ChartUnivregs from './univregs-stats/ChartUnivregs.svelte';
 
 	import ChartAtc2 from './atcAPI/ChartAtc2.svelte';
+
+	import ChartGroup from './ChartGroup.svelte';
 	
 	import Home from './Home.svelte'
 	import NotFound from './NotFound.svelte'
@@ -35,6 +37,9 @@
 		"/atc-stats/:aut_com/:year": EditAtc,
 		"/atc-stats/chart": ChartAtc,
 		"/atc-stats/chart2": ChartAtc2,
+
+		"/ChartGroup": ChartGroup,
+
 		
 		"*": NotFound
 		
