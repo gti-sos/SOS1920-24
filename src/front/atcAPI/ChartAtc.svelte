@@ -10,8 +10,6 @@
     {
         //recojo los datos de mi servidor
         let MyDataAtc = [];
-
-
         const resData = await fetch("/api/v2/atc-stats");
         MyDataAtc = await resData.json();
 
@@ -53,10 +51,11 @@
             level: 1,
             layoutAlgorithm: 'sliceAndDice',
             dataLabels: {
+                
                 enabled: true,
-                align: 'left',
-                verticalAlign: 'top',
-                style: {
+                align: 'center',//nombre izquierda o derecha
+                verticalAlign: 'top',//nombre arriba o abajo
+                style: {//tamaño del nombre
                     fontSize: '15px',
                     fontWeight: 'bold'
                 }
