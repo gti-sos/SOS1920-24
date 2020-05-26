@@ -2,6 +2,7 @@
 const express = require("express"); //INCLUDING EXPRESS MODULE ON A CONST
 const bodyParser = require("body-parser"); //INCLUDING BODY-PARSER
 const path = require("path");
+const cors = require("cors");
 
 
 //const atcAPI = require(path.join(__dirname ,"./src/back/atcAPI"));
@@ -18,6 +19,7 @@ const port = process.env.PORT || 4444; //HTTP CONNECTION MANAGING
 
 const app = express(); //CALLING EXPRESS
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/",express.static("./public")); //ROOT DIRECTORY
 

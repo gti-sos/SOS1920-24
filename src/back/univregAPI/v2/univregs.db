@@ -1,3 +1,4 @@
+
 {"community":"PaisVasco","year":2018,"univreg_gob":15542,"univreg_educ":15542,"univreg_offer":8714,"_id":"0opYpTQWO7nAuUfn"}
 {"community":"Canarias","year":2018,"univreg_gob":16616,"univreg_educ":16616,"univreg_offer":10405,"_id":"1hcNwTxjYTPZrsFu"}
 {"community":"LaRioja","year":2018,"univreg_gob":2644,"univreg_educ":2644,"univreg_offer":1000,"_id":"25MC2jDGHJ4kMMwA"}
@@ -48,10 +49,9 @@
 {"community":"Cantabria","year":2018,"univreg_gob":5717,"univreg_educ":5717,"univreg_offer":2547,"_id":"oEy7XrKFULUxYggd"}
 {"community":"Galicia","year":2018,"univreg_gob":17681,"univreg_educ":17681,"univreg_offer":6536,"_id":"q8uodvaIVY9rBX5e"}
 {"community":"PaisVasco","year":2018,"univreg_gob":15542,"univreg_educ":15542,"univreg_offer":8714,"_id":"r6r5T2XZUDtTLNny"}
-<<<<<<< HEAD
+
 {"community":"LaRioja","year":2018,"univreg_gob":2644,"univreg_educ":2644,"univreg_offer":1000,"_id":"IYn2mcaphdjsQWqW"}
 
-=======
 {"community":"Navarra","year":2018,"univreg_gob":3175,"univreg_educ":3175,"univreg_offer":1720,"_id":"uk3h0QIoG5C2zdVW"}
 {"$$deleted":true,"_id":"0opYpTQWO7nAuUfn"}
 {"$$deleted":true,"_id":"1hcNwTxjYTPZrsFu"}
@@ -121,4 +121,3 @@
 {"community":"Navarra","year":2018,"univreg_gob":3175,"univreg_educ":3175,"univreg_offer":1720,"_id":"4io3V9xNdT7Amc7V"}
 {"community":"PaisVasco","year":2018,"univreg_gob":15542,"univreg_educ":15542,"univreg_offer":8714,"_id":"uRrBUzYwDYwld3Uw"}
 {"community":"LaRioja","year":2018,"univreg_gob":2644,"univreg_educ":2644,"univreg_offer":1000,"_id":"G3j3YvfffFzDQ7OE"}
->>>>>>> be6cccf7694b2807281dd2c5dd867073b3fc8987

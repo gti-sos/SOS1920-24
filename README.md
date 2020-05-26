@@ -1,5 +1,9 @@
 <main>
-    <h2 id="sos1920-24">SOS1920-24</h2>
+
+[![Build Status](https://travis-ci.org/gti-sos/SOS1920-24.svg?branch=master)](https://travis-ci.org/gti-sos/SOS1920-24)
+
+
+<h2 id="sos1920-24">SOS1920-24</h2>
 <ul>
 <li><strong>Team</strong><ul>
 <li><a href="https://github.com/Nerk1">Miguel Ángel Toranzo García</a></li>
