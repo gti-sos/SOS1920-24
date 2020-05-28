@@ -18,7 +18,7 @@
 
         IntcontData.forEach((i)=>{
             let name = i.aut_com;
-            let y = (i.ccoo * 100) / totalValues[0];
+            let y = (i.gobesp * 100) / totalValues[0];
             GraphData.push({name: name, y: y});
             cont++;
         });
@@ -49,7 +49,7 @@ Highcharts.chart('container', {
         type: 'pie'
     },
     title: {
-        text: 'Gasto Público en Universidades por Comunidad Autónoma = '+ totalValues[0] +' miles de euros'
+        text: 'Gasto Público en Universidades por Comunidad Autónoma = '+ totalValues[2] +' miles de euros'
     },
     tooltip: {
         pointFormat: '% del Total: <b>{point.percentage:.1f}%</b>'
@@ -90,7 +90,7 @@ Highcharts.chart('container', {
         <div id="container"></div>
         <p class="highcharts-description">
             La grafica nos muestra el porcentaje de gasto publico en educación universitaria por comunidad autónoma
-            segun las estadisticas del <a href="https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas/contratos/estadisticas-nuevas/2018/julio.html">SEPE</a>
+            segun las estadisticas del <a href="http://estadisticas.mecd.gob.es/EducaJaxiPx/Datos.htm?path=/Recursosecon/Becas/2017-18/Universitarias//l0/&file=Universitaria2.px">GOBESP</a>
         </p>
     </figure>
 </main>
