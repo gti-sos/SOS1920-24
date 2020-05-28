@@ -24832,6 +24832,12 @@ var app = (function () {
     	let div0;
     	let t1;
     	let div1;
+    	let t2;
+    	let div2;
+    	let t3;
+    	let div3;
+    	let t4;
+    	let div4;
     	let dispose;
 
     	const block = {
@@ -24842,19 +24848,40 @@ var app = (function () {
     			div0 = element("div");
     			t1 = space();
     			div1 = element("div");
+    			t2 = space();
+    			div2 = element("div");
+    			t3 = space();
+    			div3 = element("div");
+    			t4 = space();
+    			div4 = element("div");
     			if (script.src !== (script_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script, "src", script_src_value);
-    			add_location(script, file$j, 165, 4, 5707);
+    			add_location(script, file$j, 281, 4, 11348);
     			attr_dev(div0, "id", "chartGrup9");
     			set_style(div0, "max-width", "740px");
     			set_style(div0, "height", "400px");
     			set_style(div0, "margin", "0px auto");
-    			add_location(div0, file$j, 170, 4, 5839);
+    			add_location(div0, file$j, 286, 4, 11480);
     			attr_dev(div1, "id", "chartGrup22");
     			set_style(div1, "max-width", "740px");
     			set_style(div1, "height", "400px");
     			set_style(div1, "margin", "0px auto");
-    			add_location(div1, file$j, 171, 4, 5928);
-    			add_location(main, file$j, 169, 0, 5827);
+    			add_location(div1, file$j, 287, 4, 11569);
+    			attr_dev(div2, "id", "chartGrup5");
+    			set_style(div2, "max-width", "740px");
+    			set_style(div2, "height", "400px");
+    			set_style(div2, "margin", "0px auto");
+    			add_location(div2, file$j, 288, 4, 11659);
+    			attr_dev(div3, "id", "chartGrup8");
+    			set_style(div3, "max-width", "740px");
+    			set_style(div3, "height", "400px");
+    			set_style(div3, "margin", "0px auto");
+    			add_location(div3, file$j, 289, 4, 11748);
+    			attr_dev(div4, "id", "chartGrup6");
+    			set_style(div4, "max-width", "740px");
+    			set_style(div4, "height", "400px");
+    			set_style(div4, "margin", "0px auto");
+    			add_location(div4, file$j, 290, 4, 11837);
+    			add_location(main, file$j, 285, 0, 11468);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24866,6 +24893,12 @@ var app = (function () {
     			append_dev(main, div0);
     			append_dev(main, t1);
     			append_dev(main, div1);
+    			append_dev(main, t2);
+    			append_dev(main, div2);
+    			append_dev(main, t3);
+    			append_dev(main, div3);
+    			append_dev(main, t4);
+    			append_dev(main, div4);
     			if (remount) dispose();
     			dispose = listen_dev(script, "load", loadGraph, false, false, false);
     		},
@@ -24904,37 +24937,44 @@ var app = (function () {
 
     	const resData9 = await fetch("https://sos1920-09.herokuapp.com/api/v3/plugin-vehicles-stats/");
     	DataGrup9 = await resData9.json();
-    	console.log(DataGrup9);
+
+    	//console.log(DataGrup9);
+    	//Grupo  22
+    	let DataGrup22 = [];
+
+    	const resData22 = await fetch("https://sos1920-22.herokuapp.com/api/v1/og-basket-stats/");
+    	DataGrup22 = await resData22.json();
+
+    	//console.log(DataGrup22);
+    	// Grupo 5
+    	let DataGrup5 = [];
+
+    	const resData5 = await fetch("https://sos1920-05.herokuapp.com/api/v1/health_public");
+    	DataGrup5 = await resData5.json();
+
+    	//console.log(DataGrup5);
+    	// Grupo 8
+    	let DataGrup8 = [];
+
+    	const resData8 = await fetch("https://sos1920-08.herokuapp.com/api/v2/electricity-produced-stats");
+    	DataGrup8 = await resData8.json();
+
+    	//console.log(DataGrup8);
+    	// Grupo 6 Leandro
+    	let DataGrup6 = [];
+
+    	const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
+    	DataGrup6 = await resData6.json();
+    	console.log(DataGrup6);
 
     	/**
-            // Grupo 8
-            let DataGrup8 = [];
-            const resData8 = await fetch("https://sos1920-08.herokuapp.com/api/v1/electricity-produced-stats/docs/");
-            DataGrup8 = await resData8.json();
-            console.log(DataGrup8);
-               
-            // Grupo 5
-            let DataGrup5 = [];
-            const resData5 = await fetch("https://sos1920-05.herokuapp.com/api/v1/health_public");
-            DataGrup5 = await resData5.json();
-            console.log(DataGrup5);
-            // Grupo 6
-            let DataGrup6 = [];
-            const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
-            DataGrup6 = await resData6.json();
-            console.log(DataGrup6);
-            //Grupo 26
+            //Grupo 26 
             let DataGrup26 = [];
             const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v2/global-coef");
             DataGrup26 = await resData26.json();
             console.log(DataGrup26);
-            //Grupo  22
-            let DataGrup22 = [];
-            const resData22 = await fetch("https://sos1920-22.herokuapp.com/api/v1/og-basket-stats/");
-            DataGrup22 = await resData22.json();
-            console.log(DataGrup22);
+
     **/
-    	//recojo los datos de mi servidor
     	let MyDataG24New = []; //datos guardados
 
     	let cont = 0; //contador
@@ -24957,7 +24997,7 @@ var app = (function () {
     		cont++;
     	}
 
-    	/////////////////////////////////////////////////////////////////////////////////////////
+    	//////////////////////////////////////////////GRUPO 9///////////////////////////////////////////
     	cont = 0;
 
     	let MyDataG9New = []; //datos guardados
@@ -24977,12 +25017,6 @@ var app = (function () {
     		carsPer1000.push(cars);
     	});
 
-    	/**
-    console.log(countries);
-    console.log(pevStock);
-    console.log(annualSale);
-    console.log(carsPer1000);
-    **/
     	for (let item of countries) {
     		let varCo = countries[cont];
     		let varP = pevStock[cont];
@@ -25003,10 +25037,8 @@ var app = (function () {
     		cont++;
     	}
 
-    	//console.log(MyDataG9New);
     	var UnionG24G9 = MyDataG24New.concat(MyDataG9New);
 
-    	//console.log(UnionG24G9);
     	var chartG9 = JSC.chart("chartGrup9", {
     		debug: true,
     		type: "treemap cushion",
@@ -25022,11 +25054,36 @@ var app = (function () {
     		series: UnionG24G9
     	});
 
-    	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    	///////////////////////////////////////////////////GRUPO 22/////////////////////////////////////////////////////////////
+    	cont = 0;
+
+    	let MyDataG22New = []; //datos guardados
+
+    	for (let item of DataGrup22) {
+    		let varname = DataGrup22[cont].country;
+    		let varpoints = DataGrup22[cont].points;
+    		let varthreepoints = DataGrup22[cont].threepoints;
+    		let varrebounds = DataGrup22[cont].rebounds;
+
+    		MyDataG22New.push({
+    			name: varname,
+    			points: [
+    				{ name: "points", y: varpoints },
+    				{ name: "threepoints", y: varthreepoints },
+    				{ name: "rebounds", y: varrebounds }
+    			]
+    		});
+
+    		cont++;
+    	}
+
+    	//console.log(MyDataG22New);
+    	var UnionG24G22 = MyDataG24New.concat(MyDataG22New);
+
     	var chartG22 = JSC.chart("chartGrup22", {
     		debug: true,
     		type: "treemap cushion",
-    		title_label_text: "Grafica de coste medio de matrícula univesitaria vs ",
+    		title_label_text: "Grafica de coste medio de matrícula univesitaria y Finales de baloncesto de los juegos olimpicos",
     		legend_visible: false,
     		defaultSeries_shape: {
     			label: {
@@ -25035,7 +25092,128 @@ var app = (function () {
     				style: { fontSize: 15, fontWeight: "bold" }
     			}
     		},
-    		series: UnionG24G9
+    		series: UnionG24G22
+    	});
+
+    	////////////////////////////////////////////////////GRUPO 5//////////////////////////////////////////////////////////////
+    	let MyDataG5New = []; //datos guardados
+
+    	cont = 0; //contador
+
+    	for (let item of DataGrup5) {
+    		let varname = DataGrup5[cont].country;
+    		let vartotalS = DataGrup5[cont].total_spending;
+    		let varpublicS = DataGrup5[cont].public_spending;
+    		let varpublicSP = DataGrup5[cont].public_spending_pib;
+
+    		MyDataG5New.push({
+    			name: varname,
+    			points: [
+    				{ name: "totalS", y: vartotalS },
+    				{ name: "publicS", y: varpublicS },
+    				{ name: "publicSP", y: varpublicSP }
+    			]
+    		});
+
+    		cont++;
+    	}
+
+    	//console.log(MyDataG5New);
+    	var UnionG24G5 = MyDataG24New.concat(MyDataG5New);
+
+    	var chartG22 = JSC.chart("chartGrup5", {
+    		debug: true,
+    		type: "treemap cushion",
+    		title_label_text: "Grafica de coste medio de matrícula univesitaria y Salud publica   ",
+    		legend_visible: false,
+    		defaultSeries_shape: {
+    			label: {
+    				text: "%name",
+    				color: "#f2f2f2",
+    				style: { fontSize: 15, fontWeight: "bold" }
+    			}
+    		},
+    		series: UnionG24G5
+    	});
+
+    	/////////////////////////////////////////////GRUPO 8/////////////////////////////////////////////////////////
+    	let MyDataG8New = []; //datos guardados
+
+    	cont = 0; //contador
+
+    	for (let item of DataGrup8) {
+    		let varname = DataGrup8[cont].state;
+    		let varCoal = DataGrup8[cont].coal;
+    		let varHidro = DataGrup8[cont].hydro;
+    		let varSolar = DataGrup8[cont].solar;
+
+    		if (varname == "Hawaii" || varname == "Florida") {
+    			MyDataG8New.push({
+    				name: varname,
+    				points: [{ name: "hidro", y: varHidro }]
+    			});
+    		}
+
+    		cont++;
+    	}
+
+    	//console.log(MyDataG8New);
+    	var UnionG24G8 = MyDataG24New.concat(MyDataG8New);
+
+    	var chartG22 = JSC.chart("chartGrup8", {
+    		debug: true,
+    		type: "treemap cushion",
+    		title_label_text: "Grafica de coste medio de matrícula univesitaria Y    ",
+    		legend_visible: false,
+    		defaultSeries_shape: {
+    			label: {
+    				text: "%name",
+    				color: "#f2f2f2",
+    				style: { fontSize: 15, fontWeight: "bold" }
+    			}
+    		},
+    		series: UnionG24G8
+    	});
+
+    	///////////////////////////////////////////////////Grupo 6////////////////////////////////////////////////
+    	let MyDataG6New = []; //datos guardados
+
+    	cont = 0; //contador             
+
+    	for (let item of DataGrup6) {
+    		let varname = DataGrup6[cont].province;
+    		let varVicTotal = DataGrup6[cont].accvictotal;
+    		let varVicinter = DataGrup6[cont].accvicinter;
+    		let varFall = DataGrup6[cont].accfall;
+
+    		MyDataG6New.push({
+    			name: varname,
+    			points: [
+    				{ name: "VicTotal", y: varVicTotal },
+    				{ name: "Vicinter", y: varVicinter },
+    				{ name: "Fall", y: varFall }
+    			]
+    		});
+
+    		cont++;
+    	}
+
+    	//console.log(MyDataG6New);
+    	var UnionG24G6 = MyDataG24New.concat(MyDataG6New);
+
+    	var chartG22 = JSC.chart("chartGrup6", {
+    		debug: true,
+    		type: "treemap cushion",
+    		title_label_text: "Grafica de coste medio de matrícula univesitaria Y Accidentes de coche    ",
+    		legend_visible: false,
+    		defaultSeries_shape: {
+    			label: {
+    				text: "%name",
+    				color: "#f2f2f2",
+    				style: { fontSize: 15, fontWeight: "bold" }
+    			}
+    		},
+    		series: UnionG24G6
     	});
     }
 
