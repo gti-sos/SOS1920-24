@@ -24996,46 +24996,33 @@ var app = (function () {
     			t4 = space();
     			div4 = element("div");
     			if (script.src !== (script_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script, "src", script_src_value);
-<<<<<<< HEAD
-    			add_location(script, file$k, 165, 4, 5707);
-=======
-    			add_location(script, file$j, 281, 4, 11348);
->>>>>>> victor
+    			add_location(script, file$k, 281, 4, 11348);
     			attr_dev(div0, "id", "chartGrup9");
     			set_style(div0, "max-width", "740px");
     			set_style(div0, "height", "400px");
     			set_style(div0, "margin", "0px auto");
-<<<<<<< HEAD
-    			add_location(div0, file$k, 170, 4, 5839);
-=======
-    			add_location(div0, file$j, 286, 4, 11480);
->>>>>>> victor
+    			add_location(div0, file$k, 286, 4, 11480);
     			attr_dev(div1, "id", "chartGrup22");
     			set_style(div1, "max-width", "740px");
     			set_style(div1, "height", "400px");
     			set_style(div1, "margin", "0px auto");
-<<<<<<< HEAD
-    			add_location(div1, file$k, 171, 4, 5928);
-    			add_location(main, file$k, 169, 0, 5827);
-=======
-    			add_location(div1, file$j, 287, 4, 11569);
+    			add_location(div1, file$k, 287, 4, 11569);
     			attr_dev(div2, "id", "chartGrup5");
     			set_style(div2, "max-width", "740px");
     			set_style(div2, "height", "400px");
     			set_style(div2, "margin", "0px auto");
-    			add_location(div2, file$j, 288, 4, 11659);
+    			add_location(div2, file$k, 288, 4, 11659);
     			attr_dev(div3, "id", "chartGrup8");
     			set_style(div3, "max-width", "740px");
     			set_style(div3, "height", "400px");
     			set_style(div3, "margin", "0px auto");
-    			add_location(div3, file$j, 289, 4, 11748);
+    			add_location(div3, file$k, 289, 4, 11748);
     			attr_dev(div4, "id", "chartGrup6");
     			set_style(div4, "max-width", "740px");
     			set_style(div4, "height", "400px");
     			set_style(div4, "margin", "0px auto");
-    			add_location(div4, file$j, 290, 4, 11837);
-    			add_location(main, file$j, 285, 0, 11468);
->>>>>>> victor
+    			add_location(div4, file$k, 290, 4, 11837);
+    			add_location(main, file$k, 285, 0, 11468);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
