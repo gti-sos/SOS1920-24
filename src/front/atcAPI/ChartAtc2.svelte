@@ -6,6 +6,7 @@ async  function loadGraphAtc(){
      let MyDataAtc = [];
      const resData = await fetch("/api/v2/atc-stats");
      MyDataAtc = await resData.json();
+     
      let MyDataAtcNew = [];//datos guardados
      let ArrayPoint = {};
      let cont = 0;//contador
