@@ -23,7 +23,7 @@ async  function loadGraphAtc(){
              ]})
 
          cont++;
-     }
+    }
 
     // console.log(MyDataAtc);
      console.log(MyDataAtcNew);

@@ -11,6 +11,8 @@ async function loadGraph(){
         DataGrup24 = await resData24.json();
         console.log(DataGrup24);
 
+        
+
         // Grupo 9
         let DataGrup9 = [];
         const resData9 = await fetch("https://sos1920-09.herokuapp.com/api/v3/plugin-vehicles-stats/");
@@ -39,7 +41,27 @@ async function loadGraph(){
         let DataGrup6 = [];
         const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
         DataGrup6 = await resData6.json();
-        console.log(DataGrup6);
+        //console.log(DataGrup6);
+
+        //api externa 1
+        let DataEx1 = [];
+        const resDataEx1 = await fetch("https://www.balldontlie.io/api/v1/players/237");
+        DataEx1 = await resDataEx1.json();
+        console.log(DataEx1);
+
+        //api externa 1
+        let DataEx2 = [];
+        const resDataEx2 = await fetch("https://covidtracking.com/api/v1/states/current.json");
+        DataEx2 = await resDataEx2.json();
+        console.log(DataEx2);
+
+        //api externa 1
+        let DataEx3 = [];
+        const resDataEx3 = await fetch("https://corona-api.com/countries");
+        DataEx3 = await resDataEx3.json();
+        console.log(DataEx3);
+
+
 
 
 /**
