@@ -24846,13 +24846,13 @@ var app = (function () {
     			main = element("main");
     			div = element("div");
     			if (script.src !== (script_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script, "src", script_src_value);
-    			add_location(script, file$j, 51, 4, 1460);
+    			add_location(script, file$j, 51, 4, 1459);
     			attr_dev(div, "id", "chartDiv");
     			set_style(div, "max-width", "740px");
     			set_style(div, "height", "400px");
     			set_style(div, "margin", "0px auto");
-    			add_location(div, file$j, 58, 4, 1605);
-    			add_location(main, file$j, 56, 0, 1588);
+    			add_location(div, file$j, 58, 4, 1604);
+    			add_location(main, file$j, 56, 0, 1587);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24996,33 +24996,33 @@ var app = (function () {
     			t4 = space();
     			div4 = element("div");
     			if (script.src !== (script_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script, "src", script_src_value);
-    			add_location(script, file$k, 281, 4, 11348);
+    			add_location(script, file$k, 303, 4, 12017);
     			attr_dev(div0, "id", "chartGrup9");
     			set_style(div0, "max-width", "740px");
     			set_style(div0, "height", "400px");
     			set_style(div0, "margin", "0px auto");
-    			add_location(div0, file$k, 286, 4, 11480);
+    			add_location(div0, file$k, 308, 4, 12149);
     			attr_dev(div1, "id", "chartGrup22");
     			set_style(div1, "max-width", "740px");
     			set_style(div1, "height", "400px");
     			set_style(div1, "margin", "0px auto");
-    			add_location(div1, file$k, 287, 4, 11569);
+    			add_location(div1, file$k, 309, 4, 12238);
     			attr_dev(div2, "id", "chartGrup5");
     			set_style(div2, "max-width", "740px");
     			set_style(div2, "height", "400px");
     			set_style(div2, "margin", "0px auto");
-    			add_location(div2, file$k, 288, 4, 11659);
+    			add_location(div2, file$k, 310, 4, 12328);
     			attr_dev(div3, "id", "chartGrup8");
     			set_style(div3, "max-width", "740px");
     			set_style(div3, "height", "400px");
     			set_style(div3, "margin", "0px auto");
-    			add_location(div3, file$k, 289, 4, 11748);
+    			add_location(div3, file$k, 311, 4, 12417);
     			attr_dev(div4, "id", "chartGrup6");
     			set_style(div4, "max-width", "740px");
     			set_style(div4, "height", "400px");
     			set_style(div4, "margin", "0px auto");
-    			add_location(div4, file$k, 290, 4, 11837);
-    			add_location(main, file$k, 285, 0, 11468);
+    			add_location(div4, file$k, 312, 4, 12506);
+    			add_location(main, file$k, 307, 0, 12137);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25106,7 +25106,28 @@ var app = (function () {
 
     	const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
     	DataGrup6 = await resData6.json();
-    	console.log(DataGrup6);
+
+    	//console.log(DataGrup6);
+    	//api externa 1
+    	let DataEx1 = [];
+
+    	const resDataEx1 = await fetch("https://www.balldontlie.io/api/v1/players/237");
+    	DataEx1 = await resDataEx1.json();
+    	console.log(DataEx1);
+
+    	//api externa 1
+    	let DataEx2 = [];
+
+    	const resDataEx2 = await fetch("https://covidtracking.com/api/v1/states/current.json");
+    	DataEx2 = await resDataEx2.json();
+    	console.log(DataEx2);
+
+    	//api externa 1
+    	let DataEx3 = [];
+
+    	const resDataEx3 = await fetch("https://corona-api.com/countries");
+    	DataEx3 = await resDataEx3.json();
+    	console.log(DataEx3);
 
     	/**
             //Grupo 26 
@@ -25474,7 +25495,7 @@ var app = (function () {
     			add_location(script3, file$l, 123, 1, 4149);
     			attr_dev(div, "id", "container");
     			add_location(div, file$l, 130, 2, 4320);
-    			attr_dev(figure, "class", "highcharts-figure");
+    			attr_dev(figure, "class", "highcharts-figure svelte-1sw74z6");
     			add_location(figure, file$l, 129, 1, 4282);
     			add_location(main, file$l, 127, 0, 4271);
     		},
