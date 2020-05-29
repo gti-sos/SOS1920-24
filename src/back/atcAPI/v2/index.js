@@ -8,12 +8,13 @@ const BASE_API_URL= "/api/v2"; //API BASE PATH
 
 
 //proxy
-const request = require('request');
-const express = require("express");
+var express = require("express");
+var request = require('request');
 
-	//https://covidtracking.com/api/v1/states/current.json
+
+	//API Externa 1 = https://covidtracking.com/api/v1/states/current.json
 	var ApiExterna1 = 'https://covidtracking.com'; 
-	var direccion ='/api/v1/states/current.json';
+	var paths1 ='/api/v1/states/current.json';
 
 
 //creamos nuestro dataStore para guardar en el archivo contacts.db por lo cual le pasamos los siguientes parametros
@@ -23,11 +24,12 @@ const db = new dataStore({
 			});
 
 	// Api Externa 01
-	app.use(direccion, function(req, res) {
+	app.use(paths1, function(req, res) {
         var url = ApiExterna1 + req.baseUrl + req.url;
         console.log('piped: ' + req.baseUrl + req.url);
         req.pipe(request(url)).pipe(res);
 	});
+
 
 ///////////////////////////////////////////////////////////////////////////
 	

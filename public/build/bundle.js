@@ -25118,6 +25118,10 @@ var app = (function () {
     	let div3;
     	let t4;
     	let div4;
+    	let t5;
+    	let div5;
+    	let t6;
+    	let div6;
     	let dispose;
 
     	const block = {
@@ -25135,36 +25139,50 @@ var app = (function () {
     			div3 = element("div");
     			t4 = space();
     			div4 = element("div");
+    			t5 = space();
+    			div5 = element("div");
+    			t6 = space();
+    			div6 = element("div");
     			if (script0.src !== (script0_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script0, "src", script0_src_value);
-    			add_location(script0, file$l, 322, 4, 12408);
+    			add_location(script0, file$l, 417, 4, 16559);
     			if (script1.src !== (script1_src_value = "https://code.jscharting.com/latest/jscharting.js")) attr_dev(script1, "src", script1_src_value);
-    			add_location(script1, file$l, 323, 4, 12508);
+    			add_location(script1, file$l, 418, 4, 16659);
     			attr_dev(div0, "id", "chartGrup9");
     			set_style(div0, "max-width", "740px");
     			set_style(div0, "height", "400px");
     			set_style(div0, "margin", "0px auto");
-    			add_location(div0, file$l, 328, 4, 12651);
+    			add_location(div0, file$l, 423, 4, 16802);
     			attr_dev(div1, "id", "chartGrup22");
     			set_style(div1, "max-width", "740px");
     			set_style(div1, "height", "400px");
     			set_style(div1, "margin", "0px auto");
-    			add_location(div1, file$l, 329, 4, 12740);
+    			add_location(div1, file$l, 424, 4, 16891);
     			attr_dev(div2, "id", "chartGrup5");
     			set_style(div2, "max-width", "740px");
     			set_style(div2, "height", "400px");
     			set_style(div2, "margin", "0px auto");
-    			add_location(div2, file$l, 330, 4, 12830);
+    			add_location(div2, file$l, 425, 4, 16981);
     			attr_dev(div3, "id", "chartGrup8");
     			set_style(div3, "max-width", "740px");
     			set_style(div3, "height", "400px");
     			set_style(div3, "margin", "0px auto");
-    			add_location(div3, file$l, 331, 4, 12919);
+    			add_location(div3, file$l, 426, 4, 17070);
     			attr_dev(div4, "id", "chartGrup6");
     			set_style(div4, "max-width", "740px");
     			set_style(div4, "height", "400px");
     			set_style(div4, "margin", "0px auto");
-    			add_location(div4, file$l, 332, 4, 13008);
-    			add_location(main, file$l, 327, 0, 12639);
+    			add_location(div4, file$l, 427, 4, 17159);
+    			attr_dev(div5, "id", "chartApiExt1");
+    			set_style(div5, "max-width", "740px");
+    			set_style(div5, "height", "400px");
+    			set_style(div5, "margin", "0px auto");
+    			add_location(div5, file$l, 428, 4, 17248);
+    			attr_dev(div6, "id", "chartApiExt2");
+    			set_style(div6, "max-width", "740px");
+    			set_style(div6, "height", "400px");
+    			set_style(div6, "margin", "0px auto");
+    			add_location(div6, file$l, 429, 4, 17339);
+    			add_location(main, file$l, 422, 0, 16790);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25183,6 +25201,10 @@ var app = (function () {
     			append_dev(main, div3);
     			append_dev(main, t4);
     			append_dev(main, div4);
+    			append_dev(main, t5);
+    			append_dev(main, div5);
+    			append_dev(main, t6);
+    			append_dev(main, div6);
     			if (remount) run_all(dispose);
 
     			dispose = [
@@ -25507,29 +25529,146 @@ var app = (function () {
     }
 
     async function loadGraphApiExternas() {
-    	/**
-        //api externa 1
-        let DataEx1 = [];
-        "https://sos1920-24.herokuapp.com/api/v2/atc-stats/"
-        const resDataEx1 = await fetch("https://covidtracking.com/api/v1/states/current.json");
-        DataEx1 = await resDataEx1.json();
-        console.log(DataEx1);
-    **/
-    	const BASE_API_URL_External02 = "/v1/states/current.json";
+    	// Grupo 24
+    	let DataGrup24 = [];
 
-    	const resData = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
-    	const resDataExternal02 = await fetch(BASE_API_URL_External02);
-    	let MyData = await resData.json();
-    	let DataExternal02 = await resDataExternal02.json();
-    	console.log(MyData);
+    	const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
+    	DataGrup24 = await resData24.json();
+
+    	//console.log(DataGrup24);
+    	//API externas con Proxy
+    	//API Externa 1 = https://covidtracking.com/api/v1/states/current.json 
+    	const BASE_API_URL_External01 = "api/v1/states/current.json";
+
+    	const resDataExternal01 = await fetch(BASE_API_URL_External01);
+    	let DataExternal01 = await resDataExternal01.json();
+
+    	//console.log(DataExternal01);
+    	//API externas con cors
+    	let DataExternal02 = [];
+
+    	//API Externa 2 = https://corona-api.com/countries
+    	const resDataEx2 = await fetch("https://corona-api.com/countries");
+
+    	DataExternal02 = await resDataEx2.json();
     	console.log(DataExternal02);
 
-    	//api externa 2
-    	let DataEx3 = [];
+    	//////////////////////////////Grupo 24 y API externa 1 ////////////////////////
+    	let MyDataG24New = []; //datos guardados
 
-    	const resDataEx3 = await fetch("https://corona-api.com/countries");
-    	DataEx3 = await resDataEx3.json();
-    	console.log(DataEx3);
+    	let cont = 0; //contador
+
+    	for (let item of DataGrup24) {
+    		let varname = DataGrup24[cont].aut_com;
+    		let varespce = DataGrup24[cont].espce;
+    		let varyaq = DataGrup24[cont].yaq;
+    		let varobu = DataGrup24[cont].obu;
+
+    		MyDataG24New.push({
+    			name: varname,
+    			points: [
+    				{ name: "espce", y: varespce },
+    				{ name: "yaq", y: varyaq },
+    				{ name: "obu", y: varobu }
+    			]
+    		});
+
+    		cont++;
+    	}
+
+    	cont = 0;
+
+    	//API externa 1
+    	let MyDataApiExt1New = [];
+
+    	for (let item of DataExternal01) {
+    		let varname = DataExternal01[cont].state;
+    		let varPositive = DataExternal01[cont].positive;
+
+    		if (varname == "CA") {
+    			MyDataApiExt1New.push({
+    				name: varname,
+    				points: [{ name: "positivos", y: varPositive }]
+    			});
+    		}
+
+    		cont++;
+    	}
+
+    	//console.log(MyDataApiExt1New);
+    	var UnionG24ApiExterna1 = MyDataG24New.concat(MyDataApiExt1New);
+
+    	var chartG9 = JSC.chart("chartApiExt1", {
+    		debug: true,
+    		type: "treemap cushion",
+    		title_label_text: "Grafica de Universidades Españolas y Casos positivos en California",
+    		legend_visible: false,
+    		defaultSeries_shape: {
+    			label: {
+    				text: "%name",
+    				color: "#f2f2f2",
+    				style: { fontSize: 15, fontWeight: "bold" }
+    			}
+    		},
+    		series: UnionG24ApiExterna1
+    	});
+
+    	//////////////////////////////Grupo 24 y API externa 2 ////////////////////////
+    	cont = 0;
+
+    	//API externa 2
+    	let MyDataApiExt2New = [];
+
+    	let varnames = [];
+    	let deaths = [];
+
+    	//DataExternal02
+    	console.log(DataExternal02);
+
+    	DataExternal02.data.map(i => {
+    		let varname = i.name;
+    		let death = i.latest_data.deaths;
+
+    		//console.log(i.name);
+    		//console.log(i.latest_data.deaths);
+    		varnames.push(varname);
+
+    		deaths.push(death);
+    	});
+
+    	//console.log(varnames);
+    	//console.log(deaths);
+    	for (let item of varnames) {
+    		let varEstado = varnames[cont];
+    		let varDeaths = deaths[cont];
+
+    		if (varEstado == "Spain") {
+    			MyDataApiExt2New.push({
+    				name: varEstado,
+    				points: [{ name: "Estado", y: varDeaths }]
+    			});
+    		}
+
+    		cont++;
+    	}
+
+    	console.log(MyDataApiExt2New);
+    	var UnionG24ApiExterna2 = MyDataG24New.concat(MyDataApiExt2New);
+
+    	var chartG9 = JSC.chart("chartApiExt2", {
+    		debug: true,
+    		type: "treemap cushion",
+    		title_label_text: "Grafica de Universidades Españolas y Muertes por corona virus",
+    		legend_visible: false,
+    		defaultSeries_shape: {
+    			label: {
+    				text: "%name",
+    				color: "#f2f2f2",
+    				style: { fontSize: 15, fontWeight: "bold" }
+    			}
+    		},
+    		series: UnionG24ApiExterna2
+    	});
     }
 
     function instance$n($$self, $$props, $$invalidate) {
