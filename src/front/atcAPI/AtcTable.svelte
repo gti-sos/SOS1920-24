@@ -69,15 +69,23 @@
 			
 			aut_coms = Array.from(new Set(aut_coms));
  
-        } else {
-			AlertInstructions("No se han podido encontrar los datos iniciales")
-            console.log("ERROR!");
+        }if(res.status == 404){
+			errorAlert("No hay datos")
+			
+			console.log("Operacion no permitida");
+            
+		}if(res.status ==200){
+			AlertInstructions("Datos iniciales cargados correctamente")
+		} else {
+			AlertInstructions("Se han eliminado correctamente")
+            
         }
     }
 
 	async function getAtc(){
 		console.log("Fetching atc");
 		const res = await fetch(BASE_API_URL + "?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
+		console.log(BASE_API_URL)
 		if(res.ok){
 			console.log("Ok:");
 			const json = await res.json();
@@ -90,6 +98,13 @@
             }
 			console.log("Received "+ atc.length + " data.");
 			centinel=0;
+		}if(res.status==404){
+			errorAlert("No hay datos")
+			console.log("No se encuentra ningun dato");
+
+		}if(res.status == 200){
+			AlertInstructions("Se a eliminado correctamente el recurso");
+			console.log("ok");
 		}else{
 			AlertInstructions("Error interno al intentar obtener todos los elementos");
 			console.log("ERROR");
