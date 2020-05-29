@@ -20,6 +20,7 @@
 
 
 	import ChartGroup from './ChartGroup.svelte';
+	import About from './about.svelte';
 	
 	import Home from './Home.svelte'
 	import NotFound from './NotFound.svelte'
@@ -45,6 +46,7 @@
 		"/atc-stats/integrations": IntegrationAtc,
 
 		"/analytics": ChartGroup,
+		"/about": About,
 
 		
 		"*": NotFound
