@@ -1,17 +1,12 @@
 <script>
       
-        
-
-
 async function loadGraph(){
 
         // Grupo 24
         let DataGrup24 = [];
         const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
         DataGrup24 = await resData24.json();
-        console.log(DataGrup24);
-
-        
+       // console.log(DataGrup24);
 
         // Grupo 9
         let DataGrup9 = [];
@@ -42,24 +37,6 @@ async function loadGraph(){
         const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
         DataGrup6 = await resData6.json();
         //console.log(DataGrup6);
-
-        //api externa 1
-        let DataEx1 = [];
-        const resDataEx1 = await fetch("https://www.balldontlie.io/api/v1/players/237");
-        DataEx1 = await resDataEx1.json();
-        console.log(DataEx1);
-
-        //api externa 1
-        let DataEx2 = [];
-        const resDataEx2 = await fetch("https://covidtracking.com/api/v1/states/current.json");
-        DataEx2 = await resDataEx2.json();
-        console.log(DataEx2);
-
-        //api externa 1
-        let DataEx3 = [];
-        const resDataEx3 = await fetch("https://corona-api.com/countries");
-        DataEx3 = await resDataEx3.json();
-        console.log(DataEx3);
 
 
 
@@ -256,6 +233,7 @@ let MyDataG5New = [];//datos guardados
                                     });   
 
 ///////////////////////////////////////////////////Grupo 6////////////////////////////////////////////////
+
         let MyDataG6New = [];//datos guardados
              cont = 0;//contador             
              for(let item of DataGrup6){
@@ -292,16 +270,58 @@ let MyDataG5New = [];//datos guardados
                                         series: UnionG24G6
                                     });
 
+}
+
+async function loadGraphApiExternas(){
+
+    /**
+        //api externa 1
+        let DataEx1 = [];
+        "https://sos1920-24.herokuapp.com/api/v2/atc-stats/"
+        const resDataEx1 = await fetch("https://covidtracking.com/api/v1/states/current.json");
+        DataEx1 = await resDataEx1.json();
+        console.log(DataEx1);
+    **/
+
+        const BASE_API_URL_External02 = "/v1/states/current.json";
+        const resData           = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
+        
+        const resDataExternal02 = await fetch(BASE_API_URL_External02);
+        let MyData = await resData.json();
+        let DataExternal02 = await resDataExternal02.json();
+
+        console.log(MyData);
+        console.log(DataExternal02);
+
+
+
+
+
+
+
+
+
+        //api externa 2
+        let DataEx3 = [];
+        const resDataEx3 = await fetch("https://corona-api.com/countries");
+        DataEx3 = await resDataEx3.json();
+        console.log(DataEx3);
+
 
 
 
 }
+
+loadGraph(); //cors
+loadGraphApiExternas(); //proxy
+
     
 </script>
 
 <svelte:head>
     
     <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraph}"></script>
+    <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraphApiExternas}"></script>
     
 </svelte:head>
 

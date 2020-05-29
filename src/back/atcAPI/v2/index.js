@@ -6,13 +6,28 @@ const path = require("path"); //para hacer que funcione en linux o en windows
 const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
 const BASE_API_URL= "/api/v2"; //API BASE PATH
 
+
+//proxy
+const request = require('request');
+const express = require("express");
+
+	//https://covidtracking.com/api/v1/states/current.json
+	var ApiExterna1 = 'https://covidtracking.com'; 
+	var direccion ='/api/v1/states/current.json';
+
+
 //creamos nuestro dataStore para guardar en el archivo contacts.db por lo cual le pasamos los siguientes parametros
 const db = new dataStore({
 			   filename: dbFileName,
 			   autoload: true
 			});
 
-
+	// Api Externa 01
+	app.use(direccion, function(req, res) {
+        var url = ApiExterna1 + req.baseUrl + req.url;
+        console.log('piped: ' + req.baseUrl + req.url);
+        req.pipe(request(url)).pipe(res);
+	});
 
 ///////////////////////////////////////////////////////////////////////////
 	

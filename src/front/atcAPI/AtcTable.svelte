@@ -77,11 +77,9 @@
 
 	async function getAtc(){
 		console.log("Fetching atc");
-		//fetch es la solicitud a la API
 		const res = await fetch(BASE_API_URL + "?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
 		if(res.ok){
 			console.log("Ok:");
-			//recogemos los datos json de la API
 			const json = await res.json();
 			atc = json;
 
