@@ -362,7 +362,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		   || newAtc.espce==null || newAtc.yaq==null || newAtc.obu==null){
 			
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
-		}else if(!(yearProvided>2000 && yearProvided<2040)){
+		}else if(!(yearProvided>=2000 && yearProvided<=2040)){
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
 		}
 		else{

@@ -26,17 +26,9 @@ async function loadGraph(){
         DataGrup5 = await resData5.json();
         //console.log(DataGrup5);
 
-        // Grupo 8
-        let DataGrup8 = [];
-        const resData8 = await fetch("https://sos1920-08.herokuapp.com/api/v2/electricity-produced-stats");
-        DataGrup8 = await resData8.json();
-        //console.log(DataGrup8);
+      
 
-        // Grupo 6 Leandro
-        let DataGrup6 = [];
-        const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
-        DataGrup6 = await resData6.json();
-        //console.log(DataGrup6);
+        
 
         //Grupo 26 coeficiente que saca la la uefa de los equipos de futbol
         let DataGrup26 = [];
@@ -201,80 +193,8 @@ let MyDataG5New = [];//datos guardados
                                         series: UnionG24G5
                                     });          
 
-     /////////////////////////////////////////////GRUPO 8/////////////////////////////////////////////////////////
-     let MyDataG8New = [];//datos guardados
-     cont = 0;//contador
+    
 
-     for(let item of DataGrup8){
-        let varname     = DataGrup8[cont].state;
-        let varCoal     = DataGrup8[cont].coal;
-        let varHidro    = DataGrup8[cont].hydro;
-        let varSolar    = DataGrup8[cont].solar;
-        if( varname == "Hawaii" || varname == "Florida"){
-        MyDataG8New.push({name: varname , points: [
-             { name: 'hidro', y:varHidro},
-             ]})
-            }
-         cont++;
-     }
-    //console.log(MyDataG8New);
-
-    var UnionG24G8 = MyDataG24New.concat(MyDataG8New);
-
-     var chartG22 = JSC.chart('chartGrup8', { 
-                                        debug: true, 
-                                        type: 'treemap cushion', 
-                                        title_label_text: 
-                                            'Grafica de coste medio de matrícula univesitaria Y productos electricos    ', 
-                                        legend_visible: false, 
-                                        defaultSeries_shape: { 
-                                            label: { 
-                                            text: '%name', 
-                                            color: '#f2f2f2', 
-                                            style: { fontSize: 15, fontWeight: 'bold' } 
-                                            } 
-                                        }, 
-                                        series: UnionG24G8
-                                    });   
-
-///////////////////////////////////////////////////Grupo 6////////////////////////////////////////////////
-
-        let MyDataG6New = [];//datos guardados
-             cont = 0;//contador   
-        
-
-             for(let item of DataGrup6){
-                    let varname       = DataGrup6[cont].province;
-                    let varVicTotal     = DataGrup6[cont].accvictotal;
-                    let varVicinter    = DataGrup6[cont].accvicinter;
-                    let varFall        = DataGrup6[cont].accfall;
-                
-                    MyDataG6New.push({name: varname,points: [
-                        { name: 'VicTotal', y:varVicTotal},
-                        { name: 'Vicinter', y:varVicinter},
-                        { name: 'Fall'    , y:varFall}
-                        ]})
-                    cont++;
-                }
-     
-
-    var UnionG24G6 = MyDataG24NewSpain.concat(MyDataG6New);
-
-     var chartG22 = JSC.chart('chartGrup6', { 
-                                        debug: true, 
-                                        type: 'treemap cushion', 
-                                        title_label_text: 
-                                            'Grafica de coste medio de matrícula univesitaria Y Accidentes de coche    ', 
-                                        legend_visible: false, 
-                                        defaultSeries_shape: { 
-                                            label: { 
-                                            text: '%name', 
-                                            color: '#f2f2f2', 
-                                            style: { fontSize: 15, fontWeight: 'bold' } 
-                                            } 
-                                        }, 
-                                        series: UnionG24G6
-                                    });
 
         //////////////////////////////////////////////GRUPO 26///////////////////////////////////////////
                 
@@ -455,8 +375,135 @@ async function loadGraphApiExternas(){
 
 }
 
+async function loadGraphSinDatos(){
+
+// Grupo 24
+let DataGrup24 = [];
+const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
+DataGrup24 = await resData24.json();
+let MyDataG24NewSpain = [];//datos guardados
+// Grupo 6 Leandro
+let DataGrup6 = [];
+        const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
+        DataGrup6 = await resData6.json();
+        //console.log(DataGrup6);
+
+          // Grupo 8
+          let DataGrup8 = [];
+        const resData8 = await fetch("https://sos1920-08.herokuapp.com/api/v2/electricity-produced-stats");
+        DataGrup8 = await resData8.json();
+        //console.log(DataGrup8);
+
+                           
+
+//////////////////////////////Grupo 24 y Grupo 6 y 8 ////////////////////////
+let MyDataG24New = [];//datos guardados
+let cont = 0;//contador
+
+
+    for(let item of DataGrup24){
+        let varname = DataGrup24[cont].aut_com;
+        let varespce = DataGrup24[cont].espce;
+        let varyaq = DataGrup24[cont].yaq;
+        let varobu = DataGrup24[cont].obu;
+        MyDataG24New.push({name: varname,points: [
+            { name: 'espce',y:varespce},
+            { name: 'yaq', y:varyaq},
+            { name: 'obu', y:varobu}
+            ]})
+            if(varname == "Madrid"){
+                MyDataG24NewSpain.push({name: varname,points: [
+                    { name: 'espce',y:varespce},
+                    { name: 'yaq', y:varyaq},
+                    { name: 'obu', y:varobu}
+                        ]})
+                    }
+
+        cont++;
+    }
+    cont =0;
+///////////////////////////////////////////////////Grupo 6////////////////////////////////////////////////
+
+        let MyDataG6New = [];//datos guardados  
+        
+
+             for(let item of DataGrup6){
+                    let varname       = DataGrup6[cont].province;
+                    let varVicTotal     = DataGrup6[cont].accvictotal;
+                    let varVicinter    = DataGrup6[cont].accvicinter;
+                    let varFall        = DataGrup6[cont].accfall;
+                
+                    MyDataG6New.push({name: varname,points: [
+                        { name: 'VicTotal', y:varVicTotal},
+                        { name: 'Vicinter', y:varVicinter},
+                        { name: 'Fall'    , y:varFall}
+                        ]})
+                    cont++;
+                }
+     
+
+    var UnionG24G6 = MyDataG24NewSpain.concat(MyDataG6New);
+
+     var chartG22 = JSC.chart('chartGrup6', { 
+                                        debug: true, 
+                                        type: 'treemap cushion', 
+                                        title_label_text: 
+                                            'Grafica de coste medio de matrícula univesitaria Y Accidentes de coche    ', 
+                                        legend_visible: false, 
+                                        defaultSeries_shape: { 
+                                            label: { 
+                                            text: '%name', 
+                                            color: '#f2f2f2', 
+                                            style: { fontSize: 15, fontWeight: 'bold' } 
+                                            } 
+                                        }, 
+                                        series: UnionG24G6
+                                    });
+
+                                     /////////////////////////////////////////////GRUPO 8/////////////////////////////////////////////////////////
+     let MyDataG8New = [];//datos guardados
+     cont = 0;//contador
+
+     for(let item of DataGrup8){
+        let varname     = DataGrup8[cont].state;
+        let varCoal     = DataGrup8[cont].coal;
+        let varHidro    = DataGrup8[cont].hydro;
+        let varSolar    = DataGrup8[cont].solar;
+        if( varname == "Hawaii" || varname == "Florida"){
+        MyDataG8New.push({name: varname , points: [
+             { name: 'hidro', y:varHidro},
+             ]})
+            }
+         cont++;
+     }
+    //console.log(MyDataG8New);
+
+    var UnionG24G8 = MyDataG24New.concat(MyDataG8New);
+
+     var chartG22 = JSC.chart('chartGrup8', { 
+                                        debug: true, 
+                                        type: 'treemap cushion', 
+                                        title_label_text: 
+                                            'Grafica de coste medio de matrícula univesitaria Y productos electricos    ', 
+                                        legend_visible: false, 
+                                        defaultSeries_shape: { 
+                                            label: { 
+                                            text: '%name', 
+                                            color: '#f2f2f2', 
+                                            style: { fontSize: 15, fontWeight: 'bold' } 
+                                            } 
+                                        }, 
+                                        series: UnionG24G8
+                                    });   
+
+    
+}
+
 loadGraph(); //cors
+
 loadGraphApiExternas(); //proxy
+
+loadGraphSinDatos();
 
     
 </script>
@@ -464,6 +511,7 @@ loadGraphApiExternas(); //proxy
 <svelte:head>
     
     <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraph}"></script>
+    <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraphSinDatos}"></script>
     <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraphApiExternas}"></script>
     
 </svelte:head>

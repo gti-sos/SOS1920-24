@@ -183,8 +183,6 @@
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
-				//currentPage = 1;
-				//offset=0;
 				getAtc();
 				getAutComs();
 				AlertInstructions("Borrado realizado corectamente");
