@@ -12,7 +12,8 @@
 	import ChartAtc from './atcAPI/ChartAtc.svelte';
 	import ChartIntcont from './intcont-stats/ChartIntcont.svelte';
 	import ChartUnivregs from './univregs-stats/ChartUnivregs.svelte';
-
+	
+	import ChartUnivregs2 from './univregs-stats/ChartUnivregs2.svelte';
 	import ChartAtc2 from './atcAPI/ChartAtc2.svelte';
 	import ChartIntcont2 from './intcont-stats/ChartIntcont2.svelte';
 
@@ -37,6 +38,7 @@
 		"/univreg-stats": Univreg,
 		"/univreg-stats/:aut_com/:year": Edit,
 		"/univreg-stats/chart": ChartUnivregs,
+		//"/univreg-stats/chart2": ChartUnivregs2,
 
 		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,

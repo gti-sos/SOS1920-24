@@ -1,15 +1,51 @@
 <script>
+  import Button from "sveltestrap/src/Button.svelte";
+    import {
+        pop
+    } from "svelte-spa-router";
     async  function loadGraph(){
 
       //recojo los datos de mi servidor
+      //https://sos1920-24.herokuapp.com/#/univreg-stats
+      ///api/v2/univregs-stats
       let MyData = [];
-      const resData = await fetch("https://sos1920-24.herokuapp.com/api/v2/univregs-stats");
+      const resData = await fetch("https://sos1920-24.herokuapp.com/#/univreg-stats");
       MyData = await resData.json();
       console.log(MyData);
-      let NewData= [];//datos guardados
+      
+      let DataGob= [];//datos guardados
+      let DataEduc= [];//datos guardados
+      let DataOffer = [];//datos guardados
+
       let ArrayPoint = {};
       let cont = 0;//contador
       
+      //quiero que categories represente las comunidades autonomas
+      let ejeX = [];
+      
+
+     //vamos a tocar el series que es lo que muestra el data
+     for(let item of MyData){
+        let varname = item.community;
+        let gob = item.univreg_educ;
+        let educ = item.univreg_gob;
+        let offer = item.univreg_offer;
+        DataGob.push(gob);
+        DataEduc.push(educ);
+        DataOffer.push(offer);
+        ejeX.push(varname);
+        
+        cont++;
+        
+      }
+      console.log(DataGob);
+      console.log(ejeX);
+      /*
+        {
+        name: 'John',
+        data: [5, 3, 4, 7, 2,5,6]
+      }
+      */
       
     //parte del chart
 
@@ -18,15 +54,15 @@
         type: 'column'
       },
       title: {
-        text: 'Stacked column chart'
+        text: 'Oferta y demanda de plaza universitarias'
       },
       xAxis: {
-        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+        categories: ejeX
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Total fruit consumption'
+          text: 'Plazas universitarias'
         },
         stackLabels: {
           enabled: true,
@@ -64,19 +100,20 @@
         }
       },
       series: [{
-        name: 'John',
-        data: [5, 3, 4, 7, 2]
+        name: 'DemandaGob',
+        data: DataGob
       }, {
-        name: 'Jane',
-        data: [2, 2, 3, 2, 1]
+        name: 'DemandaEduc',
+        data: DataEduc
       }, {
-        name: 'Joe',
-        data: [3, 4, 4, 2, 5]
+        name: 'Oferta',
+        data: DataOffer
       }]
     });
 
 
   }
+
 </script>
 
 <svelte:head>
@@ -88,11 +125,9 @@
 
 <main>
   <figure class="highcharts-figure">
-    <div id="container"></div>
+    <div id="container">Hola</div>
     <p class="highcharts-description">
-      Chart showing stacked columns for comparing quantities. Stacked charts
-      are often used to visualize data that accumulates to a sum. This chart
-      is showing data labels for each individual section of the stack.
+     
     </p>
   </figure>
 </main>
