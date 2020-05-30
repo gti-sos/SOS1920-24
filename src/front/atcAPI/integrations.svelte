@@ -1,17 +1,12 @@
 <script>
       
-        
-
-
 async function loadGraph(){
 
         // Grupo 24
         let DataGrup24 = [];
         const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
         DataGrup24 = await resData24.json();
-        console.log(DataGrup24);
-
-        
+       // console.log(DataGrup24);
 
         // Grupo 9
         let DataGrup9 = [];
@@ -43,37 +38,17 @@ async function loadGraph(){
         DataGrup6 = await resData6.json();
         //console.log(DataGrup6);
 
-        //api externa 1
-        let DataEx1 = [];
-        const resDataEx1 = await fetch("https://www.balldontlie.io/api/v1/players/237");
-        DataEx1 = await resDataEx1.json();
-        console.log(DataEx1);
-
-        //api externa 1
-        let DataEx2 = [];
-        const resDataEx2 = await fetch("https://covidtracking.com/api/v1/states/current.json");
-        DataEx2 = await resDataEx2.json();
-        console.log(DataEx2);
-
-        //api externa 1
-        let DataEx3 = [];
-        const resDataEx3 = await fetch("https://corona-api.com/countries");
-        DataEx3 = await resDataEx3.json();
-        console.log(DataEx3);
-
-
-
-
-/**
-        //Grupo 26 
+        //Grupo 26 coeficiente que saca la la uefa de los equipos de futbol
         let DataGrup26 = [];
-        const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v2/global-coef");
+        const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v3/global-coef");
         DataGrup26 = await resData26.json();
-        console.log(DataGrup26);
+       // console.log(DataGrup26);
 
-**/
+
+
      
      let MyDataG24New = [];//datos guardados
+     let MyDataG24NewSpain = [];//datos guardados
      let cont = 0;//contador
 
      for(let item of DataGrup24){
@@ -86,9 +61,16 @@ async function loadGraph(){
              { name: 'yaq', y:varyaq},
              { name: 'obu', y:varobu}
              ]})
-
+            if(varname == "Madrid"){
+                MyDataG24NewSpain.push({name: varname,points: [
+                    { name: 'espce',y:varespce},
+                    { name: 'yaq', y:varyaq},
+                    { name: 'obu', y:varobu}
+                        ]})
+                    }
          cont++;
      }
+     console.log(MyDataG24NewSpain);
 
      //////////////////////////////////////////////GRUPO 9///////////////////////////////////////////
      cont = 0;
@@ -163,7 +145,7 @@ async function loadGraph(){
          cont++;
      }
      //console.log(MyDataG22New);
-     var UnionG24G22 = MyDataG24New.concat(MyDataG22New);
+     var UnionG24G22 = MyDataG24NewSpain.concat(MyDataG22New);
 
             var chartG22 = JSC.chart('chartGrup22', { 
                                         debug: true, 
@@ -201,7 +183,7 @@ let MyDataG5New = [];//datos guardados
      }
      //console.log(MyDataG5New);
 
-     var UnionG24G5 = MyDataG24New.concat(MyDataG5New);
+     var UnionG24G5 = MyDataG24NewSpain.concat(MyDataG5New);
 
             var chartG22 = JSC.chart('chartGrup5', { 
                                         debug: true, 
@@ -243,7 +225,7 @@ let MyDataG5New = [];//datos guardados
                                         debug: true, 
                                         type: 'treemap cushion', 
                                         title_label_text: 
-                                            'Grafica de coste medio de matrícula univesitaria Y    ', 
+                                            'Grafica de coste medio de matrícula univesitaria Y productos electricos    ', 
                                         legend_visible: false, 
                                         defaultSeries_shape: { 
                                             label: { 
@@ -256,25 +238,27 @@ let MyDataG5New = [];//datos guardados
                                     });   
 
 ///////////////////////////////////////////////////Grupo 6////////////////////////////////////////////////
-        let MyDataG6New = [];//datos guardados
-             cont = 0;//contador             
-             for(let item of DataGrup6){
-        let varname       = DataGrup6[cont].province;
-        let varVicTotal     = DataGrup6[cont].accvictotal;
-        let varVicinter    = DataGrup6[cont].accvicinter;
-        let varFall        = DataGrup6[cont].accfall;
-      
-        MyDataG6New.push({name: varname,points: [
-             { name: 'VicTotal', y:varVicTotal},
-             { name: 'Vicinter', y:varVicinter},
-             { name: 'Fall'    , y:varFall}
-             ]})
-            
-         cont++;
-     }
-    //console.log(MyDataG6New);
 
-    var UnionG24G6 = MyDataG24New.concat(MyDataG6New);
+        let MyDataG6New = [];//datos guardados
+             cont = 0;//contador   
+        
+
+             for(let item of DataGrup6){
+                    let varname       = DataGrup6[cont].province;
+                    let varVicTotal     = DataGrup6[cont].accvictotal;
+                    let varVicinter    = DataGrup6[cont].accvicinter;
+                    let varFall        = DataGrup6[cont].accfall;
+                
+                    MyDataG6New.push({name: varname,points: [
+                        { name: 'VicTotal', y:varVicTotal},
+                        { name: 'Vicinter', y:varVicinter},
+                        { name: 'Fall'    , y:varFall}
+                        ]})
+                    cont++;
+                }
+     
+
+    var UnionG24G6 = MyDataG24NewSpain.concat(MyDataG6New);
 
      var chartG22 = JSC.chart('chartGrup6', { 
                                         debug: true, 
@@ -292,16 +276,195 @@ let MyDataG5New = [];//datos guardados
                                         series: UnionG24G6
                                     });
 
+        //////////////////////////////////////////////GRUPO 26///////////////////////////////////////////
+                
+        let MyDataG26New = [];//datos guardados
+             cont = 0;//contador             
+             for(let item of DataGrup26){
+                let varname        = DataGrup26[cont].country;
+                let varteam        = DataGrup26[cont].team;
+                let varcoefficient = DataGrup26[cont].coefficient;
+                let varfed         = DataGrup26[cont].fed;
+                
+                    MyDataG26New.push({name: varname,points: [
+                        { name: 'team',        y:varteam},
+                        { name: 'coefficient', y:varcoefficient},
+                        { name: 'fed'    ,     y:varfed}
+                        ]})
+            
+                 cont++;
+     }
+    // console.log(MyDataG24New)
+    //console.log(MyDataG6New);
 
+
+
+    var UnionG24G26 = MyDataG24NewSpain.concat(MyDataG26New);
+
+     var chartG26 = JSC.chart('chartGrup26', { 
+                                        debug: true, 
+                                        type: 'treemap cushion', 
+                                        title_label_text: 
+                                            'Grafica de coste medio de matrícula univesitaria Y Coeficionte de la UEFA futbol', 
+                                        legend_visible: false, 
+                                        defaultSeries_shape: { 
+                                            label: { 
+                                            text: '%name', 
+                                            color: '#f2f2f2', 
+                                            style: { fontSize: 15, fontWeight: 'bold' } 
+                                            } 
+                                        }, 
+                                        series: UnionG24G26
+                                    });
 
 
 }
+
+async function loadGraphApiExternas(){
+
+        // Grupo 24
+       let DataGrup24 = [];
+       const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
+       DataGrup24 = await resData24.json();
+       //console.log(DataGrup24);
+
+                                    //API externas con Proxy
+    
+        //API Externa 1 = https://covidtracking.com/api/v1/states/current.json 
+        const BASE_API_URL_External01 = "api/v1/states/current.json";
+        const resDataExternal01 = await fetch(BASE_API_URL_External01);
+        let DataExternal01 = await resDataExternal01.json();
+        //console.log(DataExternal01);
+
+                                    //API externas con cors
+        let DataExternal02 = [];
+       //API Externa 2 = https://corona-api.com/countries
+        const resDataEx2 = await fetch("https://corona-api.com/countries");
+        DataExternal02 = await resDataEx2.json();
+       // console.log(DataExternal02);
+
+
+        //////////////////////////////Grupo 24 y API externa 1 ////////////////////////
+       let MyDataG24New = [];//datos guardados
+       let cont = 0;//contador
+
+            for(let item of DataGrup24){
+                let varname = DataGrup24[cont].aut_com;
+                let varespce = DataGrup24[cont].espce;
+                let varyaq = DataGrup24[cont].yaq;
+                let varobu = DataGrup24[cont].obu;
+                MyDataG24New.push({name: varname,points: [
+                    { name: 'espce',y:varespce},
+                    { name: 'yaq', y:varyaq},
+                    { name: 'obu', y:varobu}
+                    ]})
+
+                cont++;
+            }
+            cont =0;
+
+            //API externa 1
+           let MyDataApiExt1New = [];
+
+            for(let item of DataExternal01){
+                let varname = DataExternal01[cont].state;
+                let varPositive = DataExternal01[cont].positive;
+                if(varname == "CA"){
+                    MyDataApiExt1New.push({name: varname, points: [
+                    {name: 'positivos', y:varPositive}
+                ]})
+                }
+              
+
+                cont++;
+            }
+
+            //console.log(MyDataApiExt1New);
+
+           var UnionG24ApiExterna1 = MyDataG24New.concat(MyDataApiExt1New); 
+        
+            var chartG9 = JSC.chart('chartApiExt1', { 
+                            debug: true, 
+                            type: 'treemap cushion', 
+                            title_label_text: 
+                                'Grafica de Universidades Españolas y Casos positivos en California', 
+                            legend_visible: false, 
+                            defaultSeries_shape: { 
+                                label: { 
+                                text: '%name', 
+                                color: '#f2f2f2', 
+                                style: { fontSize: 15, fontWeight: 'bold' } 
+                                } 
+                            }, 
+                            series: UnionG24ApiExterna1
+                        }); 
+
+
+            //////////////////////////////Grupo 24 y API externa 2 ////////////////////////
+            cont =0;
+            //API externa 2
+           let MyDataApiExt2New = [];
+           let varnames = [];
+           let deaths = [];
+
+           //DataExternal02
+           //console.log(DataExternal02);
+           
+           DataExternal02.data.map((i) => {
+                let varname = i.name;
+                let death = i.latest_data.deaths
+               //console.log(i.name);
+               //console.log(i.latest_data.deaths);
+               varnames.push(varname);
+               deaths.push(death);
+              
+           })
+           //console.log(varnames);
+           //console.log(deaths);
+
+           for (let item of varnames) {
+            let varEstado = varnames[cont];
+            let varDeaths  = deaths[cont];
+            
+            if(varEstado == "Spain"){
+                MyDataApiExt2New.push({name: varEstado,points: [
+                {name: 'Estado', y:varDeaths}
+            ]})
+            }
+            cont++;
+        }
+       // console.log(MyDataApiExt2New);
+
+           var UnionG24ApiExterna2 = MyDataG24New.concat(MyDataApiExt2New); 
+        
+            var chartG9 = JSC.chart('chartApiExt2', { 
+                            debug: true, 
+                            type: 'treemap cushion', 
+                            title_label_text: 
+                                'Grafica de Universidades Españolas y Muertes por corona virus', 
+                            legend_visible: false, 
+                            defaultSeries_shape: { 
+                                label: { 
+                                text: '%name', 
+                                color: '#f2f2f2', 
+                                style: { fontSize: 15, fontWeight: 'bold' } 
+                                } 
+                            }, 
+                            series: UnionG24ApiExterna2
+                        }); 
+
+}
+
+loadGraph(); //cors
+loadGraphApiExternas(); //proxy
+
     
 </script>
 
 <svelte:head>
     
     <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraph}"></script>
+    <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraphApiExternas}"></script>
     
 </svelte:head>
 
@@ -311,6 +474,9 @@ let MyDataG5New = [];//datos guardados
     <div id="chartGrup5" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartGrup8" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartGrup6" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
+    <div id="chartGrup26" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
+    <div id="chartApiExt1" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
+    <div id="chartApiExt2" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
 
 </main>
 

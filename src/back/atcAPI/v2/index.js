@@ -6,12 +6,29 @@ const path = require("path"); //para hacer que funcione en linux o en windows
 const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
 const BASE_API_URL= "/api/v2"; //API BASE PATH
 
+
+//proxy
+var express = require("express");
+var request = require('request');
+
+
+	//API Externa 1 = https://covidtracking.com/api/v1/states/current.json
+	var ApiExterna1 = 'https://covidtracking.com'; 
+	var paths1 ='/api/v1/states/current.json';
+
+
 //creamos nuestro dataStore para guardar en el archivo contacts.db por lo cual le pasamos los siguientes parametros
 const db = new dataStore({
 			   filename: dbFileName,
 			   autoload: true
 			});
 
+	// Api Externa 01
+	app.use(paths1, function(req, res) {
+        var url = ApiExterna1 + req.baseUrl + req.url;
+        console.log('piped: ' + req.baseUrl + req.url);
+        req.pipe(request(url)).pipe(res);
+	});
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -248,6 +265,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 				if(atc.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
+
 					res.send(JSON.stringify(atc,null,2));
 				}
 
@@ -339,12 +357,15 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		
 		var communityProvided = newAtc.aut_com;
 		var yearProvided = newAtc.year;
-	
+	///////////////////////////////poner restricciones aqui o 
 		if((communityProvided=="") || (communityProvided==null)	|| yearProvided==null
 		   || newAtc.espce==null || newAtc.yaq==null || newAtc.obu==null){
 			
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
-		}else{
+		}else if(!(yearProvided>2000 && yearProvided<2040)){
+			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
+		}
+		else{
 		
 			db.find({aut_com:communityProvided, year:yearProvided}, (err,doc)=>{
 				if(doc.length<=0){
@@ -445,7 +466,6 @@ app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
 		var params = req.params;
 		var paramProvided = params.paramProvided;
 		if(isNaN(paramProvided)){
-			
 			//DELETING BY YEAR PROVIDED
 			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{//puesto el multi :true
 				if(numRemoved==0){

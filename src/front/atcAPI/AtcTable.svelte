@@ -69,19 +69,25 @@
 			
 			aut_coms = Array.from(new Set(aut_coms));
  
-        } else {
-			AlertInstructions("No se han podido encontrar los datos iniciales")
-            console.log("ERROR!");
+        }if(res.status == 404){
+			errorAlert("No hay datos")
+			
+			console.log("Se a comprobado en la base datos que no hay ningun elemento despues de un borrado");
+            
+		}if(res.status ==200){
+			AlertInstructions("Datos iniciales cargados correctamente")
+		} else {
+			AlertInstructions("Se han eliminado correctamente")
+            
         }
     }
 
 	async function getAtc(){
 		console.log("Fetching atc");
-		//fetch es la solicitud a la API
 		const res = await fetch(BASE_API_URL + "?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
+		console.log(BASE_API_URL)
 		if(res.ok){
 			console.log("Ok:");
-			//recogemos los datos json de la API
 			const json = await res.json();
 			atc = json;
 
@@ -92,9 +98,16 @@
             }
 			console.log("Received "+ atc.length + " data.");
 			centinel=0;
+		}if(res.status==404){
+			errorAlert("No hay datos")
+			console.log("Se a comprobado en la base datos que no hay ningun elemento despues de un borrado");
+
+		}if(res.status == 200){
+			AlertInstructions("Se a eliminado correctamente el recurso");
+			console.log("ok");
 		}else{
 			AlertInstructions("Error interno al intentar obtener todos los elementos");
-			console.log("ERROR");
+			///console.log("ERROR");
 		}
 		
 	}
@@ -137,6 +150,8 @@
 					getAtc();
 					AlertInstructions("Exito al meter " + newAtc.aut_com + "/"+newAtc.year);
 					
+				}else if(res.status == 400){
+					errorAlert("La fecha debe estar entre 2000 y 2040")
 				}else{
 					errorAlert("Dato ya existente.")
 				}
@@ -168,12 +183,12 @@
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
-				currentPage = 1;
-				offset=0;
+				//currentPage = 1;
+				//offset=0;
 				getAtc();
 				getAutComs();
 				AlertInstructions("Borrado realizado corectamente");
-				location.reload();
+				//location.reload();
 				
 			}else {
 				errorAlert("No se han podido encontrar los datos.");
@@ -462,6 +477,6 @@ function incOffset(v) {
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>
 	<Button outline color= "warning" on:click = {loadInitialAtc}> <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Datos Iniciales </Button>
-	<Button outline color= "danger" on:click = {deleteAtcs}> <i class="fa fa-trash" aria-hidden="true"></i> Borrar todo</Button>
+	<Button outline color= "danger" on:click = {deleteAtcs} onclick = "location.reload()" >  Borrar todo</Button>
 
 </main>

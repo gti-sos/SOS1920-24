@@ -18,9 +18,10 @@
 	import ChartIntcont2 from './intcont-stats/ChartIntcont2.svelte';
 
 	import IntegrationAtc from './atcAPI/integrations.svelte'
-
+	import IntegrationIntcont from './intcont-stats/integrations.svelte'
 
 	import ChartGroup from './ChartGroup.svelte';
+	import About from './about.svelte';
 	
 	import Home from './Home.svelte'
 	import NotFound from './NotFound.svelte'
@@ -34,7 +35,8 @@
 		"/intcont-stats/:aut_com/:year": EditIntcont,
 		"/intcont-stats/chart": ChartIntcont,
 		"/intcont-stats/chart2": ChartIntcont2,
-
+		"/intcont-stats/integrations": IntegrationIntcont,
+		
 		"/univreg-stats": Univreg,
 		"/univreg-stats/:aut_com/:year": Edit,
 		"/univreg-stats/chart": ChartUnivregs,
@@ -47,6 +49,7 @@
 		"/atc-stats/integrations": IntegrationAtc,
 
 		"/analytics": ChartGroup,
+		"/about": About,
 
 		
 		"*": NotFound

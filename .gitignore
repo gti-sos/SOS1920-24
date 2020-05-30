@@ -7,3 +7,4 @@ src/back/univregAPI/v1/univregs.db
 src/back/univregAPI/v1/univregs.db
 back/atcAPI/v1/atc.db
 back/atcAPI/v2/atc.db
+public/build
