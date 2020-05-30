@@ -265,6 +265,7 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 				if(atc.length==0){
 					res.sendStatus(404, "COLLECTION OR ELEMENT NOT FOUND");
 				}else{
+
 					res.send(JSON.stringify(atc,null,2));
 				}
 
@@ -356,12 +357,15 @@ app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
 		
 		var communityProvided = newAtc.aut_com;
 		var yearProvided = newAtc.year;
-	
+	///////////////////////////////poner restricciones aqui o 
 		if((communityProvided=="") || (communityProvided==null)	|| yearProvided==null
 		   || newAtc.espce==null || newAtc.yaq==null || newAtc.obu==null){
 			
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
-		}else{
+		}else if(!(yearProvided>2000 && yearProvided<2040)){
+			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
+		}
+		else{
 		
 			db.find({aut_com:communityProvided, year:yearProvided}, (err,doc)=>{
 				if(doc.length<=0){
@@ -462,7 +466,6 @@ app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
 		var params = req.params;
 		var paramProvided = params.paramProvided;
 		if(isNaN(paramProvided)){
-			
 			//DELETING BY YEAR PROVIDED
 			db.remove({aut_com:paramProvided},{multi:true},(err,numRemoved)=>{//puesto el multi :true
 				if(numRemoved==0){

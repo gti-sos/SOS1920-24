@@ -38,17 +38,14 @@ async function loadGraph(){
         DataGrup6 = await resData6.json();
         //console.log(DataGrup6);
 
-
-
-
-/**
-        //Grupo 26 
+        //Grupo 26 coeficiente que saca la la uefa de los equipos de futbol
         let DataGrup26 = [];
-        const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v2/global-coef");
+        const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v3/global-coef");
         DataGrup26 = await resData26.json();
         console.log(DataGrup26);
 
-**/
+
+
      
      let MyDataG24New = [];//datos guardados
      let cont = 0;//contador
@@ -220,7 +217,7 @@ let MyDataG5New = [];//datos guardados
                                         debug: true, 
                                         type: 'treemap cushion', 
                                         title_label_text: 
-                                            'Grafica de coste medio de matrícula univesitaria Y    ', 
+                                            'Grafica de coste medio de matrícula univesitaria Y     ', 
                                         legend_visible: false, 
                                         defaultSeries_shape: { 
                                             label: { 
@@ -269,6 +266,47 @@ let MyDataG5New = [];//datos guardados
                                         }, 
                                         series: UnionG24G6
                                     });
+
+        //////////////////////////////////////////////GRUPO 26///////////////////////////////////////////
+
+
+                
+        let MyDataG26New = [];//datos guardados
+             cont = 0;//contador             
+             for(let item of DataGrup26){
+        let varname       = DataGrup26[cont].country;
+        let varteam     = DataGrup26[cont].team;
+        let varcoefficient    = DataGrup26[cont].coefficient;
+        let varfed        = DataGrup26[cont].fed;
+      
+        MyDataG26New.push({name: varname,points: [
+             { name: 'team', y:varteam},
+             { name: 'coefficient', y:varcoefficient},
+             { name: 'fed'    , y:varfed}
+             ]})
+            
+         cont++;
+     }
+    //console.log(MyDataG6New);
+
+    var UnionG24G26 = MyDataG24New.concat(MyDataG26New);
+
+     var chartG26 = JSC.chart('chartGrup26', { 
+                                        debug: true, 
+                                        type: 'treemap cushion', 
+                                        title_label_text: 
+                                            'Grafica de coste medio de matrícula univesitaria Y Accidentes de coche    ', 
+                                        legend_visible: false, 
+                                        defaultSeries_shape: { 
+                                            label: { 
+                                            text: '%name', 
+                                            color: '#f2f2f2', 
+                                            style: { fontSize: 15, fontWeight: 'bold' } 
+                                            } 
+                                        }, 
+                                        series: UnionG24G26
+                                    });
+
 
 }
 
@@ -426,6 +464,7 @@ loadGraphApiExternas(); //proxy
     <div id="chartGrup5" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartGrup8" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartGrup6" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
+    <div id="chartGrup26" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartApiExt1" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartApiExt2" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
 
