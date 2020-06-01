@@ -9,7 +9,7 @@
       //https://sos1920-24.herokuapp.com/#/univreg-stats
       ///api/v2/univregs-stats
       let MyData = [];
-      const resData = await fetch("https://sos1920-24.herokuapp.com/#/univreg-stats");
+      const resData = await fetch("api/v2/univregs-stats");
       MyData = await resData.json();
       console.log(MyData);
       
@@ -125,7 +125,7 @@
 
 <main>
   <figure class="highcharts-figure">
-    <div id="container">Hola</div>
+    <div id="container"></div>
     <p class="highcharts-description">
      
     </p>

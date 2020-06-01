@@ -40,7 +40,7 @@
 		"/univreg-stats": Univreg,
 		"/univreg-stats/:aut_com/:year": Edit,
 		"/univreg-stats/chart": ChartUnivregs,
-		//"/univreg-stats/chart2": ChartUnivregs2,
+		"/univreg-stats/chart2": ChartUnivregs2,
 
 		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,

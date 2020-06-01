@@ -319,6 +319,9 @@ module.exports = function(app){
 			
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
 			console.log("Any of fields are not provided");
+		}else if(!(yearProvided>=2000 && yearProvided<=2040)){
+			res.sendStatus(400,"BAD REQUEST(Year not valid)");
+		
 		}else{
 		
 			db.find({community:communityProvided, year:yearProvided}, (err,univregs)=>{
