@@ -1,5 +1,8 @@
 <script>
-      
+     import Button from "sveltestrap/src/Button.svelte";
+      import {
+        pop
+    } from "svelte-spa-router";
 async function loadGraph(){
 
         // Grupo 24
@@ -382,13 +385,13 @@ let DataGrup24 = [];
 const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
 DataGrup24 = await resData24.json();
 let MyDataG24NewSpain = [];//datos guardados
-// Grupo 6 Leandro
+// Grupo 6 Leandro // https://sos1920-06.herokuapp.com/api/v2/accstats/loadInitialData
 let DataGrup6 = [];
         const resData6 = await fetch("https://sos1920-06.herokuapp.com/api/v2/accstats/");
         DataGrup6 = await resData6.json();
         //console.log(DataGrup6);
 
-          // Grupo 8
+          // Grupo 8 // https://sos1920-08.herokuapp.com/api/v2/electricity-produced-stats/loadInitialData
           let DataGrup8 = [];
         const resData8 = await fetch("https://sos1920-08.herokuapp.com/api/v2/electricity-produced-stats");
         DataGrup8 = await resData8.json();
@@ -526,6 +529,7 @@ loadGraphSinDatos();
     <div id="chartApiExt1" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
     <div id="chartApiExt2" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
 
+    <Button outline color="secondary" on:click="{pop}"> Atrás </Button>
 </main>
 
 <style>
