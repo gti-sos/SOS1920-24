@@ -18,9 +18,10 @@ import Button from "sveltestrap/src/Button.svelte";
       
       //quiero que categories represente las comunidades autonomas
       let ejeX1 = [];
-      let ejeX12 = [];
       let ejeX2=[];
       let ejeX3 = [];
+      let ejeXEx1 = [];
+      let ejeXEx2 = [];
 
      //vamos a tocar el series que es lo que muestra el data
       for(let item of MyData){
@@ -33,12 +34,13 @@ import Button from "sveltestrap/src/Button.svelte";
         DataOffer.push(offer);
         ejeX1.push(varname);
         ejeX2.push(varname);
-        ejeX3.push(varname); 
+        ejeXEx1.push(varname);
+        ejeXEx2.push(varname); 
         cont++;
             
       }
-      console.log(ejeX1);
-      console.log(cont);
+      //console.log(ejeX1);
+      //console.log(cont);
       
 
       //vamos a obtener los datos del grupo 21. Traffic-injuries
@@ -48,30 +50,25 @@ import Button from "sveltestrap/src/Button.svelte";
       //console.log(MyData21);
       let muertos = [];
       let accidentes = [];
-      let reset = 0;
       
       for(let i=0;i<cont;i++){
         accidentes.push(0);
         muertos.push(0);
+      }  
+      for(let item2 of MyData21 ){
+        if(item2.year === 2018){
+         
+          let varname2 = item2.auto_com;
+          let accident = item2.accident;
+          let dead = item2.dead;
+          muertos.push(dead);
+          accidentes.push(accident);
+          ejeX1.push(varname2);      
+        } 
       }
-     
-      
-        for(let item2 of MyData21 ){
-          if(item2.year === 2018){
-           
-            let varname2 = item2.auto_com;
-            let accident = item2.accident;
-            let dead = item2.dead;
-            muertos.push(dead);
-            accidentes.push(accident);
-            ejeX1.push(varname2);
-          
-                       
-          } 
-        }
         
-      console.log(DataGob);
-      console.log(ejeX1);
+      //console.log(DataGob);
+      //console.log(ejeX1);
       Highcharts.chart('container21', {
       chart: {
         type: 'column'
@@ -320,7 +317,111 @@ import Button from "sveltestrap/src/Button.svelte";
         data: ventas
       }]
     });
+      
+      //https://disease.sh/v2/states?sort=deaths&yesterday=false
 
+      let MyDataEx1 = [];
+      const resDataEx1 = await fetch("https://disease.sh/v2/states?sort=deaths&yesterday=false");
+      MyDataEx1 = await resDataEx1.json();
+      //console.log(MyDataEx1);
+      let casos = [];
+      let muertes = [];
+      for(let i=0;i<cont;i++){
+        casos.push(0);
+        muertes.push(0);
+      }
+      let i = 0;
+      for (let item of MyDataEx1) {
+        
+        let varname = item.state;
+        let cases = item.cases;
+        let deaths = item.deaths;
+        if(i<11){
+          i++;
+          casos.push(cases);
+          muertos.push(deaths);
+          ejeXEx1.push(varname);
+        }
+        
+      }
+
+      Highcharts.chart('containerEx1', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'oferta y demanda de pla.univ vs muertes y casos de covid en 10 estados de EEUU'
+      },
+      xAxis: {
+        categories: ejeXEx1
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Datos recogidos'
+        },
+        stackLabels: {
+          enabled: true,
+          style: {
+            fontWeight: 'bold',
+            color: ( // theme
+              Highcharts.defaultOptions.title.style &&
+              Highcharts.defaultOptions.title.style.color
+            ) || 'gray'
+          }
+        }
+      },
+      legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        shadow: false
+      },
+      tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      series: [{
+        name: 'DemandaGob',
+        data: DataGob
+      }, /*{
+        name: 'DemandaEduc',
+        data: DataEduc
+      },*/ {
+        name: 'Oferta',
+        data: DataOffer
+      },{
+        name: 'Muertes',
+        data: muertos
+      },{
+        name: 'Casos',
+        data: casos
+      }]
+    });
+
+      let MyDataEx2 = [];
+      const resDataEx2 = await fetch("https://mindicador.cl/api");
+      MyDataEx2 = await resDataEx2.json();
+      //console.log(MyDataEx1);
+      
+      let valor = [];
+      for(let i=0;i<cont;i++){
+        valor.push(0);
+      }
     }
 </script>
 
@@ -341,6 +442,7 @@ import Button from "sveltestrap/src/Button.svelte";
       </figure>
 
       <figure class="highcharts-figure">
+        <br>
         <div id="container10"></div>
         <p class="highcharts-description">
          
@@ -349,6 +451,18 @@ import Button from "sveltestrap/src/Button.svelte";
     
     <figure class="highcharts-figure">
       <div id="container26"></div>
+      <p class="highcharts-description">
+         
+      </p>
+    </figure>
+    <figure class="highcharts-figure">
+      <div id="containerEx1"></div>
+      <p class="highcharts-description">
+         
+      </p>
+    </figure>
+    <figure class="highcharts-figure">
+      <div id="containerEx2"></div>
       <p class="highcharts-description">
          
       </p>
