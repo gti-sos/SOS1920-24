@@ -4,10 +4,23 @@ module.exports = function(app){
 	const path = require("path");
 	const dbFileName= path.join(__dirname, "univregs.db");
 	const BASE_API_URL= "/api/v2"; //API BASE PATH
+	//proxy
+	var express = require("express");
+	var request = require("request");
+
 	const db = new dataStore({
 				filename: dbFileName,
 				autoload: true
 	});
+	var apiG10 = 'https://sos1920-10.herokuapp.com';
+	var patchG10 = '/api/v2/global-divorces';
+
+	app.use(patchG10, function(req, res) {
+        var url = apiG10 + req.baseUrl + req.url;
+        console.log('piped: ' + req.baseUrl + req.url);
+        req.pipe(request(url)).pipe(res);
+        
+    });
 	
 	
 	/*RESOURCE

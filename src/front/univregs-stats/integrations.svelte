@@ -14,11 +14,11 @@ import Button from "sveltestrap/src/Button.svelte";
         //let DataEduc= [];//datos guardados
       let DataOffer = [];//datos guardados
 
-      let ArrayPoint = {};
       let cont = 0;//contador
       
       //quiero que categories represente las comunidades autonomas
       let ejeX1 = [];
+      let ejeX12 = [];
       let ejeX2=[];
       let ejeX3 = [];
 
@@ -37,31 +37,39 @@ import Button from "sveltestrap/src/Button.svelte";
         cont++;
             
       }
+      console.log(ejeX1);
+      console.log(cont);
+      
 
       //vamos a obtener los datos del grupo 21. Traffic-injuries
       let MyData21 = [];
       const resData21 = await fetch("https://sos1920-21.herokuapp.com/api/v2/traffic-injuries");
       MyData21 = await resData21.json();
-      console.log(MyData21);
+      //console.log(MyData21);
       let muertos = [];
       let accidentes = [];
+      let reset = 0;
       
-      for(let item of MyData21){
-        if(item.year ===2018){
-          let varname = item.auto_com;
-          let accident = item.accident;
-          let dead = item.dead;
-
-          muertos.push(dead);
-          accidentes.push(accident);
-          ejeX1.push(varname);
-        }
+      for(let i=0;i<cont;i++){
+        accidentes.push(0);
+        muertos.push(0);
       }
-
+     
       
-
-
-
+        for(let item2 of MyData21 ){
+          if(item2.year === 2018){
+           
+            let varname2 = item2.auto_com;
+            let accident = item2.accident;
+            let dead = item2.dead;
+            muertos.push(dead);
+            accidentes.push(accident);
+            ejeX1.push(varname2);
+          
+                       
+          } 
+        }
+        
       console.log(DataGob);
       console.log(ejeX1);
       Highcharts.chart('container21', {
@@ -133,11 +141,18 @@ import Button from "sveltestrap/src/Button.svelte";
     });
 
       //vamos con los datos de global-divorces
-      let MyData10 = [];
+      /*let MyData10 = [];
       const resData10 = await fetch("https://sos1920-10.herokuapp.com/api/v2/global-divorces");
       MyData10 = await resData10.json();
-      console.log(MyData10);
+      console.log(MyData10);*/
+      const BASE_API_URL_G10 = "api/v2/global-divorces";
+      const resG10 = await fetch(BASE_API_URL_G10);
+      let MyData10 = await resG10.json();
       let divorcios = [];
+      for(let i=0;i<cont;i++){
+        divorcios.push(0);
+        
+      }
       
       for(let item of MyData10){
         let varname = item.country;
@@ -213,6 +228,98 @@ import Button from "sveltestrap/src/Button.svelte";
       }]
     });
       
+    //vamos con los datos de equipos de futbol 
+      let MyData26 = [];
+      const resData26 = await fetch("http://sos1920-26.herokuapp.com/api/v3/global-transfers");
+      MyData26 = await resData26.json();
+      console.log(MyData26);
+      let firmas = [];
+      let ventas = [];
+
+      for(let i=0;i<cont;i++){
+        firmas.push(0);
+        ventas.push(0);
+      }
+      
+      for(let item of MyData26){
+        
+          let varname = item.team;
+          let signing = item.signing;
+          let sale = item.sale;
+
+          firmas.push(signing);
+          ventas.push(sale);
+          ejeX3.push(varname);
+        }
+        console.log(ejeX3);
+
+        Highcharts.chart('container26', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Comparacion de oferta y demanda de plazas universitarias con firmas y ventas de equipos de futbol'
+      },
+      xAxis: {
+        categories: ejeX3
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Datos recogidos'
+        },
+        stackLabels: {
+          enabled: true,
+          style: {
+            fontWeight: 'bold',
+            color: ( // theme
+              Highcharts.defaultOptions.title.style &&
+              Highcharts.defaultOptions.title.style.color
+            ) || 'gray'
+          }
+        }
+      },
+      legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        shadow: false
+      },
+      tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      series: [{
+        name: 'DemandaGob',
+        data: DataGob
+      }, /*{
+        name: 'DemandaEduc',
+        data: DataEduc
+      },*/ {
+        name: 'Oferta',
+        data: DataOffer
+      },{
+        name: 'Firmas',
+        data: firmas
+      },{
+        name: 'Ventas',
+        data: ventas
+      }]
+    });
 
     }
 </script>
@@ -239,6 +346,13 @@ import Button from "sveltestrap/src/Button.svelte";
          
         </p>
       </figure>
+    
+    <figure class="highcharts-figure">
+      <div id="container26"></div>
+      <p class="highcharts-description">
+         
+      </p>
+    </figure>
 </main>
 
 

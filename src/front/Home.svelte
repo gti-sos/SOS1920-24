@@ -19,7 +19,7 @@
 <li><a href="#/univreg-stats">Number of University Tuition</a></li>
 	<ul>
 		<li type="disc" ><a type="disc" href="/#/univreg-stats/chart">Grafica Univreg con Highcharts.</a></li>
-		<li type="disc" ><a type="disc" href="/#/univreg-stats/chart2">Grafica Univreg con [].</a></li>
+		<li type="disc" ><a type="disc" href="/#/univreg-stats/chart2">Grafica Univreg con AnyChart.</a></li>
 		<li type="disc" ><a type="disc" href="/#/univreg-stats/integrations">Grafica Univreg de las Integraciones.</a></li>
 	</ul>
 <li><a href="#/intcont-stats">Public Waste on University/Internship Contracts</a></li>
