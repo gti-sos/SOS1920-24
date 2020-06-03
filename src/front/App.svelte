@@ -19,6 +19,7 @@
 
 	import IntegrationAtc from './atcAPI/integrations.svelte'
 	import IntegrationIntcont from './intcont-stats/integrations.svelte'
+	import IntegrationUnivreg from './univregs-stats/integrations.svelte'
 
 	import ChartGroup from './ChartGroup.svelte';
 	import About from './about.svelte';
@@ -41,6 +42,7 @@
 		"/univreg-stats/:aut_com/:year": Edit,
 		"/univreg-stats/chart": ChartUnivregs,
 		"/univreg-stats/chart2": ChartUnivregs2,
+		"/univreg-stats/integrations": IntegrationUnivreg,
 
 		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,
