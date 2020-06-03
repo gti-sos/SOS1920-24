@@ -5,19 +5,19 @@
     } from "svelte-spa-router";
 async function loadGraph(){
 
-        // Grupo 24
+        // Grupo 24 
         let DataGrup24 = [];
         const resData24 = await fetch("https://sos1920-24.herokuapp.com/api/v2/atc-stats/");
         DataGrup24 = await resData24.json();
        // console.log(DataGrup24);
 
-        // Grupo 9
+        // Grupo 9 
         let DataGrup9 = [];
         const resData9 = await fetch("https://sos1920-09.herokuapp.com/api/v3/plugin-vehicles-stats/");
         DataGrup9 = await resData9.json();
         //console.log(DataGrup9);
 
-         //Grupo  22
+         //Grupo  22 
         let DataGrup22 = [];
         const resData22 = await fetch("https://sos1920-22.herokuapp.com/api/v1/og-basket-stats/");
         DataGrup22 = await resData22.json();
