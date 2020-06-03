@@ -1,5 +1,10 @@
 <main>
-
-    <a href="pepe"> Ir a Video API atc</a>
+    <div><h2>Videos del Grupo 24</h2>
+    <a href="https://youtu.be/dzucRtkmQ2M"> Ir a Video API atc</a></div>
 
 </main>
+
+<style>
+    div{text-align:center;border:1px dotted #000; padding:8px;}
+    a{text-align:center;border:1px dotted blue; padding:8px;}
+</style>

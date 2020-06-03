@@ -75,7 +75,7 @@
 			console.log("Se a comprobado en la base datos que no hay ningun elemento despues de un borrado");
             
 		}if(res.status ==200){
-			AlertInstructions("Datos iniciales cargados correctamente")
+			AlertInstructions("Se a actualizado correctamente")
 		} else {
 			AlertInstructions("Se han eliminado correctamente")
             
@@ -103,7 +103,7 @@
 			console.log("Se a comprobado en la base datos que no hay ningun elemento despues de un borrado");
 
 		}if(res.status == 200){
-			AlertInstructions("Se a eliminado correctamente el recurso");
+			AlertInstructions("Se a creado correctamente");
 			console.log("ok");
 		}else{
 			AlertInstructions("Error interno al intentar obtener todos los elementos");
@@ -183,8 +183,6 @@
 			method: "DELETE"
 		}).then(function (res) {
 			if (res.ok){
-				//currentPage = 1;
-				//offset=0;
 				getAtc();
 				getAutComs();
 				AlertInstructions("Borrado realizado corectamente");
@@ -279,14 +277,14 @@ function incOffset(v) {
 
 	function errorAlert(error){
 		var alert_Er = document.getElementById("div_alert");
-		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alert_Er.className = " alert alert dismissible in alert-danger ";
 		alert_Er.innerHTML = "ERROR. La instruccion no se a procesado correctamente " + error;
 	}
 
 	function AlertInstructions(msg){
 		var alert_Er = document.getElementById("div_alert");
-		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_Er.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alert_Er.className = " alert alert dismissible in alert-info ";
 		alert_Er.innerHTML = "La instruccion se a procesado correctamente " + msg;
 	}
