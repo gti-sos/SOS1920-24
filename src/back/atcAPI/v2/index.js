@@ -6,7 +6,7 @@ module.exports = function(app){
 	const path = require("path"); //para hacer que funcione en linux o en windows
 	const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
 	const BASE_API_URL= "/api/v2"; //API BASE PATH
-	console.log("B");
+	
 
 												//Proxy para API Externa 1
 		
@@ -24,13 +24,14 @@ module.exports = function(app){
 					filename: dbFileName,
 					autoload: true
 					});
-	console.log("C");				
+
+					
 	//Funcion del proxy Api Externa 01
 	app.use(paths1, function(req, res) {
 		var url = ApiExterna1 + req.baseUrl + req.url;
 		console.log('piped: ' + req.baseUrl + req.url);
 		req.pipe(request(url)).pipe(res);
-		console.log("D");
+		
 	});
 
 //Metemos los datos iniciales los cuales son por defecto
@@ -145,7 +146,7 @@ module.exports = function(app){
 		
 		//depurar en consola que es lo que a ejercutado
 		console.log("New GET .../loadInitialData");
-		console.log("1");
+		
 		atc.forEach((i)=>{
 				db.find({aut_com:i.aut_com, year:i.year},(err,atcFiltrado)=>{
 					if(atcFiltrado.length==0) 
@@ -160,7 +161,7 @@ module.exports = function(app){
 
 	//GET-BASEROUTE /api/v2/atc-stats (para pedir los datos)
 	app.get(BASE_API_URL+"/atc-stats", (req,res)=>{
-		console.log("2");
+	
 		var q = req.query; //Registering query
 		var off= parseInt(q.offset);  //extracting offset from query
 		var l= parseInt(q.limit);  //extracting limit from query
@@ -215,7 +216,7 @@ module.exports = function(app){
 			
 			
 		}else if (simpleYear == null){
-			console.log("2.2");
+		
 			console.log("Pide todos los recursos");
 			
 			db.find({year:{$gte:fromYear, $lte:toYear}
@@ -246,7 +247,7 @@ module.exports = function(app){
 				}	
 			});		
 		}else{
-			console.log("2.3");
+			
 			db.find({}).sort({aut_com:1}).skip(off).limit(l).exec((err,atc)=>{
 				if(community!=null){
 					var filteredByCommunity = atc.filter((c)=>{
@@ -270,12 +271,12 @@ module.exports = function(app){
 			});
 
 		}
-		console.log("2.4");
+
 	});
 
 	//GET-RESOURCE_AUT_COM_AND_YEAR (para pedir un recurso en expecifico por su comunidad y año)
 	app.get(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
-		console.log("3");
+	
 		console.log("New GET .../aut_com y año");
 		var params = req.params;
 		var aut_com = params.aut_com;
@@ -293,7 +294,7 @@ module.exports = function(app){
 
 	//GET-RESOURCE (para pedir o buscar por cualquier parametro)
 		app.get(BASE_API_URL+"/atc-stats/:paramProvided", (req,res)=>{
-			console.log("4");
+
 			console.log("New GET .../por cualquier parametro");
 			var params = req.params;
 			var paramProvided = params.paramProvided;
@@ -340,7 +341,7 @@ module.exports = function(app){
 						//No permite comunidad vacia ya que la comunidad es la primary key)
 						//Solo permite años entre 2000 y 2040
 	app.post(BASE_API_URL+"/atc-stats",(req,res)=>{
-		console.log("5");
+
 		console.log("New POST .../atc-stats");
 
 		var newAtc = {
@@ -364,14 +365,14 @@ module.exports = function(app){
 			res.sendStatus(400,"BAD REQUEST(No totally DATA provided)");
 		}
 		else{
-			console.log("5.1");
+		
 			db.find({aut_com:communityProvided, year:yearProvided}, (err,doc)=>{
 				if(doc.length<=0){
-					console.log("5.2");
+				
 					db.insert(newAtc);
 					res.sendStatus(201,"CREATED");
 				}else{
-					console.log("5.3");
+				
 					res.sendStatus(409,"BAD REQUEST(RESOURCE ALREADY EXIST)");
 				}
 			});
@@ -380,27 +381,27 @@ module.exports = function(app){
 
 	//POST-RESOURCE_AUT_COM_AND_YEAR (Se debe cumplir la tabla)
 	app.post(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{
-		console.log("6");
+		
 		res.sendStatus(405, "METHOD NOT ALLOWED");
 	});
 	
 	//POST-RESOURCE (Se debe cumplir la tabla)
 	app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
-		console.log("7");
+	
 		res.sendStatus(405,"METHOD NOT ALLOWED");
 	} );
 	
 
 	//PUT-BASEROUTE (No se puede modificar todo los parametros) (Se debe cumplir la tabla)
 	app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
-		console.log("8");
+
 		res.sendStatus(405,"METHOD NOT ALLOWED");
 	});	
 	
 	//PUT-RESOURCE_AUT_COM_AND_YEAR (quremos modificar un recurso pero si que:
 								// la comunidad este vacio o el año)                                             
 	app.put(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
-		console.log("9");
+	
 		console.log("New PUT .../aut_comYaño");
 		var params = req.params;
 		var body = req.body;
@@ -408,11 +409,11 @@ module.exports = function(app){
 		var yearProvided = parseInt(params.year);
 	
 	if(!(body.aut_com == communityProvided || body.aut_com == null) || !(body.year == yearProvided || body.year == null)){
-		console.log("9.1");
+	
 	    res.sendStatus(400, "Bad request");
 		
 	   }else{
-		console.log("9.2");
+	
 		db.update({aut_com:communityProvided, 
 				   year:yearProvided},
 			 	  {$set: {
@@ -432,13 +433,13 @@ module.exports = function(app){
 	
 	//PUT-RESOURCE_AUT_COM (se debe cumplir la tabla)
 	app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
-		console.log("10");
+	
 		res.sendStatus(405, "METHOD NOT ALLOWED");
 	});	
 	
 	//DELETE-BASEROUTE (eliminamos todos los recursos)
 	app.delete(BASE_API_URL+"/atc-stats", (req,res)=>{
-		console.log("11");
+		
 		console.log("New Delete .../BaseRoute");
 		
 		db.remove({},{multi: true}, (err, numRemoved)=>{
@@ -453,7 +454,7 @@ module.exports = function(app){
 	
 	//DELETE-RESOURCE_AUT_COM_AND_YEAR (eliminamos un recurso es especifico indicandole la comunidad y el año)
 	app.delete(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
-		console.log("12");
+	
 		console.log("New DELETE .../aut_comYAño");
 		var params = req.params;
 		var communityProvided = params.aut_com;
@@ -472,7 +473,7 @@ module.exports = function(app){
 	//DELETE-RESOURCE (eliminamos un recurso indicandole cualquier parametro que queramos) 
 	//comprobamos que es una comunidad para que no metan cosas aleatorias
 	app.delete(BASE_API_URL+"/atc-stats/:paramProvided", (req,res)=>{
-		console.log("13");
+	
 		console.log("New DELETE .../cualquierParametro");
 		var params = req.params;
 		var paramProvided = params.paramProvided;
@@ -501,4 +502,3 @@ module.exports = function(app){
 	console.log("BACK OK...");
 	
 };
-console.log("A");
