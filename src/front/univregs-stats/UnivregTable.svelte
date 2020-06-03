@@ -66,11 +66,18 @@
 
 			/*console.log("Received "+ univreg.length + " data.");*/
 			//console.log("Counted " + communities.length + " communities and " + years.length + " years.");
-		}else{
-			//errorAlert("Error interno al intentar obtener las comunidades autonomas y los años")
-			console.log("ERROR en get");
-		}
-	}
+		}if(res.status == 404){
+            errorAlert("No hay datos")
+
+            console.log("Se a comprobado en la base datos que no hay ningun elemento despues de un borrado");
+
+        }if(res.status ==200){
+            AlertInstructions("Se a actualizado correctamente")
+        } else {
+            AlertInstructions("Se han eliminado correctamente")
+
+        }
+    }
 	
 	async function getUnivreg(){
 		console.log("Fetching univreg");
@@ -89,12 +96,18 @@
 			}
 			console.log("Received "+ univreg.length + " data.");
 			centinel=0;
-		}else{
-			AlertInstructions("No se encuentran datos por el borrado anterior");
-			console.log("ERROR");
-		}
-	}
+		}if(res.status == 404){
+            errorAlert("No hay datos")
 
+            console.log("Se ha comprobado en la base datos que no hay ningun elemento despues de un borrado");
+
+        }if(res.status ==200){
+            AlertInstructions("Se ha creado correctamente")
+        } else {
+            AlertInstructions("Se han eliminado correctamente")
+
+        }
+    }
 	async function loadInitialUnivreg() {
         console.log("Loading initial univreg stats data..."); 
         const res = await fetch("/api/v2/univregs-stats/loadInitialData").then(function (res) {
@@ -103,7 +116,7 @@
 				getUnivreg();
 				AlertInstructions("Datos iniciales cargados");
 				location.reload();
-			}else {
+			}else if(res.status==400) {
 				errorAlert("No se han podido encontrar los datos");
 				console.log("ERROR!");
 			}
@@ -131,7 +144,10 @@
 				if (res.ok){
 					getUnivreg();
 					AlertInstructions("Dato insertado correctamente");
-				}else {
+				}else if(res.status == 400){
+                    errorAlert("La fecha debe estar entre 2000 y 2040")
+                }
+				else {
 					errorAlert("Dato ya ha sido insertado");
 				}
 			});
@@ -147,8 +163,6 @@ async function deleteUnivreg(communities, year) {
 				getUnivreg();
 				getAutComsYears();
 				deleteAlert();
-			} else if (res.status==404){
-				errorAlert("Se ha intentado borrar un dato inexistente");
 			} else {
 				errorAlert("Error interno al intentar borrar un elemento concreto");
 			}
@@ -167,9 +181,12 @@ async function deleteUnivreg(communities, year) {
 				getUnivreg();
 				getAutComsYears();
 				AlertInstructions("Borrado todos los datos");
-				location.reload();
 				
-			}else {
+				
+			}else if (res.status==404){
+				errorAlert("Se ha intentado borrar un dato inexistente");
+			} 
+			else {
 				errorAlert("Error al intentar borrar todos los elementos");
 			}
 		});
@@ -268,7 +285,7 @@ async function deleteUnivreg(communities, year) {
 	function AlertInstructions(msg){
 		
 		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alert_element.className = " alert alert dismissible in alert-info ";
 		alert_element.innerHTML = "La instruccion se ha procesado correctamente "+msg;
 		
@@ -276,7 +293,7 @@ async function deleteUnivreg(communities, year) {
 	
 		function errorAlert(error){
 		var alert_element = document.getElementById("div_alert");
-		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 33%;";
+		alert_element.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alert_element.className = " alert alert dismissible in alert-warning ";
 		alert_element.innerHTML = "ERROR la instruccion no se ha procesado correctamente! "+error;
 	
@@ -469,6 +486,6 @@ async function deleteUnivreg(communities, year) {
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>
 	<Button outline color= "warning" on:click = {loadInitialUnivreg}> <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Datos Iniciales </Button>
-	<Button outline color= "danger" on:click = {deleteUnivregs}> <i class="fa fa-trash" aria-hidden="true"></i> Borrar todo</Button>
+	<Button outline color= "danger" on:click = {deleteUnivregs} onclick="location.reload()"> <i class="fa fa-trash" aria-hidden="true"></i> Borrar todo</Button>
 
 </main>

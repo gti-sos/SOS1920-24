@@ -1,6 +1,9 @@
 <main>
     <div><h2>Videos del Grupo 24</h2>
-    <a href="https://youtu.be/dzucRtkmQ2M"> Ir a Video API atc</a></div>
+        <a href="https://youtu.be/dzucRtkmQ2M"> Ir a Video API atc</a>
+        <a href="https://youtu.be/dzucRtkmQ2M"> Ir a Video API univreg</a>
+
+    </div>
 
 </main>
 

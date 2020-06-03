@@ -12,12 +12,14 @@
 	import ChartAtc from './atcAPI/ChartAtc.svelte';
 	import ChartIntcont from './intcont-stats/ChartIntcont.svelte';
 	import ChartUnivregs from './univregs-stats/ChartUnivregs.svelte';
-
+	
+	import ChartUnivregs2 from './univregs-stats/ChartUnivregs2.svelte';
 	import ChartAtc2 from './atcAPI/ChartAtc2.svelte';
 	import ChartIntcont2 from './intcont-stats/ChartIntcont2.svelte';
 
 	import IntegrationAtc from './atcAPI/integrations.svelte'
 	import IntegrationIntcont from './intcont-stats/integrations.svelte'
+	import IntegrationUnivreg from './univregs-stats/integrations.svelte'
 
 	import ChartGroup from './ChartGroup.svelte';
 	import About from './about.svelte';
@@ -39,6 +41,8 @@
 		"/univreg-stats": Univreg,
 		"/univreg-stats/:aut_com/:year": Edit,
 		"/univreg-stats/chart": ChartUnivregs,
+		"/univreg-stats/chart2": ChartUnivregs2,
+		"/univreg-stats/integrations": IntegrationUnivreg,
 
 		"/atc-stats": Atc,
 		"/atc-stats/:aut_com/:year": EditAtc,

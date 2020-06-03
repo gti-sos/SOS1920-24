@@ -1,0 +1,1342 @@
+{
+	"info": {
+		"_postman_id": "a7317726-b464-41cf-8ef7-8a3a970d6782",
+		"name": "SOS1920-24-univregs-stats",
+		"description": "Pruebas para el feedback del jueves 26",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DELETE COMMUNITIES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b71e72a3-3b31-414d-b092-99e6a42421bf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-COMMUNITIES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebd240a3-0207-468b-9057-9d6becaa4acd",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"/*pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Extremadura\");",
+							"    pm.expect(pm.response.text()).to.include(\"Galicia\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				},
+				"description": "Debe estar vacio ya que borro los datos antes\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET-loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "684d6f95-4ed4-417c-9b64-0c5da0d4807c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"/*pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Andalucia\");",
+							"    pm.expect(pm.response.text()).to.include(\"Aragon\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-COMMUNITIES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebd240a3-0207-468b-9057-9d6becaa4acd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Extremadura\");",
+							"    pm.expect(pm.response.text()).to.include(\"Galicia\");",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"community\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"univreg_gob\");",
+							"    pm.expect(i).to.have.property(\"univreg_educ\");",
+							"    pm.expect(i).to.have.property(\"univreg_offer\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93712b13-c753-4116-aed1-b13a51bd756a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  { \r\n\t\t\"community\": \"Prueba\",\r\n\t\t\"year\": 2018,\r\n\t\t\"univreg_gob\": 5318,\r\n\t\t\"univreg_educ\": 5318,\r\n\t\t\"univreg_offer\": 2500\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37122cf6-d4a0-42e0-90e4-399e1cb47818",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT PRUEBA Fallo com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77445b1e-8843-4b46-bf90-d7d14adff1e1",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Bad request\", function () {",
+							"    pm.response.to.have.status(\"Bad Request\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  { \r\n\t\t\"community\": \"Madrid2\",\r\n\t\t\"year\": 2018,\r\n\t\t\"univreg_gob\": 6580,\r\n\t\t\"univreg_educ\": 6580,\r\n\t\t\"univreg_offer\": 2500\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Madrid/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Madrid",
+						"2018"
+					]
+				},
+				"description": "El año en el body tiene que ser el mismo año que el de la url\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET-PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5585600-42e4-4426-abf8-ae7b681eca91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba\");",
+							"    ",
+							"});",
+							"/*pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"community\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_gob\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_educ\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_offer\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT PRUEBA Fallo year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77445b1e-8843-4b46-bf90-d7d14adff1e1",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Es una bad request\", function () {",
+							"    pm.response.to.have.status(\"Bad Request\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  { \r\n\t\t\"community\": \"Prueba\",\r\n\t\t\"year\": 2016,\r\n\t\t\"univreg_gob\": 6580,\r\n\t\t\"univreg_educ\": 6580,\r\n\t\t\"univreg_offer\": 2500\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba",
+						"2018"
+					]
+				},
+				"description": "El año en el body tiene que ser el mismo año que el de la url\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET-PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5585600-42e4-4426-abf8-ae7b681eca91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba\");",
+							"    ",
+							"});",
+							"",
+							"/*pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"community\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_gob\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_educ\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_offer\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77445b1e-8843-4b46-bf90-d7d14adff1e1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  { \r\n\t\t\"community\": \"Prueba\",\r\n\t\t\"year\": 2018,\r\n\t\t\"univreg_gob\": 6580,\r\n\t\t\"univreg_educ\": 6580,\r\n\t\t\"univreg_offer\": 2500\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba",
+						"2018"
+					]
+				},
+				"description": "El año en el body tiene que ser el mismo año que el de la url\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET-PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5585600-42e4-4426-abf8-ae7b681eca91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba\");",
+							"    ",
+							"});",
+							"",
+							"/*pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"community\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_gob\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_educ\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_offer\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PRUEBA Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93712b13-c753-4116-aed1-b13a51bd756a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  { \r\n\t\t\"community\": \"Prueba\",\r\n\t\t\"year\": 2016,\r\n\t\t\"univreg_gob\": 5318,\r\n\t\t\"univreg_educ\": 5318,\r\n\t\t\"univreg_offer\": 2500\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-PRUEBA MODIFIED",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5585600-42e4-4426-abf8-ae7b681eca91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"There are less than 1 contact called \", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET stat1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21633f1e-c020-4cf9-a58e-1dde81e829fe",
+						"exec": [
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"community\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"univreg_gob\");",
+							"    pm.expect(i).to.have.property(\"univreg_educ\");",
+							"    pm.expect(i).to.have.property(\"univreg_offer\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?fromGob=5000&toGob=10000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "fromGob",
+							"value": "5000"
+						},
+						{
+							"key": "toGob",
+							"value": "10000"
+						}
+					]
+				},
+				"description": "Get las comunidades que esten dentro del rango 1 y 2 de los datos del gobierno\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET stat2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7281125f-6938-4662-aeae-f312d989b17b",
+						"exec": [
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"community\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"univreg_gob\");",
+							"    pm.expect(i).to.have.property(\"univreg_educ\");",
+							"    pm.expect(i).to.have.property(\"univreg_offer\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?fromEduc=5000&toEduc=15000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "fromEduc",
+							"value": "5000"
+						},
+						{
+							"key": "toEduc",
+							"value": "15000"
+						}
+					]
+				},
+				"description": "Get las comunidades que esten dentro del rango 1 y 2 de los datos del ministerio de educacion\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET stat3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "851eb209-8809-4e16-881d-6e480616fe3c",
+						"exec": [
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"community\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"univreg_gob\");",
+							"    pm.expect(i).to.have.property(\"univreg_educ\");",
+							"    pm.expect(i).to.have.property(\"univreg_offer\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?fromOffer=5000&toOffer=7000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "fromOffer",
+							"value": "5000"
+						},
+						{
+							"key": "toOffer",
+							"value": "7000"
+						}
+					]
+				},
+				"description": "Get las comunidades que esten dentro del rango 1 y 2 de los datos del ministerio de educacion\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET community:",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "151ea226-db71-48b3-a8d3-22623fcba1a1",
+						"exec": [
+							"/*pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"community\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_gob\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_educ\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_offer\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?community=Madrid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "community",
+							"value": "Madrid"
+						}
+					]
+				},
+				"description": "Get las comunidades que esten dentro del rango 1 y 2 de los datos del ministerio de educacion\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET year:",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35056dde-7f8f-4782-b34c-79e7ef0d67cb",
+						"exec": [
+							"/*pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"community\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_gob\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_educ\");",
+							"    pm.expect(jsonData).to.have.property(\"univreg_offer\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?year=2016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2016"
+						}
+					]
+				},
+				"description": "Get las comunidades que esten dentro del rango 1 y 2 de los datos del ministerio de educacion\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET from year to year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24903126-35fb-4551-9d64-5f6ccf76eeda",
+						"exec": [
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"community\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"univreg_gob\");",
+							"    pm.expect(i).to.have.property(\"univreg_educ\");",
+							"    pm.expect(i).to.have.property(\"univreg_offer\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?fromYear=2016&toYear=2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "fromYear",
+							"value": "2016"
+						},
+						{
+							"key": "toYear",
+							"value": "2018"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET fromYear&toYear&comm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?fromYear=2016&toYear=2018&community=Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "fromYear",
+							"value": "2016"
+						},
+						{
+							"key": "toYear",
+							"value": "2018"
+						},
+						{
+							"key": "community",
+							"value": "Prueba"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET limit = 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Coger los tres primeros valores despues de ignorar los dos primeros valores que esten en la lista, es decir la 3 4 y 5\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET offset=2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?offset=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Coger los tres primeros valores despues de ignorar los dos primeros valores que esten en la lista, es decir la 3 4 y 5\n"
+			},
+			"response": []
+		},
+		{
+			"name": "GET offset=2 & limit = 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats?offset=2&limit=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Coger los tres primeros valores despues de ignorar los dos primeros valores que esten en la lista, es decir la 3 4 y 5\n"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRUEBA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e710566-8716-4ca1-a33f-07f954cd3e35",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST FAILED METHOD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ae7d2c6-931a-43df-8781-b19b8c154f1f",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\t\t\"community\": \"Prueba2\",\r\n\t\t\"year\": 2018,\r\n\t\t\"univreg_gob\": 7318,\r\n\t\t\"univreg_educ\": 7318,\r\n\t\t\"univreg_offer\": 6320\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/Prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT FAILED METHOD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "262ba154-91b8-4307-8140-7600aedc10f1",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE COMMUNITIES Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b71e72a3-3b31-414d-b092-99e6a42421bf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-loadInitialData Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "684d6f95-4ed4-417c-9b64-0c5da0d4807c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"/*pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Andalucia\");",
+							"    pm.expect(pm.response.text()).to.include(\"Aragon\");",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/univregs-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"univregs-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
