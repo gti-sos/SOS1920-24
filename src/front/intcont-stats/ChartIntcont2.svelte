@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    window.onload = async function () {
+    async function loadGraph() {
     
         let IntcontData = [];
         const resData = await fetch("/api/v2/intcont-stats");
@@ -59,9 +59,11 @@
     
     }
     </script>
-    
+    <svelte:head>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js" on:load="{loadGraph}"> </script>
+    </svelte:head>
+
     <main>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
     </main>
     
