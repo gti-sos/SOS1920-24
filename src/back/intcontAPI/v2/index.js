@@ -4,10 +4,21 @@ module.exports = function(app){
 	const path = require("path");
 	const dbFileName= path.join(__dirname, "intcont.db");
 	const BASE_API_URL= "/api/v2"; //API BASE PATH
+	var express = require("express");
+	var request = require("request");
+	var ApiExterna1 = "https://sos1920-23.herokuapp.com"
+	var path1 = '/api/v2/cigarretes-sales';
 	const db = new dataStore({
 				filename: dbFileName,
 				autoload: true
 	});
+	//PROXY PARA API EXTERNA
+	app.use(path1, function(req, res) {
+        var url = ApiExterna1 + req.baseUrl + req.url;
+        console.log('piped: ' + req.baseUrl + req.url);
+        req.pipe(request(url)).pipe(res);
+
+    });
 	
 	
 	/*RESOURCE
