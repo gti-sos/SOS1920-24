@@ -226,7 +226,7 @@ import Button from "sveltestrap/src/Button.svelte";
       
     //vamos con los datos de equipos de futbol 
       let MyData26 = [];
-      const resData26 = await fetch("http://sos1920-26.herokuapp.com/api/v3/global-transfers");
+      const resData26 = await fetch("https://sos1920-26.herokuapp.com/api/v3/global-transfers");
       MyData26 = await resData26.json();
       console.log(MyData26);
       let firmas = [];
