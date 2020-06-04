@@ -34,6 +34,7 @@ import Button from "sveltestrap/src/Button.svelte";
         DataOffer.push(offer);
         ejeX1.push(varname);
         ejeX2.push(varname);
+        ejeX3.push(varname);
         ejeXEx1.push(varname);
         ejeXEx2.push(varname); 
         cont++;
@@ -154,8 +155,6 @@ import Button from "sveltestrap/src/Button.svelte";
       for(let item of MyData10){
         let varname = item.country;
         let divorce = item.divorce;
-        
-
         divorcios.push(divorce);
         ejeX2.push(varname);
       }
@@ -239,16 +238,15 @@ import Button from "sveltestrap/src/Button.svelte";
       }
       
       for(let item of MyData26){
-        
           let varname = item.team;
           let signing = item.signing;
           let sale = item.sale;
-
           firmas.push(signing);
           ventas.push(sale);
           ejeX3.push(varname);
-        }
-        console.log(ejeX3);
+      }
+        
+      console.log(ejeX3);
 
         Highcharts.chart('container26', {
       chart: {
@@ -339,7 +337,7 @@ import Button from "sveltestrap/src/Button.svelte";
         if(i<11){
           i++;
           casos.push(cases);
-          muertos.push(deaths);
+          muertes.push(deaths);
           ejeXEx1.push(varname);
         }
         
@@ -398,15 +396,12 @@ import Button from "sveltestrap/src/Button.svelte";
       series: [{
         name: 'DemandaGob',
         data: DataGob
-      }, /*{
-        name: 'DemandaEduc',
-        data: DataEduc
-      },*/ {
+      },{
         name: 'Oferta',
         data: DataOffer
       },{
         name: 'Muertes',
-        data: muertos
+        data: muertes
       },{
         name: 'Casos',
         data: casos
@@ -414,15 +409,91 @@ import Button from "sveltestrap/src/Button.svelte";
     });
 
       let MyDataEx2 = [];
-      const resDataEx2 = await fetch("https://mindicador.cl/api");
+      const resDataEx2 = await fetch("https://canada-holidays.ca/api/v1/holidays");
       MyDataEx2 = await resDataEx2.json();
-      //console.log(MyDataEx1);
+      console.log(MyDataEx2);
+      
+      let MyRealDataEx2 = MyDataEx2.holidays[0];
+      console.log(MyRealDataEx2);
       
       let valor = [];
       for(let i=0;i<cont;i++){
         valor.push(0);
       }
+      let varname = MyRealDataEx2.nameEn;
+      let value  = MyRealDataEx2.provinces.length;
+      ejeXEx2.push(varname);
+      valor.push(value);
+      console.log(value.length);
+      console.log(ejeXEx2);
+
+      Highcharts.chart('containerEx2', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'oferta y demanda de pla.univ vs nºProvincias en Canada que tienen una fiesta'
+      },
+      xAxis: {
+        categories: ejeXEx2
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Datos recogidos'
+        },
+        stackLabels: {
+          enabled: true,
+          style: {
+            fontWeight: 'bold',
+            color: ( // theme
+              Highcharts.defaultOptions.title.style &&
+              Highcharts.defaultOptions.title.style.color
+            ) || 'gray'
+          }
+        }
+      },
+      legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: 25,
+        floating: true,
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || 'white',
+        borderColor: '#CCC',
+        borderWidth: 1,
+        shadow: false
+      },
+      tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      series: [{
+        name: 'DemandaGob',
+        data: DataGob
+      },{
+        name: 'Oferta',
+        data: DataOffer
+      },{
+        name: 'Nº Provincias',
+        data: valor
+      }]
+    });
+
+
+
+
     }
+    
 </script>
 
 <svelte:head>
@@ -442,7 +513,6 @@ import Button from "sveltestrap/src/Button.svelte";
       </figure>
 
       <figure class="highcharts-figure">
-        <br>
         <div id="container10"></div>
         <p class="highcharts-description">
          

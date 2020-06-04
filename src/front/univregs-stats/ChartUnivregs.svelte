@@ -16,8 +16,6 @@
       let DataGob= [];//datos guardados
       let DataEduc= [];//datos guardados
       let DataOffer = [];//datos guardados
-
-      let ArrayPoint = {};
       let cont = 0;//contador
       
       //quiero que categories represente las comunidades autonomas
