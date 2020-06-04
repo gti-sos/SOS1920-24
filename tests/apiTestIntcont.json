@@ -1,0 +1,1616 @@
+{
+	"info": {
+		"_postman_id": "e9144bfe-f21c-4cdf-82aa-154c6c204e0f",
+		"name": "SOS1920-24-intcont-stats Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get on Goorm (loadInitialData) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ceb07567-48dc-4184-86ca-1c2a7c999cf6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d1ae502-704b-4751-981f-cfe74d1e287f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are more than 1 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});",
+							"",
+							"pm.test(\"Its an array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60464bd1-03bf-4946-8910-f7190328e450",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"There are 3 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(3);",
+							"});",
+							"pm.test(\"Its an array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?limit=3&offset=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm Collection Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27dd32c0-3dae-47ae-8acb-146e945828fd",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/testCollection",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"testCollection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete on Goorm Collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eef6c108-3ed1-4b63-9a6c-8859c119e514",
+						"exec": [
+							"pm.test(\"Status code is 200 | Deleted Collection\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm (loadInitialData)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a22fadfe-d4c1-41ef-b3e5-f7518bd20a60",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51ca840b-2409-43d8-87c1-597be0fbc71f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are more than 1 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e171b297-8144-428c-8de4-3e8ff4b9393a",
+						"exec": [
+							"pm.test(\"Status code is 201 | Resource Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"test\",\r\n\"year\": 2018,\r\n\"ccoo\": 10000,\r\n\"sepe\": 10000,\r\n\"gobesp\": 234000.3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post on Goorm2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d256627d-6f32-448b-8074-e60c41939e06",
+						"exec": [
+							"pm.test(\"Status code is 201 | Resource Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"test\",\r\n\"year\": 2019,\r\n\"ccoo\": 10000,\r\n\"sepe\": 12000,\r\n\"gobesp\": 234000.3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete get on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97e9a383-16a2-4e45-8562-c405304078f8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Its a Resource with All the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property(\"aut_com\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"ccoo\");",
+							"    pm.expect(jsonData).to.have.property(\"sepe\");",
+							"    pm.expect(jsonData).to.have.property(\"gobesp\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post on Goorm existing resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28afbc6c-70ee-4977-917c-0374bed0409e",
+						"exec": [
+							"pm.test(\"Status code is 409 | Resource Already Exists\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"test\",\r\n\"year\": 2018,\r\n\"ccoo\": 10000,\r\n\"sepe\": 10000,\r\n\"gobesp\": 234000.3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post on Goorm with field null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08d97374-8d3c-42f1-bf1d-ee87e57e3db5",
+						"exec": [
+							"pm.test(\"Status code is 400 | Any field with null value\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": null,\r\n\"year\": 2018,\r\n\"ccoo\": 0,\r\n\"sepe\": 10000,\r\n\"gobesp\": 234000.3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete put on Goorm without aut_com specification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cef1d9b-5412-4b3e-8dcd-95066a99a04f",
+						"exec": [
+							"pm.test(\"Status code is 200 | Resource Updated\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"year\": 2018,\r\n\t\"ccoo\": 16096,\r\n\t\"sepe\": 10099,\r\n\t\"gobesp\": 234815.3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete put on Goorm changing aut_com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b220244a-bfb8-44e0-bf3b-c390e888577b",
+						"exec": [
+							"pm.test(\"Status code is 405 | Not Allowed to change Autonomous Community Param\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"aut_com\": \"changedName\",\r\n\t\"year\": 2018,\r\n\t\"ccoo\": 16096,\r\n\t\"sepe\": 10099,\r\n\t\"gobesp\": 234815.3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete put on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df0add6e-3393-4c11-8536-083b67337f2d",
+						"exec": [
+							"pm.test(\"Status code is 200 | Resource Updated\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"aut_com\": \"test\",\r\n\t\"year\": 2018,\r\n\t\"ccoo\": 16096,\r\n\t\"sepe\": 10099,\r\n\t\"gobesp\": 234815.3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put on Goorm providing only year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc2522d3-376e-435b-a3b2-fb159d95038c",
+						"exec": [
+							"pm.test(\"Status code is 405 | Not Allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"aut_com\": \"test\",\r\n\t\"year\": 2018,\r\n\t\"ccoo\": 16096,\r\n\t\"sepe\": 10099,\r\n\t\"gobesp\": 234815.3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put on Goorm providing only community",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "290fbe94-9220-4338-bea1-6220a2fb13e1",
+						"exec": [
+							"pm.test(\"Status code is 405 | Not Allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"aut_com\": \"test\",\r\n\t\"year\": 2018,\r\n\t\"ccoo\": 16096,\r\n\t\"sepe\": 10099,\r\n\t\"gobesp\": 234815.3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete get on Goorm autonomous Community",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e9f41bc-6c55-40ed-9f16-0383a832b22c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are more than 1 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete delete on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d22741a-7e60-47d0-ac54-b40414f9ee83",
+						"exec": [
+							"pm.test(\"Status code is 200 | Resource Deleted\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test/2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post on Goorm Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fbecd4d-0a4c-45a3-b3cd-710d42f5bd02",
+						"exec": [
+							"pm.test(\"Status code is 201 | Resource Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"aut_com\": \"test\",\r\n\"year\": 2018,\r\n\"ccoo\": 10000,\r\n\"sepe\": 10000,\r\n\"gobesp\": 234000.3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete get on Goorm autonomous Community Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cce4659-0e0c-44fe-b078-0aeb98842ce4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Its an array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete on Goorm Collection Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a58d5c4-6e03-4605-aef3-d6bb24b80a3f",
+						"exec": [
+							"pm.test(\"Status code is 404 | Collection Not Found for Delete\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/testResource",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"testResource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete get on Goorm Unexisting Resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f6c10c4-bcf3-4f06-801e-a32f9de1dc2f",
+						"exec": [
+							"pm.test(\"Status code is 404 | Resource Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/unexistingResource",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"unexistingResource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete post on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bc4ffcb-f9cc-4e4b-8d4b-c76b4f526fdf",
+						"exec": [
+							"pm.test(\"Status code is 405 | Method not Allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete delete on Goorm Unexisting Resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9a61b86-639a-449d-aa33-cbb108d3de55",
+						"exec": [
+							"pm.test(\"Status code is 404 | Resource Not Found for Delete\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/unexistingResource",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"unexistingResource"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put on Goorm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c305a08-d8cf-4a9f-b008-74a35c3daf51",
+						"exec": [
+							"pm.test(\"Status code is 405, Method not allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm Community&Year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24daa25a-174c-49bd-9023-0b34773bb95b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.globals.set(\"variable_key\", \"variable_value\");pm.variables.get(\"variable_key\");pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?community=Andalucia&year=2018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "community",
+							"value": "Andalucia"
+						},
+						{
+							"key": "year",
+							"value": "2018"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm Community&YearRange",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c562eadb-0e5a-4ff8-8b4b-4ca93f7674ae",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?community=test&fromYear=2017&toYear=2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "community",
+							"value": "test"
+						},
+						{
+							"key": "fromYear",
+							"value": "2017"
+						},
+						{
+							"key": "toYear",
+							"value": "2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm ccoo range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "915f9f18-83ca-4f3f-b85e-853153f5bcd2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are more than 1 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});",
+							"",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?fromCcoo=2000&toCcoo=5000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "fromCcoo",
+							"value": "2000"
+						},
+						{
+							"key": "toCcoo",
+							"value": "5000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm sepe range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f5ae82c-dafa-4a1f-81af-c189318710a6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are more than 1 data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf.above(1);",
+							"});",
+							"",
+							"pm.test(\"Its a Collection where All resources have got all the data needed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach((i)=>{",
+							"    pm.expect(i).to.have.property(\"aut_com\");",
+							"    pm.expect(i).to.have.property(\"year\");",
+							"    pm.expect(i).to.have.property(\"ccoo\");",
+							"    pm.expect(i).to.have.property(\"sepe\");",
+							"    pm.expect(i).to.have.property(\"gobesp\");   ",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?fromSepe=2000&toSepe=5000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "fromSepe",
+							"value": "2000"
+						},
+						{
+							"key": "toSepe",
+							"value": "5000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm Gobesp range",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a53cc43-fc0d-49fc-9edc-37480b15e2a4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.get(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats?fromGobesp=2000&toGobesp=5000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					],
+					"query": [
+						{
+							"key": "fromGobesp",
+							"value": "2000"
+						},
+						{
+							"key": "toGobesp",
+							"value": "5000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Collection Goorm Providing Community",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f2ce654-48e2-4478-b052-f735692493a8",
+						"exec": [
+							"pm.test(\"Status code is 200 | Resource Deleted\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concrete get on Goorm autonomous Community Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f49c41d-05a2-4fe9-93db-b3bfed8b42b9",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete on Goorm Collection Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e01c2f6-e0fa-4211-bb09-b717427cfef3",
+						"exec": [
+							"pm.test(\"Status code is 200 | Deleted Collection\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get on Goorm (loadInitialData) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d34ec44-a76d-4ca9-9eb1-2d64ada1732b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4444/api/v2/intcont-stats/loadInitialData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v2",
+						"intcont-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

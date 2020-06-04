@@ -31,9 +31,10 @@
         }
         let integDataExt2_1 = [];
         let integDataExt2_2 = [];
+        //INTEXT 2
         const resDataExt2= await fetch("https://api.covid19api.com/summary");
         integDataExt2 = await resDataExt2.json();
-        //INTEXT 2
+        
         integDataExt2.Countries.forEach((i)=>{
             let cont = 0;
             while (cont<20){
@@ -44,7 +45,8 @@
         });
 
         //Integracion grupo 23
-        const resData23 = await fetch('https://sos1920-23.herokuapp.com/api/v2/cigarretes-sales');
+        const proxyData = "api/v2/cigarretes-sales";
+        const resData23 = await fetch(proxyData);
         integData23 = await resData23.json();
         let data23_1 = [];
         let data23_2 = [];
