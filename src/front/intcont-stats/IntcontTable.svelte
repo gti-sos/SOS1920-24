@@ -65,10 +65,14 @@
             /* Deleting duplicated countries */
             aut_coms = Array.from(new Set(aut_coms)); 
             
-        } else {
-			errorAlert=("Error interno al intentar obtener las comunidades autonomas")
-            console.log("ERROR!");
-        }
+        } if(res.status == 404){
+			errorAlert=("No hay datos para obtener")
+            console.log("Comprobada la base de datos ");
+        } if(res.status == 200){
+			InstructionAlert("Se a actualizado correctamente")
+		}else{
+			InstructionAlert("Se han eliminado correctamente.")
+		}
     }
 	async function getIntcont(){
 		console.log("Fetching intcont");
@@ -87,8 +91,13 @@
 			}
 			console.log("Received "+ intcont.length + " data.");
 			centinel=0;
+		}if(res.status == 404){
+			errorAlert("No hay datos");
+		}if(res.status == 200){
+			InstructionAlert("Se ha creado correctamente")
+		
 		}else{
-			errorAlert("Error interno al intentar obtener todos los elementos");
+			InstructionAlert("Error interno al intentar obtener todos los elementos");
 			console.log("ERROR");
 		}
 	}
@@ -129,10 +138,10 @@
 				if (res.ok){
 					getIntcont();
 					InstructionAlert("Éxito al instertar "+newIntcont.aut_com+"/"+newIntcont.year);
-				}else if(res.status(409)) {
-					errorAlert("Fallo, el dato a insertar Ya Existe");
+				}else if(res.status == 400) {
+					errorAlert("La fecha debe estar entre 2000 y 2040");
 				}else{
-					errorAlert("Se ha intentando realizar una acción no Permitida")
+					errorAlert("El dato ya existe.")
 				}
 			});
 		};
@@ -148,7 +157,7 @@
 				getAutComs();
 				InstructionAlert("Borrado elemento "+autcom+"/"+year+" Correctamente");
 			} else {
-				errorAlert("Error interno al intentar borrar un elemento concreto");
+				errorAlert("No se ha podido encontrar el dato a borrar");
 			}
 			
 		});
@@ -164,7 +173,6 @@
 				getIntcont();
 				getAutComs();
 				InstructionAlert("Borrado realizado con éxito");
-				location.reload();
 				
 			}else {
 				errorAlert("Error al intentar borrar todos los elementos");
@@ -249,14 +257,14 @@
 	function InstructionAlert(msg){
 
 		var alertEr = document.getElementById("div_alert");
-		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
+		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alertEr.className = " alert alert dismissible in alert-info ";
 		alertEr.innerHTML = "<strong>La instruccion</strong> ha sido un éxito!" + msg;
 		
 	}
 	function errorAlert(error){
 		var alertEr = document.getElementById("div_alert");
-		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 90%;";
+		alertEr.style = "position: fixed; top: 0px; top: 1%; width: 40%;";
 		alertEr.className = " alert alert dismissible in alert-danger ";
 		alertEr.innerHTML = "<strong>¡ERROR!</strong> ¡Ha ocurrido un error!" + error;
 		
@@ -454,6 +462,6 @@
 
 	<Button outline color="secondary" on:click="{pop}"> <i class="fas fa-arrow-circle-left"></i> Atrás</Button>
 	<Button outline color= "warning" on:click = {loadInitialIntcont}> <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Datos Iniciales </Button>
-	<Button outline color= "danger" on:click = {deleteIntconts}> <i class="fa fa-trash" aria-hidden="true"></i> Borrar todo</Button>
+	<Button outline color= "danger" on:click = {deleteIntconts} onlcick = "location.reload()"> <i class="fa fa-trash" aria-hidden="true"></i> Borrar todo</Button>
 
 </main>
