@@ -2,7 +2,7 @@
 <script>
 	//tabla de rutas
 	import AtcTable from './AtcTable.svelte';
-	
+	console.log("dentro de app");
 </script>
 
 <main>

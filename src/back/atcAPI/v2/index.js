@@ -16,7 +16,7 @@ module.exports = function(app){
 
 	//API Externa 1 = https://covidtracking.com/api/v1/states/current.json
 	var ApiExterna1 = 'https://covidtracking.com'; 
-	var paths1 		='/api/v1/states/current.json';
+	var paths1 		= '/api/v1/states/current.json';
 
 
 		//creamos nuestro dataStore para guardar en el archivo contacts.db por lo cual le pasamos los siguientes parametros
@@ -28,10 +28,12 @@ module.exports = function(app){
 					
 	//Funcion del proxy Api Externa 01
 	app.use(paths1, function(req, res) {
-		var url = ApiExterna1 + req.baseUrl + req.url;
-		console.log('piped: ' + req.baseUrl + req.url);
+		console.log("Entra con " + paths1);
+	
+		var url = ApiExterna1 + req.baseUrl;
+		console.log("url " + url);
+		console.log('piped: ' + req.baseUrl);
 		req.pipe(request(url)).pipe(res);
-		
 	});
 
 //Metemos los datos iniciales los cuales son por defecto

@@ -21,7 +21,7 @@
 
 	const BASE_API_URL = "/api/v2/atc-stats";
 
-
+//estos son los parametros para las busquedas y para guardar los parametros
 	let aut_coms= [];
 	let years = [];
 	let currentAut_com = "-";
@@ -56,10 +56,11 @@
 
 	onMount(getAtc);
 	onMount(getAutComs);
-	
+	console.log("B");
+//para mostrar algo	
 	async function getAutComs() {
+		console.log("getAutComs");
 		const res = await fetch(BASE_API_URL);
-		
         if (res.ok) {
             const json = await res.json();
  
@@ -81,8 +82,9 @@
             
         }
     }
-
+//cuando hacemos paginacion y para mostrar algo
 	async function getAtc(){
+		console.log("getAtc");
 		console.log("Fetching atc");
 		const res = await fetch(BASE_API_URL + "?offset=" + numberElementsPages * offset + "&limit=" + numberElementsPages);
 		console.log(BASE_API_URL)
@@ -95,8 +97,9 @@
                moreData = false;
             } else {
                 moreData = true;
-            }
-			console.log("Received "+ atc.length + " data.");
+			}
+			//console.log(moreData);
+			//console.log("Received "+ atc.length + " data.");
 			centinel=0;
 		}if(res.status==404){
 			errorAlert("No hay datos")
@@ -195,7 +198,7 @@
 	}
 //funciones de busqueda
 	
-async function search(field) {
+	async function search(field) {
 		var url = BASE_API_URL;
 		//miramos si los campos estan vacios
 		switch(field){
@@ -259,11 +262,9 @@ async function search(field) {
 		
 	}
 
-	
-
 //funcioines adicionales
 
-function incOffset(v) {
+	function incOffset(v) {
 		offset += v;
 		currentPage += v;
 		getAtc();
@@ -288,10 +289,11 @@ function incOffset(v) {
 		alert_Er.className = " alert alert dismissible in alert-info ";
 		alert_Er.innerHTML = "La instruccion se a procesado correctamente " + msg;
 	}
-
+console.log("C");
 </script>
 
 <main>
+
 	<div role ="alert" id ="div_alert" style = "display: none;"></div>
 	{#await atc} 
 		Loading atc
