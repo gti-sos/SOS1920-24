@@ -424,4 +424,5 @@ module.exports = function(app){
 		let d = new Date();
 		res.send("<html>"+d+"</html>");
 	});
+	
 };

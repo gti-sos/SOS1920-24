@@ -6,13 +6,11 @@ module.exports = function(app){
 	const path = require("path"); //para hacer que funcione en linux o en windows
 	const dbFileName = path.join(__dirname ,"atc.db"); //constante para los datos que voy a trabajar con nedb
 	const BASE_API_URL= "/api/v2"; //API BASE PATH
-	
 
 												//Proxy para API Externa 1
 		
 	var express = require("express");
 	var request = require('request');
-
 
 	//API Externa 1 = https://covidtracking.com/api/v1/states/current.json
 	var ApiExterna1 = 'https://covidtracking.com'; 
@@ -29,7 +27,6 @@ module.exports = function(app){
 	//Funcion del proxy Api Externa 01
 	app.use(paths1, function(req, res) {
 		console.log("Entra con " + paths1);
-	
 		var url = ApiExterna1 + req.baseUrl;
 		console.log("url " + url);
 		console.log('piped: ' + req.baseUrl);
@@ -401,9 +398,10 @@ module.exports = function(app){
 	});	
 	
 	//PUT-RESOURCE_AUT_COM_AND_YEAR (quremos modificar un recurso pero si que:
-								// la comunidad este vacio o el año)                                             
+								// la comunidad este vacio o el año)
+	//console.log("A");							                                             
 	app.put(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
-	
+	//	console.log("B");
 		console.log("New PUT .../aut_comYaño");
 		var params = req.params;
 		var body = req.body;
@@ -415,24 +413,35 @@ module.exports = function(app){
 	    res.sendStatus(400, "Bad request");
 		
 	   }else{
-	
-		db.update({aut_com:communityProvided, 
-				   year:yearProvided},
+		//console.log("C");
+		db.update( 
+			{aut_com:communityProvided, year:yearProvided},
 			 	  {$set: {
 						espce:body.espce, 
 						yaq:body.yaq, 
-						obu:body.obu}},{},(err,numUpdated)=>{
-									if(numUpdated==0){
-											res.sendStatus(404, "RESOURCE NOT FOUND");
-									}else{
-											res.sendStatus(200, "RESOURCE UPDATED");	
-										}
-			
-	            });
-		    }
-		
-	});
-	
+						obu:body.obu}
+					},{},(err,numUpdated)=>{
+
+							//console.log("D");
+							              if(numUpdated==0){
+												//console.log("E");		
+												res.sendStatus(404, "RESOURCE NOT FOUND");
+											  }
+											  else{
+												   //console.log("F");
+												   res.sendStatus(200, "RESOURCE UPDATED");	
+												  }
+
+											//console.log("G");     
+										                    }
+				  );
+		//console.log("H");    
+			}
+		//console.log("I");
+		//console.log("J");
+		}
+	);
+	//console.log("K");
 	//PUT-RESOURCE_AUT_COM (se debe cumplir la tabla)
 	app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
 	
@@ -504,3 +513,4 @@ module.exports = function(app){
 	console.log("BACK OK...");
 	
 };
+
