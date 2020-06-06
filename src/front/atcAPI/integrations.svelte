@@ -254,7 +254,6 @@ async function loadGraphApiExternas(){
                                     //API externas con Proxy
     
         //API Externa 1 = https://covidtracking.com/api/v1/states/current.json 
-                        //https://covidtracking.com/api/v1/states/current.json
         const BASE_API_URL_External01 = "/api/v1/states/current.json";
         const resDataExternal01 = await fetch(BASE_API_URL_External01);
         let DataExternal01 = await resDataExternal01.json();

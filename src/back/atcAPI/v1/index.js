@@ -123,20 +123,20 @@ var atc = [{
 
 	
 //GET-INITIALDATA
-	app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
-		//depurar en consola que es lo que a ejercutado
-		console.log("New GET .../loadInitialData");
-		atc.forEach((i)=>{
-				db.find({aut_com:i.aut_com, year:i.year},(err,atcFiltrado)=>{
-					if(atcFiltrado.length==0) 
-						db.insert(i);
-					});
-				});	
-		//db.insert(atc);
-		res.sendStatus(200);
-		
-		console.log("Initial Accstats loaded: "+JSON.stringify(atc, null, 2));
-	});
+app.get(BASE_API_URL+"/atc-stats/loadInitialData", (req,res)=>{
+	//depurar en consola que es lo que a ejercutado
+	console.log("New GET .../loadInitialData");
+	atc.forEach((i)=>{
+			db.find({aut_com:i.aut_com, year:i.year},(err,atcFiltrado)=>{
+				if(atcFiltrado.length==0) 
+					db.insert(i);
+				});
+			});	
+	//db.insert(atc);
+	res.sendStatus(200);
+	
+	console.log("Initial Accstats loaded: "+JSON.stringify(atc, null, 2));
+});
 
 
 //GET-BASEROUTE /api/v1/atc-stats
@@ -354,20 +354,20 @@ var atc = [{
 	
 
 //POST-RESOURCE_AUT_COM_AND_YEAR
-	app.post(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{
-		res.sendStatus(405, "METHOD NOT ALLOWED");
-	});
+app.post(BASE_API_URL +"/atc-stats/:aut_com/:year", (req,res)=>{
+	res.sendStatus(405, "METHOD NOT ALLOWED");
+});
 	
 //POST-RESOURCE
-	app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
-		res.sendStatus(405,"METHOD NOT ALLOWED");
-	} );
+app.post(BASE_API_URL+"/atc-stats/:aut_com",(req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+} );
 ////////////////////////////////////////////////////////////////////////////////////////	
 
 //PUT-BASEROUTE
-	app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
-		res.sendStatus(405,"METHOD NOT ALLOWED");
-	});	
+app.put(BASE_API_URL+"/atc-stats", (req,res)=>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+});	
 	
 //PUT-RESOURCE_AUT_COM_AND_YEAR                                              
 	app.put(BASE_API_URL+"/atc-stats/:aut_com/:year", (req,res)=>{
@@ -398,9 +398,9 @@ var atc = [{
 	
 //PUT-RESOURCE_AUT_COM
 	
-	app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
-		res.sendStatus(405, "METHOD NOT ALLOWED");
-	});	
+app.put(BASE_API_URL +"/atc-stats/:aut_com", (req,res)=>{
+	res.sendStatus(405, "METHOD NOT ALLOWED");
+});	
 /////////////////////////////////////////////////////////////////
 	
 	//DELETE-BASEROUTE
